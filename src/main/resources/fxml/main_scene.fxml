@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Separator?>
+
+<BorderPane xmlns:fx="https://openjfx.io/"
+            fx:controller="com.altmax.rates.controller.MainSceneController"
+            prefWidth="300.0">
+    <padding>
+        <Insets topRightBottomLeft="5.0"/>
+    </padding>
+    <top>
+        <HBox spacing="4.0" alignment="CENTER_LEFT">
+            <BorderPane.margin>
+                <Insets bottom="3.5"/>
+            </BorderPane.margin>
+            <TextField fx:id="appIdField" promptText="App ID" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="currencyCodeField" promptText="ISO-4217" text="USD" prefWidth="65.0"/>
+            <Separator orientation="VERTICAL"/>
+            <Button fx:id="goButton" text="Go" onAction="#onGoButtonPress" disable="true"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="ratesTable">
+            <placeholder>
+                <Label text="Nothing to display - try sending a request!"/>
+            </placeholder>
+            <columns>
+                <TableColumn text="Base" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="baseCurrencyCode"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Target" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="targetCurrencyCode"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Rate" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="factor"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Timestamp" prefWidth="${ratesTable.width * 0.4}" resizable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="formattedTimestamp"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
