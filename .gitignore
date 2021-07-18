@@ -1,0 +1,5 @@
+# IntelliJ IDEA stuff
+.idea/
+
+# Maven stuff
+target/
