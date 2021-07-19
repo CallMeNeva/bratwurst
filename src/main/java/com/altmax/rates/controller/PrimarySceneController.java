@@ -40,7 +40,7 @@ public final class PrimarySceneController implements Initializable {
     @FXML
     private void onGoButtonPress(ActionEvent event) {
         try {
-            List<ExchangeRate> rates = this.service.getLatestRates(this.appIdField.getText(), this.currencyCodeField.getText());
+            List<ExchangeRate> rates = this.service.fetchLatestRates(this.appIdField.getText(), this.currencyCodeField.getText());
             this.ratesView.getItems().setAll(rates);
         } catch (Exception e) {
             this.errorAlert.setContentText(e.getMessage());

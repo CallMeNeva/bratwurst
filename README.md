@@ -15,4 +15,4 @@ In order to use the app you'll need to acquire an [Open Exchange Rates App ID](h
 I am in no way, shape or form affiliated with [Open Exchange Rates](https://openexchangerates.org/), nor do I seek to purposely violate their terms and conditions with the usage and/or distribution of this software. If you are a representative of the previously mentioned organization and there is a problem, please contact me.
 
 ## License
-This project is distributed under the [MIT license](./LICENSE).
+This software is distributed under the [MIT license](./LICENSE).

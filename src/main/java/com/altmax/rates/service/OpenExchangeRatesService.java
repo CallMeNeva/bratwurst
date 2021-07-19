@@ -35,7 +35,7 @@ public final class OpenExchangeRatesService {
 
     /* Why bother writing good code when you can just do shit like this? */
     @NotNull
-    public List<ExchangeRate> getLatestRates(@NotNull String appId, @NotNull String baseCurrencyCode)
+    public List<ExchangeRate> fetchLatestRates(@NotNull String appId, @NotNull String baseCurrencyCode)
             throws IOException, InterruptedException, JsonParseException, ServiceException {
         Objects.requireNonNull(appId, "Supplied App ID is null");
         Objects.requireNonNull(baseCurrencyCode, "Supplied base currency code is null");
