@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public final class PrimaryScene extends Scene {
 
-    private static final String FXML_RESOURCE_RELATIVE_PATH = "/fxml/primary_scene.fxm";
+    private static final String FXML_RESOURCE_RELATIVE_PATH = "/fxml/primary_scene.fxml";
 
     private PrimaryScene(@NotNull Parent root) {
         super(root);
