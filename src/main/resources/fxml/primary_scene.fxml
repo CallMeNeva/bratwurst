@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Separator?>
 
 <BorderPane xmlns:fx="https://openjfx.io/"
-            fx:controller="com.altmax.rates.controller.MainSceneController"
+            fx:controller="com.altmax.rates.controller.PrimarySceneController"
             prefWidth="300.0">
     <padding>
         <Insets topRightBottomLeft="5.0"/>
@@ -29,27 +29,27 @@
         </HBox>
     </top>
     <center>
-        <TableView fx:id="ratesTable">
+        <TableView fx:id="ratesView">
             <placeholder>
                 <Label text="Nothing to display - try sending a request!"/>
             </placeholder>
             <columns>
-                <TableColumn text="Base" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                <TableColumn text="Base" prefWidth="${ratesView.width * 0.2}" resizable="false">
                     <cellValueFactory>
                         <PropertyValueFactory property="baseCurrencyCode"/>
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Target" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                <TableColumn text="Target" prefWidth="${ratesView.width * 0.2}" resizable="false">
                     <cellValueFactory>
                         <PropertyValueFactory property="targetCurrencyCode"/>
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Rate" prefWidth="${ratesTable.width * 0.2}" resizable="false">
+                <TableColumn text="Rate" prefWidth="${ratesView.width * 0.2}" resizable="false">
                     <cellValueFactory>
                         <PropertyValueFactory property="factor"/>
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Timestamp" prefWidth="${ratesTable.width * 0.4}" resizable="false">
+                <TableColumn text="Timestamp" prefWidth="${ratesView.width * 0.4}" resizable="false">
                     <cellValueFactory>
                         <PropertyValueFactory property="formattedTimestamp"/>
                     </cellValueFactory>

@@ -4,24 +4,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public final class MainScene extends Scene {
+public final class PrimaryScene extends Scene {
 
-    private static final String FXML_RESOURCE_RELATIVE_PATH = "/fxml/main_scene.fxml";
+    private static final String FXML_RESOURCE_RELATIVE_PATH = "/fxml/primary_scene.fxm";
 
-    private MainScene(Parent root) {
+    private PrimaryScene(@NotNull Parent root) {
         super(root);
     }
 
-    public static MainScene newMainScene() throws NullPointerException, IOException {
+    public static PrimaryScene newPrimaryScene() throws IOException {
         URL rootLocation = Objects.requireNonNull(
-                MainScene.class.getResource(FXML_RESOURCE_RELATIVE_PATH),
+                PrimaryScene.class.getResource(FXML_RESOURCE_RELATIVE_PATH),
                 "Failed to find \"" + FXML_RESOURCE_RELATIVE_PATH + "\"");
         Parent root = FXMLLoader.load(rootLocation);
-        return new MainScene(root);
+        return new PrimaryScene(root);
     }
 
     public double getMinWidth() {
