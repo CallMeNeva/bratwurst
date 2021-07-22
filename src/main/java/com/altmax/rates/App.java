@@ -3,6 +3,7 @@ package com.altmax.rates;
 import com.altmax.rates.view.PrimaryScene;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public final class App extends Application {
@@ -13,6 +14,7 @@ public final class App extends Application {
         stage.setTitle("Rates");
         stage.setScene(primaryScene);
         stage.setMinWidth(primaryScene.getPreferredWidth());
+        stage.getIcons().add(new Image("/icons/currency_exchange.png"));
         stage.show();
     }
 }
