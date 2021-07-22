@@ -10,24 +10,66 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Tooltip?>
 
 <BorderPane xmlns:fx="https://openjfx.io/"
             fx:controller="com.altmax.rates.controller.PrimarySceneController"
-            prefWidth="300.0">
+            prefWidth="615.0">
+
     <padding>
         <Insets topRightBottomLeft="5.0"/>
     </padding>
+
     <top>
-        <HBox spacing="4.0" alignment="CENTER_LEFT">
+        <HBox spacing="4.0" alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="3.5"/>
             </BorderPane.margin>
-            <TextField fx:id="appIdField" promptText="App ID" HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="currencyCodeField" promptText="ISO-4217" text="USD" prefWidth="65.0"/>
+            <!---->
+            <PasswordField fx:id="appIdField" promptText="App ID" prefWidth="90.0" HBox.hgrow="ALWAYS">
+                <tooltip>
+                    <Tooltip text="Your OpenExchangeRates App ID"/>
+                </tooltip>
+            </PasswordField>
             <Separator orientation="VERTICAL"/>
+            <!---->
+            <TextField fx:id="baseCurrencyCodeField" text="USD" promptText="USD" prefWidth="50.0">
+                <tooltip>
+                    <Tooltip text="The base currency ISO-4217 code"/>
+                </tooltip>
+            </TextField>
+            <Separator orientation="VERTICAL"/>
+            <!---->
+            <TextField fx:id="targetCurrenciesCodesField" promptText="USD,EUR,GBP..." prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <tooltip>
+                    <Tooltip text="The target currencies' ISO-4217 codes in CSV format"/>
+                </tooltip>
+            </TextField>
+            <CheckBox fx:id="allRatesCheckBox" text="All"/>
+            <Separator orientation="VERTICAL"/>
+            <!---->
+            <CheckBox fx:id="extrasCheckBox" text="Extras">
+                <tooltip>
+                    <Tooltip text="Enables alternative currencies (e.g. cryptocurrencies)"/>
+                </tooltip>
+            </CheckBox>
+            <Separator orientation="VERTICAL"/>
+            <!---->
+            <DatePicker fx:id="datePicker" editable="false" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <tooltip>
+                    <Tooltip text="The date for which to provide exchange rates"/>
+                </tooltip>
+            </DatePicker>
+            <CheckBox fx:id="latestRatesCheckBox" text="Latest"/>
+            <Separator orientation="VERTICAL"/>
+            <!---->
             <Button fx:id="goButton" text="Go" onAction="#onGoButtonPress" disable="true"/>
         </HBox>
     </top>
+
     <center>
         <TableView fx:id="ratesView">
             <placeholder>

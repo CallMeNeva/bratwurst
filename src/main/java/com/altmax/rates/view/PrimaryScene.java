@@ -12,21 +12,22 @@ import java.util.Objects;
 
 public final class PrimaryScene extends Scene {
 
-    private static final String FXML_RESOURCE_RELATIVE_PATH = "/fxml/primary_scene.fxml";
+    private static final String RELATIVE_PATH_TO_FXML = "/fxml/primary_scene.fxml";
 
     private PrimaryScene(@NotNull Parent root) {
         super(root);
     }
 
-    public static PrimaryScene newPrimaryScene() throws IOException {
+    @NotNull
+    public static PrimaryScene fromFXML() throws IOException {
         URL rootLocation = Objects.requireNonNull(
-                PrimaryScene.class.getResource(FXML_RESOURCE_RELATIVE_PATH),
-                "Failed to find \"" + FXML_RESOURCE_RELATIVE_PATH + "\"");
+                PrimaryScene.class.getResource(RELATIVE_PATH_TO_FXML),
+                "Failed to find \"" + RELATIVE_PATH_TO_FXML + "\"");
         Parent root = FXMLLoader.load(rootLocation);
         return new PrimaryScene(root);
     }
 
-    public double getMinWidth() {
+    public double getPreferredWidth() {
         return getRoot().prefWidth(-1);
     }
 }
