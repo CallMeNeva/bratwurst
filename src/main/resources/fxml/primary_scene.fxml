@@ -17,7 +17,7 @@
 
 <BorderPane xmlns:fx="https://openjfx.io/"
             fx:controller="com.altmax.rates.controller.PrimarySceneController"
-            prefWidth="615.0">
+            prefWidth="645.0">
 
     <padding>
         <Insets topRightBottomLeft="5.0"/>
@@ -51,7 +51,7 @@
             <CheckBox fx:id="allRatesCheckBox" text="All"/>
             <Separator orientation="VERTICAL"/>
             <!---->
-            <CheckBox fx:id="extrasCheckBox" text="Extras">
+            <CheckBox fx:id="alternativeCurrenciesCheckBox" text="Alternatives">
                 <tooltip>
                     <Tooltip text="Enables alternative currencies (e.g. cryptocurrencies)"/>
                 </tooltip>

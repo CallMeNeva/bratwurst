@@ -12,13 +12,13 @@ public interface ExchangeRatesService {
     @NotNull
     List<ExchangeRate> fetchRates(@NotNull String appId,
                                   @NotNull String baseCurrencyCode,
-                                  boolean includeExtras,
+                                  boolean includeAlternativeCurrencies,
                                   @NotNull String... targetCurrencyCodes) throws ServiceException;
 
     @NotNull
     List<ExchangeRate> fetchRates(@NotNull String appId,
                                   @NotNull String baseCurrencyCode,
                                   @NotNull LocalDate date,
-                                  boolean includeExtras,
+                                  boolean includeAlternativeCurrencies,
                                   @NotNull String... targetCurrencyCodes) throws ServiceException;
 }

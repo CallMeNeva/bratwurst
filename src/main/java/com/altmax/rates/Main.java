@@ -6,9 +6,9 @@ import javafx.application.Application;
 public final class Main {
 
     public static void main(String[] args) {
-        /* Don't really wanna bother with the CLI in this project */
+        /* Don't really wanna bother with CLI stuff in this project */
         if (args.length > 0) {
-            System.out.println("Usage: java " + App.getName().toLowerCase());
+            System.out.println("Usage: java [whatever-this-executables-name-is]");
         } else {
             Application.launch(App.class, args);
         }

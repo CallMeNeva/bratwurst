@@ -41,9 +41,9 @@ public final class OpenExchangeRatesService implements ExchangeRatesService {
     @NotNull
     public List<ExchangeRate> fetchRates(@NotNull String appId,
                                          @NotNull String baseCurrencyCode,
-                                         boolean includeExtras,
+                                         boolean includeAlternativeCurrencies,
                                          @NotNull String... targetCurrencyCodes) throws ServiceException {
-        return fetchRates(ExchangeRatesRequestURIFactory.create(appId, baseCurrencyCode, includeExtras, targetCurrencyCodes));
+        return fetchRates(ExchangeRatesRequestURIFactory.create(appId, baseCurrencyCode, includeAlternativeCurrencies, targetCurrencyCodes));
     }
 
     @Override
@@ -51,9 +51,9 @@ public final class OpenExchangeRatesService implements ExchangeRatesService {
     public List<ExchangeRate> fetchRates(@NotNull String appId,
                                          @NotNull String baseCurrencyCode,
                                          @NotNull LocalDate date,
-                                         boolean includeExtras,
+                                         boolean includeAlternativeCurrencies,
                                          @NotNull String... targetCurrencyCodes) throws ServiceException {
-        return fetchRates(ExchangeRatesRequestURIFactory.create(appId, baseCurrencyCode, date, includeExtras, targetCurrencyCodes));
+        return fetchRates(ExchangeRatesRequestURIFactory.create(appId, baseCurrencyCode, date, includeAlternativeCurrencies, targetCurrencyCodes));
     }
 
     @NotNull
@@ -67,11 +67,10 @@ public final class OpenExchangeRatesService implements ExchangeRatesService {
                         .collect(Collectors.toList());
             }
             ErrorResponseBody error = JSON_PARSER.fromJson(response.body(), ErrorResponseBody.class);
-            LOGGER.error("Service returned an error of type \"" + error.getMessage() + "\"");
             throw new ServiceException(error.getDescription());
-        } catch (IOException | InterruptedException e) {
-            LOGGER.error("Failed to send request: " + e.getMessage());
-            throw new ServiceException(e);
+        } catch (IOException | InterruptedException | SecurityException e) {
+            LOGGER.error("Request failed (" + e.getClass().getCanonicalName() + ")");
+            throw new ServiceException("Failed to send request. Please check your connection or contact your local administrator.");
         }
     }
 
