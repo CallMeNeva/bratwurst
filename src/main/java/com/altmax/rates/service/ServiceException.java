@@ -4,11 +4,15 @@ import org.jetbrains.annotations.NotNull;
 
 public final class ServiceException extends RuntimeException {
 
+    public ServiceException() {
+        super();
+    }
+
     public ServiceException(@NotNull String message) {
         super(message);
     }
 
-    public ServiceException(@NotNull ErrorResponseBody responseBody) {
-        this(responseBody.getDescription());
+    public ServiceException(@NotNull Throwable cause) {
+        super(cause);
     }
 }

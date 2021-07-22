@@ -1,4 +1,4 @@
-package com.altmax.rates.service;
+package com.altmax.rates.service.response;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -6,22 +6,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.Type;
 
 public final class ErrorResponseBodyDeserializer implements JsonDeserializer<ErrorResponseBody> {
 
-    @NotNull
     @Override
     public ErrorResponseBody deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
             JsonObject root = json.getAsJsonObject();
-            short status = root.get("status").getAsShort();
             String message = root.get("message").getAsString();
             String description = root.get("description").getAsString();
-            return new ErrorResponseBody(status, message, description);
-        } catch (IllegalArgumentException | ClassCastException e) {
+            return new ErrorResponseBody(message, description);
+        } catch (IllegalStateException | ClassCastException e) {
             throw new JsonParseException(e);
         }
     }
