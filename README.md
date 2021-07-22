@@ -1,7 +1,9 @@
 ## About
-![Oops! Looks like the image didn't load.](./docs/screenshots/win10_scr_01.png)
+**Rates** is a small [JavaFX](https://openjfx.io/) desktop application for fetching and displaying exchange rates from the
+[Open Exchange Rates web API](https://openexchangerates.org/). It currently only supports
+[latest](https://docs.openexchangerates.org/docs/latest-json) and
+[historical](https://docs.openexchangerates.org/docs/historical-json) exchange rates.
 
-**Rates** is a tiny demo [JavaFX 11](https://openjfx.io/) desktop client for the [Open Exchange Rates web API](https://openexchangerates.org/).
 
 ## Build
 ```
@@ -9,10 +11,13 @@ git clone https://github.com/altoukhov-max/rates.git
 cd rates
 mvn clean javafx:run
 ```
-In order to use the app you'll need to acquire an [Open Exchange Rates App ID](https://openexchangerates.org/signup).
+Alternatively, you can simply open the cloned repository in IntelliJ IDEA. In any case, in order to properly use the app you'll
+need to acquire an [Open Exchange Rates App ID](https://openexchangerates.org/signup).
 
 ## Disclaimer
-I am in no way, shape or form affiliated with [Open Exchange Rates](https://openexchangerates.org/), nor do I seek to purposely violate their terms and conditions with the usage and/or distribution of this software. If you are a representative of the previously mentioned organization and there is a problem, please contact me.
+I am in no way, shape or form affiliated with [Open Exchange Rates](https://openexchangerates.org/), nor do I seek to purposely
+violate their terms and conditions with the usage and/or distribution of this software. If you are a representative of the
+previously mentioned organization and there is a problem, please contact me.
 
 ## License
 This software is distributed under the [MIT license](./LICENSE).
