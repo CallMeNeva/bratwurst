@@ -42,7 +42,7 @@
             </TextField>
             <Separator orientation="VERTICAL"/>
             <!---->
-            <TextField fx:id="targetCurrenciesCodesField" promptText="USD,EUR,GBP..." prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <TextField fx:id="targetCurrenciesCodesField" promptText="USD,EUR,GBP..." prefWidth="110.0" HBox.hgrow="ALWAYS">
                 <tooltip>
                     <Tooltip text="The target currencies' ISO-4217 codes in CSV format"/>
                 </tooltip>
@@ -57,7 +57,7 @@
             </CheckBox>
             <Separator orientation="VERTICAL"/>
             <!---->
-            <DatePicker fx:id="datePicker" editable="false" prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <DatePicker fx:id="datePicker" editable="false" prefWidth="110.0">
                 <tooltip>
                     <Tooltip text="The date for which to provide exchange rates"/>
                 </tooltip>
