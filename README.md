@@ -1,8 +1,8 @@
 ## About
 ![Failed to load screenshot](./docs/screenshots/rates_windows10.png)
 
-**Rates** is a small cross-platform desktop application for fetching and displaying exchange rates from the
-[Open Exchange Rates web API](https://openexchangerates.org/). It currently only supports
+**Rates** is a small cross-platform desktop application for fetching and displaying exchange rates from
+[Open Exchange Rates](https://openexchangerates.org/). It currently only supports
 [latest](https://docs.openexchangerates.org/docs/latest-json) and
 [historical](https://docs.openexchangerates.org/docs/historical-json) exchange rates.
 
