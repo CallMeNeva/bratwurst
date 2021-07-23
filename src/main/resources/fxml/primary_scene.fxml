@@ -16,8 +16,7 @@
 <?import javafx.scene.control.Tooltip?>
 
 <BorderPane xmlns:fx="https://openjfx.io/"
-            fx:controller="com.altmax.rates.controller.PrimarySceneController"
-            prefWidth="645.0">
+            fx:controller="com.altmax.rates.controller.PrimarySceneController">
 
     <padding>
         <Insets topRightBottomLeft="5.0"/>

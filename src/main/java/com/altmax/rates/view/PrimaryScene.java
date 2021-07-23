@@ -26,8 +26,4 @@ public final class PrimaryScene extends Scene {
         Parent root = FXMLLoader.load(rootLocation);
         return new PrimaryScene(root);
     }
-
-    public double getPreferredWidth() {
-        return getRoot().prefWidth(-1);
-    }
 }

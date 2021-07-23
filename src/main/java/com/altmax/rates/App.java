@@ -13,7 +13,6 @@ public final class App extends Application {
         PrimaryScene primaryScene = PrimaryScene.fromFXML();
         stage.setTitle("Rates");
         stage.setScene(primaryScene);
-        stage.setMinWidth(primaryScene.getPreferredWidth());
         stage.getIcons().add(new Image("/icons/currency_exchange.png"));
         stage.show();
     }
