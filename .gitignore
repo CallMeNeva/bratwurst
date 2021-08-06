@@ -1,6 +1,10 @@
-# IntelliJ IDEA stuff
+#################
+# IntelliJ IDEA #
+#################
 .idea/
 *.iml
 
-# Maven stuff
+#########
+# Maven #
+#########
 target/
