@@ -7,7 +7,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.altmax</groupId>
+    <groupId>io.github.altoukhovmax</groupId>
     <artifactId>rates</artifactId>
     <version>1.0.0</version>
 
@@ -17,19 +17,37 @@
 
     <dependencies>
 
-        <!-- *** -->
-        <!-- Web -->
-        <!-- *** -->
+        <!-- ============== -->
+        <!--    Service     -->
+        <!-- ============== -->
 
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
+            <artifactId>httpclient5-fluent</artifactId>
             <version>5.1</version>
         </dependency>
 
-        <!-- *** -->
-        <!-- GUI -->
-        <!-- *** -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.4</version>
+        </dependency>
+
+        <!-- ========== -->
+        <!--    GUI     -->
+        <!-- ========== -->
 
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -49,15 +67,9 @@
             <version>11.1.0</version>
         </dependency>
 
-        <!-- ******* -->
-        <!-- Utility -->
-        <!-- ******* -->
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.7</version>
-        </dependency>
+        <!-- ============= -->
+        <!--    Utility    -->
+        <!-- ============= -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -71,21 +83,14 @@
             <version>1.7.32</version>
         </dependency>
 
-        <!-- *********** -->
-        <!-- Development -->
-        <!-- *********** -->
+        <!-- ================= -->
+        <!--    Development    -->
+        <!-- ================= -->
 
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>21.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
 
@@ -112,7 +117,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.6</version>
                 <configuration>
-                    <mainClass>com.altmax.rates.Main</mainClass>
+                    <mainClass>io.github.altoukhovmax.rates.Rates</mainClass>
                 </configuration>
             </plugin>
         </plugins>
