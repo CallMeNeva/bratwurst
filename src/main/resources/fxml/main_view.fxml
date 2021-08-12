@@ -126,7 +126,7 @@
                     <DatePicker fx:id="seriesStartDatePicker" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="$INPUT_PREF_WIDTH" editable="$DATE_PICKERS_EDITABLE"/>
                     <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="End:" prefWidth="$LABEL_PREF_WIDTH"/>
                     <DatePicker fx:id="seriesEndDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="$INPUT_PREF_WIDTH" editable="$DATE_PICKERS_EDITABLE"/>
-                    <CheckBox fx:id="upToPresentCheckbox" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Up to present" prefWidth="$INPUT_PREF_WIDTH"/>
+                    <CheckBox fx:id="presentDateCheckbox" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Present" prefWidth="$INPUT_PREF_WIDTH"/>
                 </GridPane>
             </AnchorPane>
 

@@ -50,7 +50,7 @@ public final class MainViewController implements Initializable {
 
     private @FXML DatePicker seriesStartDatePicker;
     private @FXML DatePicker seriesEndDatePicker;
-    private @FXML CheckBox upToPresentCheckbox;
+    private @FXML CheckBox presentDateCheckbox;
 
     private final Alert errorAlert;
     private final Alert aboutAlert;
@@ -100,7 +100,7 @@ public final class MainViewController implements Initializable {
 
         latestDateCheckbox.selectedProperty().addListener((observable, oldValue, newValue) -> specificDatePicker.setDisable(newValue));
 
-        upToPresentCheckbox.selectedProperty().addListener((observable, oldValue, newValue) -> seriesEndDatePicker.setDisable(newValue));
+        presentDateCheckbox.selectedProperty().addListener((observable, oldValue, newValue) -> seriesEndDatePicker.setDisable(newValue));
 
         baseColumn.setCellValueFactory(cellDataFeatures -> new ReadOnlyStringWrapper(cellDataFeatures.getValue().baseCurrencyCode()));
         targetColumn.setCellValueFactory(cellDataFeatures -> new ReadOnlyStringWrapper(cellDataFeatures.getValue().targetCurrencyCode()));
@@ -126,7 +126,7 @@ public final class MainViewController implements Initializable {
             LocalDate startDate = seriesStartDatePicker.getValue();
             LocalDate endDate = seriesEndDatePicker.getValue();
             return (startDate != null) && (!startDate.isAfter(LocalDate.now())) &&
-                   ((endDate != null) && (endDate.isAfter(startDate)) || upToPresentCheckbox.isSelected());
+                   ((endDate != null) && (endDate.isAfter(startDate)) || presentDateCheckbox.isSelected());
         }
         throw new IllegalStateException("Invalid user input state"); // Should not (and probably never will) happen
     }
@@ -151,7 +151,7 @@ public final class MainViewController implements Initializable {
 
         seriesStartDatePicker.setValue(null);
         seriesEndDatePicker.setValue(null);
-        upToPresentCheckbox.setSelected(false);
+        presentDateCheckbox.setSelected(false);
     }
 
     @FXML
@@ -165,7 +165,7 @@ public final class MainViewController implements Initializable {
                             .toArray(String[]::new);
             Optional<List<ExchangeRate>> fetchedExchangeRates = specificDatePanelToggle.isSelected() ?
                     (latestDateCheckbox.isSelected() ? service.fetchExchangeRates(base, targets) : service.fetchExchangeRates(base, specificDatePicker.getValue(), targets)) :
-                    service.fetchExchangeRates(base, seriesStartDatePicker.getValue(), (upToPresentCheckbox.isSelected() ? null : seriesEndDatePicker.getValue()), targets);
+                    service.fetchExchangeRates(base, seriesStartDatePicker.getValue(), (presentDateCheckbox.isSelected() ? null : seriesEndDatePicker.getValue()), targets);
             fetchedExchangeRates.ifPresentOrElse(rates -> dataView.getItems().setAll(rates), () -> {
                 errorAlert.setContentText("Failed to fetch the requested exchange rates. This could happen due to " +
                                           "an internal service error, a client-side error, or simply a bad network " +
