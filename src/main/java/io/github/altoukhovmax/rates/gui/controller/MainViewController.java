@@ -1,9 +1,9 @@
 package io.github.altoukhovmax.rates.gui.controller;
 
-import io.github.altoukhovmax.rates.domain.entity.Currency;
-import io.github.altoukhovmax.rates.domain.entity.ExchangeRate;
-import io.github.altoukhovmax.rates.domain.service.ExchangeRatesService;
-import io.github.altoukhovmax.rates.domain.service.FrankfurterService;
+import io.github.altoukhovmax.rates.model.Currency;
+import io.github.altoukhovmax.rates.model.ExchangeRate;
+import io.github.altoukhovmax.rates.service.ExchangeRatesService;
+import io.github.altoukhovmax.rates.service.FrankfurterService;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -53,12 +53,17 @@ public final class MainViewController implements Initializable {
     private @FXML CheckBox upToPresentCheckbox;
 
     private final Alert errorAlert;
+    private final Alert aboutAlert;
 
     private final ExchangeRatesService service;
 
     public MainViewController() {
         errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText(null);
+        aboutAlert = new Alert(Alert.AlertType.INFORMATION, "Rates is a small and extremely simple desktop application for " +
+                                                            "browsing currency exchange rates provided by the public and " +
+                                                            "open source Frankfurter web API.");
+        aboutAlert.setHeaderText(null);
         service = new FrankfurterService();
     }
 
@@ -129,6 +134,11 @@ public final class MainViewController implements Initializable {
     ////////////////////////////
     //    Button Callbacks    //
     ////////////////////////////
+
+    @FXML
+    private void onAboutButtonPress() {
+        aboutAlert.showAndWait();
+    }
 
     @FXML
     private void onResetButtonPress() {

@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.rates.domain.service.dto.response;
+package io.github.altoukhovmax.rates.service.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.jetbrains.annotations.NotNull;

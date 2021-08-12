@@ -1,7 +1,7 @@
-package io.github.altoukhovmax.rates.domain.service;
+package io.github.altoukhovmax.rates.service;
 
-import io.github.altoukhovmax.rates.domain.entity.Currency;
-import io.github.altoukhovmax.rates.domain.entity.ExchangeRate;
+import io.github.altoukhovmax.rates.model.Currency;
+import io.github.altoukhovmax.rates.model.ExchangeRate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

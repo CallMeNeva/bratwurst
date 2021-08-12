@@ -1,6 +1,6 @@
-package io.github.altoukhovmax.rates.domain.service.dto.response.conversion;
+package io.github.altoukhovmax.rates.service.dto.response.conversion;
 
-import io.github.altoukhovmax.rates.domain.entity.Currency;
+import io.github.altoukhovmax.rates.model.Currency;
 import org.modelmapper.AbstractConverter;
 
 import java.util.Comparator;

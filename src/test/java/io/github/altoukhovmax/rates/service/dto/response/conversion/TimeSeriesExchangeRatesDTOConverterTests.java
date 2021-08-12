@@ -1,7 +1,7 @@
-package io.github.altoukhovmax.rates.domain.service.dto.response.conversion;
+package io.github.altoukhovmax.rates.service.dto.response.conversion;
 
-import io.github.altoukhovmax.rates.domain.entity.ExchangeRate;
-import io.github.altoukhovmax.rates.domain.service.dto.response.TimeSeriesExchangeRatesDTO;
+import io.github.altoukhovmax.rates.model.ExchangeRate;
+import io.github.altoukhovmax.rates.service.dto.response.TimeSeriesExchangeRatesDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

@@ -138,8 +138,10 @@
             <!-- ==============-->
 
             <HBox spacing="5.0" alignment="CENTER_RIGHT">
-                <Button text="Reset" onAction="#onResetButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
+                <Button text="About" onAction="#onAboutButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
+                <Separator orientation="VERTICAL"/>
                 <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Reset" onAction="#onResetButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
                 <Button text="Go" onAction="#onGoButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
             </HBox>
 

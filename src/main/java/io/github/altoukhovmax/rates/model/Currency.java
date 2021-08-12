@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.rates.domain.entity;
+package io.github.altoukhovmax.rates.model;
 
 import org.jetbrains.annotations.NotNull;
 
