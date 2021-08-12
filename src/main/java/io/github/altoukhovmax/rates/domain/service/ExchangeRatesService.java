@@ -11,17 +11,17 @@ import java.util.Optional;
 
 public interface ExchangeRatesService {
 
-    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                    @NotNull String... targetCurrencyCodes);
+    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                    @NotNull final String... targetCurrencyCodes);
 
-    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                    @NotNull LocalDate date,
-                                                    @NotNull String... targetCurrencyCodes);
+    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                    @NotNull final LocalDate date,
+                                                    @NotNull final String... targetCurrencyCodes);
 
-    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                    @NotNull LocalDate startDate,
-                                                    @Nullable LocalDate endDate,
-                                                    @NotNull String... targetCurrencyCodes);
+    Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                    @NotNull final LocalDate startDate,
+                                                    @Nullable final LocalDate endDate,
+                                                    @NotNull final String... targetCurrencyCodes);
 
     Optional<List<Currency>> fetchAvailableCurrencies();
 }

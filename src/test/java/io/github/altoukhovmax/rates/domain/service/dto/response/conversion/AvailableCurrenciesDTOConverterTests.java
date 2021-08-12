@@ -24,11 +24,11 @@ public final class AvailableCurrenciesDTOConverterTests {
     @Test
     @DisplayName("AvailableCurrenciesDTOConverter converts a valid DTO correctly")
     public void testConvertsCorrectly() {
-        HashMap<String, String> dto = new HashMap<>();
+        final HashMap<String, String> dto = new HashMap<>();
         dto.put("USD", "United States Dollar");
         dto.put("GBP", "British Pound Sterling");
         dto.put("JPY", "Japanese Yen");
-        List<Currency> result = List.of(
+        final List<Currency> result = List.of(
                 new Currency("GBP", "British Pound Sterling"),
                 new Currency("JPY", "Japanese Yen"),
                 new Currency("USD", "United States Dollar")

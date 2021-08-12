@@ -17,6 +17,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.URIScheme;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.util.Timeout;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.modelmapper.MappingException;
@@ -38,27 +39,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public final class FrankfurterService // TODO: Unit tests
-        implements ExchangeRatesService, Closeable {
+public final class FrankfurterService implements ExchangeRatesService, Closeable {
 
-    private static final HttpHost PUBLIC_HOST = new HttpHost(URIScheme.HTTPS.getId(), "api.frankfurter.app");
+    private static final Logger LOGGER = LoggerFactory.getLogger(FrankfurterService.class);
 
     private final HttpHost host;
     private final CloseableHttpClient client;
     private final ObjectMapper parser;
     private final ModelMapper mapper;
-    private final Logger logger;
 
-    public FrankfurterService(@NotNull HttpHost host) {
-        this.host = host;
+    public FrankfurterService() {
+        this.host = new HttpHost(URIScheme.HTTPS.getId(), "api.frankfurter.app");
 
-//        RequestConfig requestConfig = RequestConfig.custom()
-//                .setConnectTimeout(Timeout.ofSeconds(8))
-//                .setResponseTimeout(Timeout.ofSeconds(8))
-//                .build();
-//        client = HttpClientBuilder.create()
-//                .setDefaultRequestConfig(requestConfig)
-//                .build();
         client = HttpClients.createMinimal();
 
         parser = new ObjectMapper();
@@ -70,17 +62,12 @@ public final class FrankfurterService // TODO: Unit tests
         mapper.addConverter(new TimeSeriesExchangeRatesDTOConverter());
         mapper.addConverter(new AvailableCurrenciesDTOConverter());
 
-        logger = LoggerFactory.getLogger(getClass());
-        logger.info("Initialized service");
-    }
-
-    public FrankfurterService() {
-        this(PUBLIC_HOST);
+        LOGGER.info("Initialized service");
     }
 
     @Override
-    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                           @NotNull String... targetCurrencyCodes) {
+    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                           @NotNull final String... targetCurrencyCodes) {
         return fetchExchangeRatesData(
                 new TypeReference<SpecificDateExchangeRatesDTO>(){},
                 "latest",
@@ -90,9 +77,9 @@ public final class FrankfurterService // TODO: Unit tests
     }
 
     @Override
-    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                           @NotNull LocalDate date,
-                                                           @NotNull String... targetCurrencyCodes) {
+    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                           @NotNull final LocalDate date,
+                                                           @NotNull final String... targetCurrencyCodes) {
         return fetchExchangeRatesData(
                 new TypeReference<SpecificDateExchangeRatesDTO>(){},
                 date.format(DateTimeFormatter.ISO_LOCAL_DATE),
@@ -102,10 +89,10 @@ public final class FrankfurterService // TODO: Unit tests
     }
 
     @Override
-    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull String baseCurrencyCode,
-                                                           @NotNull LocalDate startDate,
-                                                           @Nullable LocalDate endDate,
-                                                           @NotNull String... targetCurrencyCodes) {
+    public Optional<List<ExchangeRate>> fetchExchangeRates(@NotNull final String baseCurrencyCode,
+                                                           @NotNull final LocalDate startDate,
+                                                           @Nullable final LocalDate endDate,
+                                                           @NotNull final String... targetCurrencyCodes) {
         String endpoint = (startDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "..");
         if (endDate != null) {
             endpoint += endDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
@@ -137,37 +124,39 @@ public final class FrankfurterService // TODO: Unit tests
     //        Internal        //
     ////////////////////////////
 
-    private <D, M> Optional<M> fetchData(@NotNull String endpoint,
-                                         @Nullable Map<String, String> queryParameters,
-                                         @NotNull TypeReference<D> dataTransferObjectType,
-                                         @NotNull Type modelType) {
-        URIBuilder resourceIdentifierBuilder = new URIBuilder()
+    private <D, M> Optional<M> fetchData(@NotNull final String endpoint,
+                                         @Nullable final Map<String, String> queryParameters,
+                                         @NotNull final TypeReference<D> dataTransferObjectType,
+                                         @NotNull final Type modelType) {
+        final URIBuilder resourceIdentifierBuilder = new URIBuilder()
                 .setHttpHost(host)
                 .appendPath(endpoint);
         if (queryParameters != null) {
             queryParameters.forEach(resourceIdentifierBuilder::addParameter);
         }
         try {
-            URI resourceIdentifier = resourceIdentifierBuilder.build();
-            String responseBody = Request.get(resourceIdentifier)
+            final URI resourceIdentifier = resourceIdentifierBuilder.build();
+            final String responseBody = Request.get(resourceIdentifier)
+                    .connectTimeout(Timeout.ofSeconds(8))
+                    .responseTimeout(Timeout.ofSeconds(5))
                     .execute(client)
                     .returnContent()
                     .asString(StandardCharsets.UTF_8);
-            D dataTransferObject = parser.readValue(responseBody, dataTransferObjectType);
-            M convertedData = mapper.map(dataTransferObject, modelType);
-            logger.info("Fetched data from " + resourceIdentifier);
+            final D dataTransferObject = parser.readValue(responseBody, dataTransferObjectType);
+            final M convertedData = mapper.map(dataTransferObject, modelType);
+            LOGGER.info("Fetched data from " + resourceIdentifier);
             return Optional.of(convertedData);
-        } catch (URISyntaxException | IOException | MappingException e) {
-            logger.error("Failed to fetch data: " + e.getMessage());
+        } catch (final URISyntaxException | IOException | MappingException e) {
+            LOGGER.error("Failed to fetch data: " + e.getMessage());
             return Optional.empty();
         }
     }
 
-    private <D> Optional<List<ExchangeRate>> fetchExchangeRatesData(@NotNull TypeReference<D> dataTransferObjectType,
-                                                                    @NotNull String endpoint,
-                                                                    @NotNull String baseCurrencyCode,
-                                                                    @NotNull String... targetCurrencyCodes) {
-        Map<String, String> parameters = (targetCurrencyCodes.length > 0) ?
+    private <D> Optional<List<ExchangeRate>> fetchExchangeRatesData(@NotNull final TypeReference<D> dataTransferObjectType,
+                                                                    @NotNull final String endpoint,
+                                                                    @NotNull final String baseCurrencyCode,
+                                                                    @NotNull final String... targetCurrencyCodes) {
+        final Map<String, String> parameters = (targetCurrencyCodes.length > 0) ?
                 Map.of("from", baseCurrencyCode, "to", String.join(",", targetCurrencyCodes)) :
                 Map.of("from", baseCurrencyCode);
         return fetchData(endpoint, parameters, dataTransferObjectType, new TypeToken<List<ExchangeRate>>(){}.getType());

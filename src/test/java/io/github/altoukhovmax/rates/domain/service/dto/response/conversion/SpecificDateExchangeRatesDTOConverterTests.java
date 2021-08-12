@@ -26,9 +26,9 @@ public final class SpecificDateExchangeRatesDTOConverterTests {
     @Test
     @DisplayName("SpecificDateExchangeRatesDTOConverter converts a valid DTO correctly")
     public void testConvertsCorrectly() {
-        LocalDate date = LocalDate.of(2019, 12, 31);
-        SpecificDateExchangeRatesDTO dto = new SpecificDateExchangeRatesDTO("EUR", date, Map.of("GBP", 0.8508, "USD", 1.1234));
-        List<ExchangeRate> result = List.of(
+        final LocalDate date = LocalDate.of(2019, 12, 31);
+        final SpecificDateExchangeRatesDTO dto = new SpecificDateExchangeRatesDTO("EUR", date, Map.of("GBP", 0.8508, "USD", 1.1234));
+        final List<ExchangeRate> result = List.of(
                 new ExchangeRate("EUR", "GBP", 0.8508, date),
                 new ExchangeRate("EUR", "USD", 1.1234, date)
         );

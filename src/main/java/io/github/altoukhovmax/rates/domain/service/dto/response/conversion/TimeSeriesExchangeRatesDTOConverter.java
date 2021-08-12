@@ -8,15 +8,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class TimeSeriesExchangeRatesDTOConverter
-        extends AbstractConverter<TimeSeriesExchangeRatesDTO, List<ExchangeRate>> {
+public final class TimeSeriesExchangeRatesDTOConverter extends AbstractConverter<TimeSeriesExchangeRatesDTO, List<ExchangeRate>> {
 
     @Override
-    protected List<ExchangeRate> convert(TimeSeriesExchangeRatesDTO dto) {
-        return dto.rates().entrySet().stream()
+    protected List<ExchangeRate> convert(final TimeSeriesExchangeRatesDTO dataTransferObject) {
+        return dataTransferObject.rates().entrySet().stream()
                 .flatMap(dateToRatesEntry -> dateToRatesEntry.getValue().entrySet().stream()
                         .map(codeToFactorEntry -> new ExchangeRate(
-                                dto.base(),
+                                dataTransferObject.base(),
                                 codeToFactorEntry.getKey(),
                                 codeToFactorEntry.getValue(),
                                 dateToRatesEntry.getKey()

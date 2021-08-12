@@ -8,13 +8,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class SpecificDateExchangeRatesDTOConverter
-        extends AbstractConverter<SpecificDateExchangeRatesDTO, List<ExchangeRate>> {
+public final class SpecificDateExchangeRatesDTOConverter extends AbstractConverter<SpecificDateExchangeRatesDTO, List<ExchangeRate>> {
 
     @Override
-    protected List<ExchangeRate> convert(SpecificDateExchangeRatesDTO dto) {
-        return dto.rates().entrySet().stream()
-                .map(e -> new ExchangeRate(dto.base(), e.getKey(), e.getValue(), dto.date()))
+    protected List<ExchangeRate> convert(final SpecificDateExchangeRatesDTO dataTransferObject) {
+        return dataTransferObject.rates().entrySet().stream()
+                .map(entry -> new ExchangeRate(dataTransferObject.base(), entry.getKey(), entry.getValue(), dataTransferObject.date()))
                 .sorted(Comparator.comparing(ExchangeRate::targetCurrencyCode))
                 .collect(Collectors.toList());
     }

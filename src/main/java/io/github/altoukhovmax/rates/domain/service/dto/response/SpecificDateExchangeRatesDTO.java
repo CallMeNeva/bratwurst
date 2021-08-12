@@ -10,5 +10,4 @@ import java.util.Map;
 public record SpecificDateExchangeRatesDTO(@NotNull String base,
                                            @NotNull LocalDate date,
                                            @NotNull Map<String, Double> rates) {
-
 }
