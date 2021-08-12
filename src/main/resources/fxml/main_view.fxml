@@ -47,6 +47,7 @@
         <Double fx:id="GRID_HGAP" fx:value="8.0"/>
         <Double fx:id="LABEL_PREF_WIDTH" fx:value="100.0"/>
         <Double fx:id="INPUT_PREF_WIDTH" fx:value="120.0"/>
+        <Double fx:id="ACTION_BUTTON_PREF_WIDTH" fx:value="50.0"/>
     </fx:define>
 
     <!-- =============== -->
@@ -137,8 +138,9 @@
             <!-- ==============-->
 
             <HBox spacing="5.0" alignment="CENTER_RIGHT">
+                <Button text="Reset" onAction="#onResetButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Go" onAction="#onGoButtonPress"/>
+                <Button text="Go" onAction="#onGoButtonPress" prefWidth="$ACTION_BUTTON_PREF_WIDTH"/>
             </HBox>
 
         </VBox>

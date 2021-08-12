@@ -75,13 +75,13 @@ public final class MainViewController implements Initializable {
             errorAlert.showAndWait();
         });
 
-        StringConverter<Currency> currencyConverter = new StringConverter<>() {
+        final StringConverter<Currency> currencyConverter = new StringConverter<>() {
             @Override
-            public String toString(Currency currency) {
+            public String toString(final Currency currency) {
                 return currency == null ? null : currency.displayName();
             }
             @Override
-            public Currency fromString(String s) {
+            public Currency fromString(final String s) {
                 return null;
             }
         };
@@ -131,13 +131,27 @@ public final class MainViewController implements Initializable {
     ////////////////////////////
 
     @FXML
+    private void onResetButtonPress() {
+        baseSelector.setValue(null);
+        targetSelector.getCheckModel().clearChecks();
+        allRatesCheckbox.setSelected(false);
+
+        specificDatePicker.setValue(null);
+        latestDateCheckbox.setSelected(false);
+
+        seriesStartDatePicker.setValue(null);
+        seriesEndDatePicker.setValue(null);
+        upToPresentCheckbox.setSelected(false);
+    }
+
+    @FXML
     private void onGoButtonPress() {
         if (isCurrencyInputValid() && isTimeFrameInputValid()) {
             String base = baseSelector.getValue().code();
             String[] targets = allRatesCheckbox.isSelected() ?
                     ALL_TARGETS :
                     targetSelector.getCheckModel().getCheckedIndices().stream()
-                            .map(idx -> targetSelector.getItems().get(idx).code())
+                            .map(index -> targetSelector.getItems().get(index).code())
                             .toArray(String[]::new);
             Optional<List<ExchangeRate>> fetchedExchangeRates = specificDatePanelToggle.isSelected() ?
                     (latestDateCheckbox.isSelected() ? service.fetchExchangeRates(base, targets) : service.fetchExchangeRates(base, specificDatePicker.getValue(), targets)) :
