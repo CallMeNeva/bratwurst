@@ -114,11 +114,14 @@ public final class MainViewController implements Initializable {
 
     private boolean isTimeFrameInputValid() {
         if (specificDatePanelToggle.isSelected()) {
-            return (specificDatePicker.getValue() != null) || latestDateCheckbox.isSelected();
+            LocalDate date = specificDatePicker.getValue();
+            return (date != null) || latestDateCheckbox.isSelected();
         }
         if (dateSeriesPanelToggle.isSelected()) {
-            return (seriesStartDatePicker.getValue() != null) &&
-                   ((seriesEndDatePicker.getValue() != null) || upToPresentCheckbox.isSelected());
+            LocalDate startDate = seriesStartDatePicker.getValue();
+            LocalDate endDate = seriesEndDatePicker.getValue();
+            return (startDate != null) && (!startDate.isAfter(LocalDate.now())) &&
+                   ((endDate != null) && (endDate.isAfter(startDate)) || upToPresentCheckbox.isSelected());
         }
         throw new IllegalStateException("Invalid user input state"); // Should not (and probably never will) happen
     }
@@ -146,7 +149,7 @@ public final class MainViewController implements Initializable {
                 errorAlert.showAndWait();
             });
         } else {
-            errorAlert.setContentText("Please make sure you filled out all the necessary fields in the request form.");
+            errorAlert.setContentText("Please make sure you filled out all the necessary fields in the request form correctly.");
             errorAlert.showAndWait();
         }
     }

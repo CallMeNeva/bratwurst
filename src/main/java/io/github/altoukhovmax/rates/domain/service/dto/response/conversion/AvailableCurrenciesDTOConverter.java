@@ -16,7 +16,7 @@ public final class AvailableCurrenciesDTOConverter extends AbstractConverter<Has
     protected List<Currency> convert(final HashMap<String, String> dataTransferObject) {
         return dataTransferObject.entrySet().stream()
                 .map(entry -> new Currency(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.comparing(Currency::code))
+                .sorted(Comparator.comparing(Currency::displayName))
                 .collect(Collectors.toList());
     }
 }
