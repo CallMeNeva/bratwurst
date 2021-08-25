@@ -52,18 +52,36 @@ public final class MainViewController implements Initializable {
     private @FXML DatePicker seriesEndDatePicker;
     private @FXML CheckBox presentDateCheckbox;
 
-    private final Alert errorAlert;
-    private final Alert aboutAlert;
+    private final Alert currencyFetchErrorAlert;
+    private final Alert ratesFetchErrorAlert;
+    private final Alert inputValidationErrorAlert;
+    private final Alert aboutInfoAlert;
 
     private final ExchangeRatesService service;
 
     public MainViewController() {
-        errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText(null);
-        aboutAlert = new Alert(Alert.AlertType.INFORMATION, "Rates is a small and extremely simple desktop application for " +
-                                                            "browsing currency exchange rates provided by the public and " +
-                                                            "open source Frankfurter web API.");
-        aboutAlert.setHeaderText(null);
+        currencyFetchErrorAlert = new Alert(Alert.AlertType.ERROR,
+                "Failed to fetch the list of available currencies. Without it the " +
+                "application won't function correctly. Please check your network " +
+                "connection and restart the application.");
+        currencyFetchErrorAlert.setHeaderText(null);
+
+        ratesFetchErrorAlert = new Alert(Alert.AlertType.ERROR,
+                "Failed to fetch the requested exchange rates. This could happen due to " +
+                "an internal service error, a client-side error, or simply a bad network " +
+                "connection. If the problem persists, please contact your local administrator.");
+        ratesFetchErrorAlert.setHeaderText(null);
+
+        inputValidationErrorAlert = new Alert(Alert.AlertType.ERROR,
+                "Please make sure you filled out all the necessary fields in the request form correctly.");
+        inputValidationErrorAlert.setHeaderText(null);
+
+        aboutInfoAlert = new Alert(Alert.AlertType.INFORMATION,
+                "Rates is a small and extremely simple desktop application for " +
+                "browsing currency exchange rates provided by the public and " +
+                "open source Frankfurter web API.");
+        aboutInfoAlert.setHeaderText(null);
+
         service = new FrankfurterService();
     }
 
@@ -73,12 +91,7 @@ public final class MainViewController implements Initializable {
         fetchedCurrencies.ifPresentOrElse(currencies -> {
             baseSelector.getItems().setAll(currencies);
             targetSelector.getItems().setAll(currencies);
-        }, () -> {
-            errorAlert.setContentText("Failed to fetch the list of available currencies. Without it the " +
-                                      "application won't function correctly. Please check your network " +
-                                      "connection and restart the application.");
-            errorAlert.showAndWait();
-        });
+        }, currencyFetchErrorAlert::showAndWait);
 
         final StringConverter<Currency> currencyConverter = new StringConverter<>() {
             @Override
@@ -137,7 +150,7 @@ public final class MainViewController implements Initializable {
 
     @FXML
     private void onAboutButtonPress() {
-        aboutAlert.showAndWait();
+        aboutInfoAlert.showAndWait();
     }
 
     @FXML
@@ -166,15 +179,9 @@ public final class MainViewController implements Initializable {
             Optional<List<ExchangeRate>> fetchedExchangeRates = specificDatePanelToggle.isSelected() ?
                     (latestDateCheckbox.isSelected() ? service.fetchExchangeRates(base, targets) : service.fetchExchangeRates(base, specificDatePicker.getValue(), targets)) :
                     service.fetchExchangeRates(base, seriesStartDatePicker.getValue(), (presentDateCheckbox.isSelected() ? null : seriesEndDatePicker.getValue()), targets);
-            fetchedExchangeRates.ifPresentOrElse(rates -> dataView.getItems().setAll(rates), () -> {
-                errorAlert.setContentText("Failed to fetch the requested exchange rates. This could happen due to " +
-                                          "an internal service error, a client-side error, or simply a bad network " +
-                                          "connection. If the problem persists, please contact your local administrator.");
-                errorAlert.showAndWait();
-            });
+            fetchedExchangeRates.ifPresentOrElse(rates -> dataView.getItems().setAll(rates), ratesFetchErrorAlert::showAndWait);
         } else {
-            errorAlert.setContentText("Please make sure you filled out all the necessary fields in the request form correctly.");
-            errorAlert.showAndWait();
+            inputValidationErrorAlert.showAndWait();
         }
     }
 }
