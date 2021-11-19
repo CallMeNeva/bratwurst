@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.altoukhovmax</groupId>
-    <artifactId>rates</artifactId>
+    <artifactId>frankfurter-desktop</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -117,7 +117,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.6</version>
                 <configuration>
-                    <mainClass>io.github.altoukhovmax.rates.Rates</mainClass>
+                    <mainClass>io.github.altoukhovmax.frankfurterdesktop.Rates</mainClass>
                 </configuration>
             </plugin>
         </plugins>

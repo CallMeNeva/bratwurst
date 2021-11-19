@@ -1,7 +1,7 @@
-package io.github.altoukhovmax.rates.service;
+package io.github.altoukhovmax.frankfurterdesktop.service;
 
-import io.github.altoukhovmax.rates.model.Currency;
-import io.github.altoukhovmax.rates.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

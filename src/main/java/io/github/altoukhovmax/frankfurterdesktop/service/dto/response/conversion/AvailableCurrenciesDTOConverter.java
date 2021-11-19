@@ -1,6 +1,6 @@
-package io.github.altoukhovmax.rates.service.dto.response.conversion;
+package io.github.altoukhovmax.frankfurterdesktop.service.dto.response.conversion;
 
-import io.github.altoukhovmax.rates.model.Currency;
+import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
 import org.modelmapper.AbstractConverter;
 
 import java.util.Comparator;

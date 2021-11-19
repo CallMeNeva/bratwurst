@@ -1,6 +1,6 @@
-package io.github.altoukhovmax.rates.gui;
+package io.github.altoukhovmax.frankfurterdesktop.gui;
 
-import io.github.altoukhovmax.rates.gui.view.MainView;
+import io.github.altoukhovmax.frankfurterdesktop.gui.view.MainView;
 import javafx.application.Application;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;

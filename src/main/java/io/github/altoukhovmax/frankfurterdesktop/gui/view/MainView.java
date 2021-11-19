@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.rates.gui.view;
+package io.github.altoukhovmax.frankfurterdesktop.gui.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

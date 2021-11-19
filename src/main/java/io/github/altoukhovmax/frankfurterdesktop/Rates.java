@@ -1,6 +1,6 @@
-package io.github.altoukhovmax.rates;
+package io.github.altoukhovmax.frankfurterdesktop;
 
-import io.github.altoukhovmax.rates.gui.GraphicalApplication;
+import io.github.altoukhovmax.frankfurterdesktop.gui.GraphicalApplication;
 import javafx.application.Application;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;

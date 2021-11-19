@@ -30,7 +30,7 @@
 <BorderPane
     xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
-    fx:controller="io.github.altoukhovmax.rates.gui.controller.MainViewController">
+    fx:controller="io.github.altoukhovmax.frankfurterdesktop.gui.controller.MainViewController">
 
     <padding>
         <Insets topRightBottomLeft="7.0"/>

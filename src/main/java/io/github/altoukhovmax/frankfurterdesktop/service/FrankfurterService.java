@@ -1,16 +1,16 @@
-package io.github.altoukhovmax.rates.service;
+package io.github.altoukhovmax.frankfurterdesktop.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.altoukhovmax.rates.model.Currency;
-import io.github.altoukhovmax.rates.model.ExchangeRate;
-import io.github.altoukhovmax.rates.service.dto.response.SpecificDateExchangeRatesDTO;
-import io.github.altoukhovmax.rates.service.dto.response.TimeSeriesExchangeRatesDTO;
-import io.github.altoukhovmax.rates.service.dto.response.conversion.AvailableCurrenciesDTOConverter;
-import io.github.altoukhovmax.rates.service.dto.response.conversion.SpecificDateExchangeRatesDTOConverter;
-import io.github.altoukhovmax.rates.service.dto.response.conversion.TimeSeriesExchangeRatesDTOConverter;
+import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.SpecificDateExchangeRatesDTO;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.TimeSeriesExchangeRatesDTO;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.conversion.AvailableCurrenciesDTOConverter;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.conversion.SpecificDateExchangeRatesDTOConverter;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.conversion.TimeSeriesExchangeRatesDTOConverter;
 import org.apache.hc.client5.http.fluent.Request;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;

@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.rates.model;
+package io.github.altoukhovmax.frankfurterdesktop.model;
 
 import org.jetbrains.annotations.NotNull;
 

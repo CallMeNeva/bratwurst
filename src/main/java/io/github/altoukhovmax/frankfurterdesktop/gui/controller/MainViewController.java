@@ -1,9 +1,9 @@
-package io.github.altoukhovmax.rates.gui.controller;
+package io.github.altoukhovmax.frankfurterdesktop.gui.controller;
 
-import io.github.altoukhovmax.rates.model.Currency;
-import io.github.altoukhovmax.rates.model.ExchangeRate;
-import io.github.altoukhovmax.rates.service.ExchangeRatesService;
-import io.github.altoukhovmax.rates.service.FrankfurterService;
+import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.service.ExchangeRatesService;
+import io.github.altoukhovmax.frankfurterdesktop.service.FrankfurterService;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;

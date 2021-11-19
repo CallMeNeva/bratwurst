@@ -1,7 +1,7 @@
-package io.github.altoukhovmax.rates.service.dto.response.conversion;
+package io.github.altoukhovmax.frankfurterdesktop.service.dto.response.conversion;
 
-import io.github.altoukhovmax.rates.model.ExchangeRate;
-import io.github.altoukhovmax.rates.service.dto.response.TimeSeriesExchangeRatesDTO;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.service.dto.response.TimeSeriesExchangeRatesDTO;
 import org.modelmapper.AbstractConverter;
 
 import java.util.Comparator;
