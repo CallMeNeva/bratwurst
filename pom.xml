@@ -13,14 +13,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>16</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
     <dependencies>
-
-        <!-- ============== -->
-        <!--    Service     -->
-        <!-- ============== -->
 
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
@@ -46,10 +42,6 @@
             <version>2.4.4</version>
         </dependency>
 
-        <!-- ========== -->
-        <!--    GUI     -->
-        <!-- ========== -->
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -67,10 +59,6 @@
             <artifactId>controlsfx</artifactId>
             <version>11.1.0</version>
         </dependency>
-
-        <!-- ============= -->
-        <!--    Utility    -->
-        <!-- ============= -->
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -90,14 +78,10 @@
             <version>1.4</version>
         </dependency>
 
-        <!-- ================= -->
-        <!--    Development    -->
-        <!-- ================= -->
-
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>21.0.1</version>
+            <version>23.0.0</version>
             <scope>provided</scope>
         </dependency>
 
