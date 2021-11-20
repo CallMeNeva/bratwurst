@@ -1,14 +1,13 @@
 package io.github.altoukhovmax.frankfurterdesktop.service.request;
 
 import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Collection;
 
 public class LatestExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
-    public LatestExchangeRatesRequest(@NotNull Currency baseCurrency, @NotNull List<Currency> targetCurrencies) {
-        super(baseCurrency, targetCurrencies);
+    public LatestExchangeRatesRequest(Currency base, Collection<Currency> targets) {
+        super(base, targets);
     }
 
     @Override

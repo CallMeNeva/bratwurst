@@ -1,41 +1,40 @@
 package io.github.altoukhovmax.frankfurterdesktop.service.request;
 
 import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Collection;
+import java.util.Objects;
 
 public class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeRatesRequest(@NotNull Currency baseCurrency,
-                                          @NotNull List<Currency> targetCurrencies,
-                                          @NotNull LocalDate startDate,
-                                          @Nullable LocalDate endDate) {
-        super(baseCurrency, targetCurrencies);
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public TimeSeriesExchangeRatesRequest(Currency base,
+                                             Collection<Currency> targets,
+                                             LocalDate startDate,
+                                             LocalDate endDate) {
+        super(base, targets);
+        setStartDate(startDate);
+        setEndDate(endDate);
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(@NotNull LocalDate newStartDate) {
-        this.startDate = newStartDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = Objects.requireNonNull(startDate);
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(@Nullable LocalDate newEndDate) {
-        this.endDate = newEndDate;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate; /* Nulls allowed */
     }
 
     @Override

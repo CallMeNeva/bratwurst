@@ -1,43 +1,43 @@
 package io.github.altoukhovmax.frankfurterdesktop.service.request;
 
 import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class AbstractExchangeRatesRequest implements DataRequest {
 
-    private Currency baseCurrency;
-    private List<Currency> targetCurrencies;
+    private Currency base;
+    private Collection<Currency> targets;
 
-    protected AbstractExchangeRatesRequest(@NotNull Currency baseCurrency, @NotNull List<Currency> targetCurrencies) {
-        this.baseCurrency = baseCurrency;
-        this.targetCurrencies = targetCurrencies; /* Empty list is valid and represents all targets */
+    protected AbstractExchangeRatesRequest(Currency base, Collection<Currency> targets) {
+        setBase(base);
+        setTargets(targets); /* Empty collection is valid and represents all targets */
     }
 
-    public Currency getBaseCurrency() {
-        return baseCurrency;
+    public Currency getBase() {
+        return base;
     }
 
-    public void setBaseCurrency(@NotNull Currency newBaseCurrency) {
-        this.baseCurrency = newBaseCurrency;
+    public void setBase(Currency base) {
+        this.base = Objects.requireNonNull(base);
     }
 
-    public List<Currency> getTargetCurrencies() {
-        return targetCurrencies;
+    public Collection<Currency> getTargets() {
+        return targets;
     }
 
-    public void setTargetCurrencies(@NotNull List<Currency> newTargetCurrencies) {
-        this.targetCurrencies = newTargetCurrencies;
+    public void setTargets(Collection<Currency> targets) {
+        this.targets = Objects.requireNonNull(targets);
     }
 
     protected abstract String getEndpointName();
 
     @Override
     public String toURIPath() {
-        String path = String.format("%s?from=%s", getEndpointName(), baseCurrency.code());
-        return targetCurrencies.isEmpty() ? path : (path + "&to=" + targetCurrencies.stream()
+        String path = String.format("%s?from=%s", getEndpointName(), base.code());
+        return targets.isEmpty() ? path : (path + "&to=" + targets.stream()
                 .map(Currency::code)
                 .collect(Collectors.joining(",")));
     }
