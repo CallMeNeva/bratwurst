@@ -5,6 +5,7 @@ import io.github.altoukhovmax.frankfurterdesktop.service.request.AbstractExchang
 
 import java.util.Set;
 
+@FunctionalInterface
 public interface ExchangeRatesService {
 
     Set<ExchangeRate> serve(AbstractExchangeRatesRequest request) throws ServiceException;
