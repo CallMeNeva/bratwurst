@@ -4,7 +4,7 @@ import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
 
 import java.util.Collection;
 
-public class LatestExchangeRatesRequest extends AbstractExchangeRatesRequest {
+public final class LatestExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
     public LatestExchangeRatesRequest(Currency base, Collection<Currency> targets) {
         super(base, targets);

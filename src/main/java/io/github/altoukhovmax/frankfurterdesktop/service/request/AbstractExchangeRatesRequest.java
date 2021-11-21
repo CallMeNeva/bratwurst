@@ -6,7 +6,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public abstract class AbstractExchangeRatesRequest implements DataRequest {
+public abstract sealed class AbstractExchangeRatesRequest implements DataRequest
+        permits LatestExchangeRatesRequest, HistoricalExchangeRatesRequest, TimeSeriesExchangeRatesRequest {
 
     private Currency base;
     private Collection<Currency> targets;

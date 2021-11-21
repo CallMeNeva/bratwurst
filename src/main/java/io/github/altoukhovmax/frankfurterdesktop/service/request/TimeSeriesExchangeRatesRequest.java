@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
 
-public class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesRequest {
+public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
     private LocalDate startDate;
     private LocalDate endDate;

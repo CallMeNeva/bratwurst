@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
 
-public class HistoricalExchangeRatesRequest extends AbstractExchangeRatesRequest {
+public final class HistoricalExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
     private LocalDate date;
 
