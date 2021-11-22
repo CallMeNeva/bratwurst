@@ -4,38 +4,43 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
-import io.github.altoukhovmax.frankfurterdesktop.service.request.*;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.AbstractExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.DataRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.HistoricalExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.TimeSeriesExchangeRatesRequest;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.TimeSeriesExchangeRatesDTO;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.DTOMapper;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.DTOMappingException;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.SpecificDateExchangeRatesDTOMapper;
 import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.TimeSeriesExchangeRatesDTOMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public final class FrankfurterService implements ExchangeRatesService {
 
-    private static final Duration TIMEOUT_DURATION = Duration.ofSeconds(8);
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FrankfurterService.class);
+    private static final Logger LOGGER = Logger.getLogger(FrankfurterService.class.getName());
     private static final ObjectMapper JSON_PARSER = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    private static final Duration TIMEOUT_DURATION = Duration.ofSeconds(8);
+
     private final String resourceIdentifierBase;
     private final HttpClient client;
 
-    private FrankfurterService(String host, boolean connectionSecure) {
-        this.resourceIdentifierBase = String.format("%s://%s", connectionSecure ? "https" : "http", host);
+    private FrankfurterService(String hostname, boolean enableSecureConnection) {
+        this.resourceIdentifierBase = String.format("%s://%s/", enableSecureConnection ? "https" : "http", hostname);
         this.client = HttpClient.newHttpClient();
     }
 
@@ -43,10 +48,17 @@ public final class FrankfurterService implements ExchangeRatesService {
         return new FrankfurterService("api.frankfurter.app", true);
     }
 
-    /* TODO: Static factory method for user-provided hosts with validation */
+    public static FrankfurterService withCustomHost(String hostname, boolean enableSecureConnection) {
+        /* Hostname is validated at request time instead of construction time */
+        return new FrankfurterService(Objects.requireNonNull(hostname), enableSecureConnection);
+    }
 
     @Override
     public Set<ExchangeRate> serve(AbstractExchangeRatesRequest request) throws ServiceException {
+        /*
+         * Since the currency dataset is defined statically with no way to update it at runtime, a DTOMappingException
+         * will occur in the (unlikely) event that it is not up-to-date.
+         */
         return switch (request) {
             case LatestExchangeRatesRequest ignored ->
                     fetchData(request, SpecificDateExchangeRatesDTO.class, SpecificDateExchangeRatesDTOMapper.INSTANCE);
@@ -62,20 +74,19 @@ public final class FrankfurterService implements ExchangeRatesService {
     private <D, T> T fetchData(DataRequest dataRequest,
                                Class<D> dataObjClass,
                                DTOMapper<D, T> dataObjMapper) throws ServiceException {
-        /* It is assumed that the URI base was validated at construction time */
-        URI resourceIdentifier = URI.create(resourceIdentifierBase + '/' + dataRequest.toURIPath());
-        HttpRequest request = HttpRequest.newBuilder(resourceIdentifier)
-                .GET()
-                .timeout(TIMEOUT_DURATION)
-                .build();
         try {
+            URI resourceIdentifier = new URI(resourceIdentifierBase + dataRequest.toURIPath());
+            HttpRequest request = HttpRequest.newBuilder(resourceIdentifier)
+                    .GET()
+                    .timeout(TIMEOUT_DURATION)
+                    .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             D dataObj = JSON_PARSER.readValue(response.body(), dataObjClass);
             T data = dataObjMapper.map(dataObj);
             LOGGER.info("Fetched: " + resourceIdentifier);
             return data;
-        } catch (IOException | InterruptedException | SecurityException | DTOMappingException e) {
-            LOGGER.error("Failed to fetch " + resourceIdentifier + ", reason: " + e.getMessage());
+        } catch (URISyntaxException | IOException | InterruptedException | SecurityException | DTOMappingException e) {
+            LOGGER.warning("Failed to fetch data (" + e.getCause() + ')');
             throw new ServiceException(e);
         }
     }

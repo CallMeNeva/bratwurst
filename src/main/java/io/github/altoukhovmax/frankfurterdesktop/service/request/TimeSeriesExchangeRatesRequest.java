@@ -13,9 +13,9 @@ public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesR
     private LocalDate endDate;
 
     public TimeSeriesExchangeRatesRequest(Currency base,
-                                             Collection<Currency> targets,
-                                             LocalDate startDate,
-                                             LocalDate endDate) {
+                                          Collection<Currency> targets,
+                                          LocalDate startDate,
+                                          LocalDate endDate) {
         super(base, targets);
         setStartDate(startDate);
         setEndDate(endDate);
