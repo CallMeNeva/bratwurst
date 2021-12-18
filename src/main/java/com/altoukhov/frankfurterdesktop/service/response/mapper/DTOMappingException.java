@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.frankfurterdesktop.service.response.mapper;
+package com.altoukhov.frankfurterdesktop.service.response.mapper;
 
 public class DTOMappingException extends RuntimeException {
 

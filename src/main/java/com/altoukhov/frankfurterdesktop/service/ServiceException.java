@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.frankfurterdesktop.service;
+package com.altoukhov.frankfurterdesktop.service;
 
 public class ServiceException extends RuntimeException {
 

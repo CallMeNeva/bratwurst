@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.frankfurterdesktop.service.response;
+package com.altoukhov.frankfurterdesktop.service.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

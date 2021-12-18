@@ -1,7 +1,7 @@
-package io.github.altoukhovmax.frankfurterdesktop.service.response.mapper;
+package com.altoukhov.frankfurterdesktop.service.response.mapper;
 
-import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
-import io.github.altoukhovmax.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
+import com.altoukhov.frankfurterdesktop.model.ExchangeRate;
+import com.altoukhov.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
 
 import java.util.Set;
 import java.util.stream.Collectors;

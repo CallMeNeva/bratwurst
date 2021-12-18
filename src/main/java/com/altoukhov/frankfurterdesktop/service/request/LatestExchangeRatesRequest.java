@@ -1,6 +1,6 @@
-package io.github.altoukhovmax.frankfurterdesktop.service.request;
+package com.altoukhov.frankfurterdesktop.service.request;
 
-import io.github.altoukhovmax.frankfurterdesktop.model.Currency;
+import com.altoukhov.frankfurterdesktop.model.Currency;
 
 import java.util.Collection;
 

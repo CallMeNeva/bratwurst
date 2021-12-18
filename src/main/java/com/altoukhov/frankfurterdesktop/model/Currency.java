@@ -1,4 +1,4 @@
-package io.github.altoukhovmax.frankfurterdesktop.model;
+package com.altoukhov.frankfurterdesktop.model;
 
 import java.util.Arrays;
 import java.util.Objects;
