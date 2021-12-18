@@ -1,20 +1,20 @@
-package com.altoukhov.frankfurterdesktop.service;
+package io.github.altoukhovmax.frankfurterdesktop.service;
 
-import com.altoukhov.frankfurterdesktop.service.request.AbstractExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.DataRequest;
-import com.altoukhov.frankfurterdesktop.service.request.HistoricalExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.TimeSeriesExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
-import com.altoukhov.frankfurterdesktop.service.response.TimeSeriesExchangeRatesDTO;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.DTOMapper;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.DTOMappingException;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.SpecificDateExchangeRatesDTOMapper;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.TimeSeriesExchangeRatesDTOMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.altoukhov.frankfurterdesktop.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.AbstractExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.DataRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.HistoricalExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.request.TimeSeriesExchangeRatesRequest;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.TimeSeriesExchangeRatesDTO;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.DTOMapper;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.DTOMappingException;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.SpecificDateExchangeRatesDTOMapper;
+import io.github.altoukhovmax.frankfurterdesktop.service.response.mapper.TimeSeriesExchangeRatesDTOMapper;
 
 import java.io.IOException;
 import java.net.URI;

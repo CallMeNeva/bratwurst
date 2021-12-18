@@ -1,4 +1,4 @@
-package com.altoukhov.frankfurterdesktop;
+package io.github.altoukhovmax.frankfurterdesktop;
 
 public final class Application {
 

@@ -1,4 +1,4 @@
-package com.altoukhov.frankfurterdesktop.service.response.mapper;
+package io.github.altoukhovmax.frankfurterdesktop.service.response.mapper;
 
 @FunctionalInterface
 public interface DTOMapper<D, T> {

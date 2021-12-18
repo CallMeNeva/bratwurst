@@ -1,4 +1,4 @@
-package com.altoukhov.frankfurterdesktop.model;
+package io.github.altoukhovmax.frankfurterdesktop.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

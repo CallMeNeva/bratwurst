@@ -1,4 +1,4 @@
-package com.altoukhov.frankfurterdesktop.service.request;
+package io.github.altoukhovmax.frankfurterdesktop.service.request;
 
 /*
  * General interface for objects representing data requests.
