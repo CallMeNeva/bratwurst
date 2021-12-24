@@ -19,32 +19,108 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.altoukhovmax</groupId>
     <artifactId>frankfurter-desktop</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
-    <name>Frankfurter Desktop Client</name>
-    <url>https://github.com/altoukhov-max/frankfurter-desktop</url>
+
+    <name>Frankfurter Desktop</name>
+    <description>A cross-platform desktop client for the Frankfurter currency exchange rates web API</description>
+    <inceptionYear>2021</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <jackson.version>2.13.0</jackson.version>
+        <apache-lang-commons.version>3.12.0</apache-lang-commons.version>
+        <apache-http-client.version>5.1.2</apache-http-client.version>
+        <jackson.version>2.13.1</jackson.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <javafx.version>17.0.0.1</javafx.version>
+        <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
+        <controlsfx.version>11.1.1</controlsfx.version>
+        <junit.version>5.8.2</junit.version>
+        <testfx.version>4.0.16-alpha</testfx.version>
     </properties>
 
     <dependencies>
+
+        <!-- Lang utils -->
+
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-lang-commons.version}</version>
         </dependency>
+
+        <!-- HTTP -->
+
         <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>${apache-http-client.version}</version>
+        </dependency>
+
+        <!-- JSON -->
+
+        <dependency> <!-- Implicitly pulls in the parser itself -->
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <!-- Logging -->
+
+        <dependency> <!-- API dep is implicitly pulled by Apache's HTTP client -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- GUI -->
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${controlsfx.version}</version>
+        </dependency>
+
+        <!-- Testing -->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>${testfx.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -55,9 +131,14 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <compilerArgs>
-                        <arg>--enable-preview</arg> <!-- TODO: Remove on next Java release -->
-                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx-maven-plugin.version}</version>
+                <configuration>
+                    <mainClass>io.github.altoukhovmax.frankfurterdesktop.FrankfurterDesktop</mainClass>
                 </configuration>
             </plugin>
         </plugins>
