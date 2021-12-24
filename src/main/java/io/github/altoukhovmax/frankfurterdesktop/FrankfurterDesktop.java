@@ -16,8 +16,12 @@
 
 package io.github.altoukhovmax.frankfurterdesktop;
 
-public final class Application {
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
+public final class FrankfurterDesktop {
 
     public static void main(String[] args) {
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
     }
 }
