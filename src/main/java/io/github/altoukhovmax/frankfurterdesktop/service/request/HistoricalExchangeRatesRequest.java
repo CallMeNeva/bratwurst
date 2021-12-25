@@ -37,7 +37,7 @@ public final class HistoricalExchangeRatesRequest extends AbstractExchangeRatesR
     }
 
     public void setDate(LocalDate date) {
-        this.date = Objects.requireNonNull(date);
+        this.date = Objects.requireNonNull(date, "Provided date is null");
     }
 
     @Override

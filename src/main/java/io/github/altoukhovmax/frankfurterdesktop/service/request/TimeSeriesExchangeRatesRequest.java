@@ -25,13 +25,12 @@ import java.util.Objects;
 
 public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesRequest {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeRatesRequest(Currency base,
-                                          Collection<Currency> targets,
-                                          LocalDate startDate,
-                                          LocalDate endDate) {
+    public TimeSeriesExchangeRatesRequest(Currency base, Collection<Currency> targets, LocalDate startDate, LocalDate endDate) {
         super(base, targets);
         setStartDate(startDate);
         setEndDate(endDate);
@@ -42,7 +41,7 @@ public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesR
     }
 
     public void setStartDate(LocalDate startDate) {
-        this.startDate = Objects.requireNonNull(startDate);
+        this.startDate = Objects.requireNonNull(startDate, "Provided start date is null");
     }
 
     public LocalDate getEndDate() {
@@ -55,7 +54,7 @@ public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesR
 
     @Override
     protected String getEndpointName() {
-        String name = startDate.format(DateTimeFormatter.ISO_LOCAL_DATE) + "..";
-        return endDate == null ? name : (name + endDate.format(DateTimeFormatter.ISO_LOCAL_DATE));
+        String name = DATE_FORMATTER.format(startDate) + "..";
+        return Objects.isNull(endDate) ? name : (name + DATE_FORMATTER.format(endDate));
     }
 }
