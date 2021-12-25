@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.altoukhovmax.frankfurterdesktop.service.response;
+package io.github.altoukhovmax.frankfurterdesktop.service.response.mapper;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Map;
+import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
 
-public record TimeSeriesExchangeRatesDTO(String base, Map<LocalDate, Map<String, BigDecimal>> rates) {}
+import java.util.Set;
+
+@FunctionalInterface
+public interface ExchangeRatesDTOMapper<D> extends DTOMapper<D, Set<ExchangeRate>> {
+}

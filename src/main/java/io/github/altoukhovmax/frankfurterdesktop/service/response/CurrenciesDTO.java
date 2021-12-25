@@ -16,8 +16,7 @@
 
 package io.github.altoukhovmax.frankfurterdesktop.service.response;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Map;
+import java.util.HashMap;
 
-public record TimeSeriesExchangeRatesDTO(String base, Map<LocalDate, Map<String, BigDecimal>> rates) {}
+/* A (probably) slower, but cleaner alternative to using type tokens */
+public final class CurrenciesDTO extends HashMap<String, String> {}

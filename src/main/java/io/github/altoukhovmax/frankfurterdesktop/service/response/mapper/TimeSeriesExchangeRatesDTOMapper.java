@@ -26,15 +26,16 @@ public enum TimeSeriesExchangeRatesDTOMapper implements DTOMapper<TimeSeriesExch
     INSTANCE;
 
     @Override
-    public Set<ExchangeRate> map(TimeSeriesExchangeRatesDTO dataObj) throws DTOMappingException {
+    public Set<ExchangeRate> map(TimeSeriesExchangeRatesDTO dataObject) throws DTOMappingException {
+        /* Internal usage: no null-checks */
         try {
-            return dataObj.rates()
+            return dataObject.rates()
                     .entrySet()
-                    .stream() /* Date-to-rates mappings/entries */
+                    .stream() /* Date-to-rates entries */
                     .flatMap(e1 -> e1.getValue()
                             .entrySet()
-                            .stream() /* Currency-code-to-rate-value mappings/entries */
-                            .map(e2 -> new ExchangeRate(dataObj.base(), e2.getKey(), e2.getValue(), e1.getKey())))
+                            .stream() /* Code-to-value entries */
+                            .map(e2 -> ExchangeRate.of(dataObject.base(), e2.getKey(), e2.getValue(), e1.getKey())))
                     .collect(Collectors.toSet());
         } catch (IllegalArgumentException e) {
             throw new DTOMappingException(e);

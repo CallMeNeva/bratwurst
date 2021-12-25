@@ -22,16 +22,17 @@ import io.github.altoukhovmax.frankfurterdesktop.service.response.SpecificDateEx
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum SpecificDateExchangeRatesDTOMapper implements DTOMapper<SpecificDateExchangeRatesDTO, Set<ExchangeRate>> {
+public enum SpecificDateExchangeRatesDTOMapper implements ExchangeRatesDTOMapper<SpecificDateExchangeRatesDTO> {
     INSTANCE;
 
     @Override
-    public Set<ExchangeRate> map(SpecificDateExchangeRatesDTO dataObj) throws DTOMappingException {
+    public Set<ExchangeRate> map(SpecificDateExchangeRatesDTO dataObject) throws DTOMappingException {
+        /* Internal usage: no null-checks */
         try {
-            return dataObj.rates()
+            return dataObject.rates()
                     .entrySet()
                     .stream()
-                    .map(entry -> new ExchangeRate(dataObj.base(), entry.getKey(), entry.getValue(), dataObj.date()))
+                    .map(entry -> ExchangeRate.of(dataObject.base(), entry.getKey(), entry.getValue(), dataObject.date()))
                     .collect(Collectors.toSet());
         } catch (IllegalArgumentException e) {
             throw new DTOMappingException(e);
