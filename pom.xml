@@ -40,7 +40,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <apache-lang-commons.version>3.12.0</apache-lang-commons.version>
         <apache-http-client.version>5.1.2</apache-http-client.version>
         <jackson.version>2.13.1</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
@@ -53,19 +52,11 @@
 
     <dependencies>
 
-        <!-- Lang utils -->
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${apache-lang-commons.version}</version>
-        </dependency>
-
         <!-- HTTP -->
 
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
+            <artifactId>httpclient5-fluent</artifactId>
             <version>${apache-http-client.version}</version>
         </dependency>
 
@@ -131,6 +122,9 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg> <!-- TODO: Remove on next Java release -->
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
