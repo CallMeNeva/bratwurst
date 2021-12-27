@@ -21,5 +21,4 @@ import io.github.altoukhovmax.frankfurterdesktop.model.ExchangeRate;
 import java.util.Set;
 
 @FunctionalInterface
-public interface ExchangeRatesDTOMapper<D> extends DTOMapper<D, Set<ExchangeRate>> {
-}
+public interface ExchangeRatesDTOMapper<D> extends DTOMapper<D, Set<ExchangeRate>> {}

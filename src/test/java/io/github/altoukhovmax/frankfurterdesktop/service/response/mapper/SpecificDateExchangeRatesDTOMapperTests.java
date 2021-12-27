@@ -38,7 +38,7 @@ public final class SpecificDateExchangeRatesDTOMapperTests {
     void maps() {
         Currency unitedStatesDollar = new Currency("USD", "United States Dollar");
         Currency swissFranc = new Currency("CHF", "Swiss Franc");
-        CurrencyRegistry.INSTANCE.overwrite(unitedStatesDollar, swissFranc);
+        CurrencyRegistry.INSTANCE.update(unitedStatesDollar, swissFranc);
 
         BigDecimal rateValue = BigDecimal.valueOf(0.91915);
         LocalDate date = LocalDate.of(2021, Month.DECEMBER, 26);
@@ -58,7 +58,7 @@ public final class SpecificDateExchangeRatesDTOMapperTests {
     @Test
     @DisplayName("SpecificDateExchangeRatesDTOMapper::map throws DTOMappingException on unidentified currency")
     void throwsOnUnidentifiedCurrency() {
-        CurrencyRegistry.INSTANCE.overwrite();
+        CurrencyRegistry.INSTANCE.update();
 
         SpecificDateExchangeRatesDTO dataObject = new SpecificDateExchangeRatesDTO("USD", LocalDate.now(), Map.of("USD", BigDecimal.ONE));
 

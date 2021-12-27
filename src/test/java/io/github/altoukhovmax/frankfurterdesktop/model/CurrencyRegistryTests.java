@@ -31,7 +31,7 @@ public final class CurrencyRegistryTests {
         Set<Currency> currencies = Set.of(
                 new Currency("EUR", "Euro"),
                 new Currency("CHF", "Swiss Franc"));
-        CurrencyRegistry.INSTANCE.overwrite(currencies);
+        CurrencyRegistry.INSTANCE.update(currencies);
 
         Assertions.assertEquals(currencies, CurrencyRegistry.INSTANCE.getCurrencies());
     }
@@ -40,7 +40,7 @@ public final class CurrencyRegistryTests {
     @DisplayName("CurrencyRegistry::overwrite correctly overwrites with valid non-empty array")
     public void overwriteOverwritesOnValidNonEmptyArray() {
         Currency japaneseYen = new Currency("JPY", "Japanese Yen");
-        CurrencyRegistry.INSTANCE.overwrite(japaneseYen);
+        CurrencyRegistry.INSTANCE.update(japaneseYen);
 
         Set<Currency> expected = Set.of(japaneseYen);
         Set<Currency> actual = CurrencyRegistry.INSTANCE.getCurrencies();
@@ -51,7 +51,7 @@ public final class CurrencyRegistryTests {
     @Test
     @DisplayName("CurrencyRegistry::overwrite correctly overwrites with valid empty array")
     public void overwriteOverwritesOnValidEmptyArray() {
-        CurrencyRegistry.INSTANCE.overwrite();
+        CurrencyRegistry.INSTANCE.update();
 
         Set<Currency> expected = Set.of();
         Set<Currency> actual = CurrencyRegistry.INSTANCE.getCurrencies();

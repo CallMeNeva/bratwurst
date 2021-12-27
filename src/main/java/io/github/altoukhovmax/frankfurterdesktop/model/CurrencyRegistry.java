@@ -60,27 +60,27 @@ public enum CurrencyRegistry {
     }
 
     /**
-     * Overwrites this registry's contents with the ones in the provided collection.
+     * Updates (overwrites) this registry's contents with the ones in the provided collection.
      *
      * @param currencies a collection of currencies
      * @throws NullPointerException if {@code currencies} is null
      */
-    public void overwrite(Collection<Currency> currencies) {
+    public void update(Collection<Currency> currencies) {
         Objects.requireNonNull(currencies, "Provided collection of currencies is null");
 
         this.currencies.clear();
         this.currencies.addAll(currencies);
 
-        LOGGER.info("Contents have been overwritten");
+        LOGGER.info("Updated contents");
     }
 
     /**
-     * Overwrites this registry's contents with the provided currencies.
+     * Updates (overwrites) this registry's contents with the provided currencies.
      *
      * @param currencies the registry's new contents
      * @throws NullPointerException if {@code currencies} is null
      */
-    public void overwrite(Currency... currencies) {
-        overwrite(Arrays.asList(currencies));
+    public void update(Currency... currencies) {
+        update(Arrays.asList(currencies));
     }
 }

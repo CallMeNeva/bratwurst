@@ -68,11 +68,11 @@ public abstract class AbstractExchangeRatesRequest extends AbstractDataRequest {
          */
         Map<String, String> parameters = new HashMap<>(2);
 
-        if (base != null) {
+        if (Objects.nonNull(base)) {
             parameters.put("from", base.code());
         }
 
-        if (targets != null) {
+        if (Objects.nonNull(targets)) {
             String joinedTargets = targets.stream()
                     .filter(Objects::nonNull) /* Just in case */
                     .map(Currency::code)

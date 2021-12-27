@@ -34,7 +34,7 @@ public final class ExchangeRateTests {
     @Test
     @DisplayName("ExchangeRate::of correctly constructs with valid parameters")
     public void ofConstructsOnValidParams() {
-        CurrencyRegistry.INSTANCE.overwrite(EURO, SWISS_FRANC);
+        CurrencyRegistry.INSTANCE.update(EURO, SWISS_FRANC);
 
         Assertions.assertDoesNotThrow(() -> ExchangeRate.of("EUR", "CHF", DUMMY_VALUE, DUMMY_DATE));
     }
@@ -42,7 +42,7 @@ public final class ExchangeRateTests {
     @Test
     @DisplayName("ExchangeRate::of throws IAE if failed to find currencies")
     public void ofThrowsOnCurrencyNotFound() {
-        CurrencyRegistry.INSTANCE.overwrite(EURO);
+        CurrencyRegistry.INSTANCE.update(EURO);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> ExchangeRate.of("EUR", "CHF", DUMMY_VALUE, DUMMY_DATE));
     }

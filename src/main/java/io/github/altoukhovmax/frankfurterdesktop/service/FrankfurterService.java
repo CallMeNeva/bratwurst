@@ -88,7 +88,7 @@ public final class FrankfurterService {
 
     public void updateCurrencyRegistry() {
         Set<Currency> currencies = fetchData(CurrenciesRequest.getInstance(), CurrenciesDTO.class, CurrenciesDTOMapper.INSTANCE);
-        CurrencyRegistry.INSTANCE.overwrite(currencies);
+        CurrencyRegistry.INSTANCE.update(currencies);
     }
 
     private <D, T> T fetchData(AbstractDataRequest dataRequest, Class<D> dataClass, DTOMapper<D, T> dataMapper) throws ServiceException {
