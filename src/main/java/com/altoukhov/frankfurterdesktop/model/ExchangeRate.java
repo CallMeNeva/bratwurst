@@ -72,15 +72,4 @@ public record ExchangeRate(Currency base, Currency target, BigDecimal value, Loc
 
         return new ExchangeRate(base, target, value, date);
     }
-
-    /**
-     * Converts a specified amount of the base currency to the target currency using this exchange rate.
-     *
-     * @param amount the amount of the exchange rate's target currency to convert (not null)
-     * @return the resulting amount of the exchange rate's base currency (not null)
-     * @throws NullPointerException if {@code amount} is null
-     */
-    public BigDecimal convert(BigDecimal amount) {
-        return Objects.requireNonNull(amount, "Provided amount is null").multiply(value);
-    }
 }

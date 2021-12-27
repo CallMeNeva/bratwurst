@@ -46,16 +46,4 @@ public final class ExchangeRateTests {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> ExchangeRate.of("EUR", "CHF", DUMMY_VALUE, DUMMY_DATE));
     }
-
-    @Test
-    @DisplayName("ExchangeRate::convert correctly converts a valid amount")
-    public void convertConvertsOnValidAmount() {
-        ExchangeRate exchangeRate = new ExchangeRate(EURO, SWISS_FRANC, DUMMY_VALUE, DUMMY_DATE);
-        BigDecimal amount = BigDecimal.valueOf(50);
-
-        BigDecimal expected = amount.multiply(exchangeRate.value());
-        BigDecimal actual = exchangeRate.convert(amount);
-
-        Assertions.assertEquals(expected, actual);
-    }
 }
