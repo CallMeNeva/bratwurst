@@ -38,18 +38,38 @@
     </licenses>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Dependency versions -->
         <java.version>17</java.version>
+        <javafx.version>17.0.0.1</javafx.version>
+        <controlsfx.version>11.1.1</controlsfx.version>
         <apache-http-client.version>5.1.2</apache-http-client.version>
         <jackson.version>2.13.1</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
-        <javafx.version>17.0.0.1</javafx.version>
-        <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
-        <controlsfx.version>11.1.1</controlsfx.version>
         <junit.version>5.8.2</junit.version>
+
+        <!-- Plugin versions -->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-javafx-plugin.version>0.0.8</maven-javafx-plugin.version>
+
+        <!-- Misc. -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
+
+        <!-- GUI -->
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${controlsfx.version}</version>
+        </dependency>
 
         <!-- HTTP -->
 
@@ -81,20 +101,6 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- GUI -->
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>${controlsfx.version}</version>
-        </dependency>
-
         <!-- Testing -->
 
         <dependency>
@@ -111,6 +117,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -122,7 +129,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx-maven-plugin.version}</version>
+                <version>${maven-javafx-plugin.version}</version>
                 <configuration>
                     <mainClass>com.altoukhov.frankfurterdesktop.FrankfurterDesktop</mainClass>
                 </configuration>
