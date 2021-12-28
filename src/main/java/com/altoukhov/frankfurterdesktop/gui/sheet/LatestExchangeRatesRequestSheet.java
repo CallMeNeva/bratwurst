@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop;
+package com.altoukhov.frankfurterdesktop.gui.sheet;
 
-import com.altoukhov.frankfurterdesktop.gui.FrankfurterDesktopGUI;
-import javafx.application.Application;
-import org.slf4j.bridge.SLF4JBridgeHandler;
+import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
 
-public final class FrankfurterDesktop {
+public final class LatestExchangeRatesRequestSheet extends AbstractExchangeRatesRequestSheet<LatestExchangeRatesRequest> {
 
-    public static void main(String[] args) {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-
-        Application.launch(FrankfurterDesktopGUI.class, args);
+    @Override
+    public LatestExchangeRatesRequest submit() {
+        return new LatestExchangeRatesRequest(getSelectedBase(), getSelectedTargets());
     }
 }

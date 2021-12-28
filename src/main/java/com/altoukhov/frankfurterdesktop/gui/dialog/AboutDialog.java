@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop;
+package com.altoukhov.frankfurterdesktop.gui.dialog;
 
-import com.altoukhov.frankfurterdesktop.gui.FrankfurterDesktopGUI;
-import javafx.application.Application;
-import org.slf4j.bridge.SLF4JBridgeHandler;
+import javafx.scene.control.Alert;
 
-public final class FrankfurterDesktop {
+public final class AboutDialog extends Alert {
 
-    public static void main(String[] args) {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
+    private static final String CONTENT_TEXT = "Not implemented yet!";
 
-        Application.launch(FrankfurterDesktopGUI.class, args);
+    public AboutDialog() {
+        super(AlertType.INFORMATION);
+        setHeaderText(null);
+        setContentText(CONTENT_TEXT);
     }
 }

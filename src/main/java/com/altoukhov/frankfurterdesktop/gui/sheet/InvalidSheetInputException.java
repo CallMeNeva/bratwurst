@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop;
+package com.altoukhov.frankfurterdesktop.gui.sheet;
 
-import com.altoukhov.frankfurterdesktop.gui.FrankfurterDesktopGUI;
-import javafx.application.Application;
-import org.slf4j.bridge.SLF4JBridgeHandler;
+public class InvalidSheetInputException extends IllegalStateException {
 
-public final class FrankfurterDesktop {
-
-    public static void main(String[] args) {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-
-        Application.launch(FrankfurterDesktopGUI.class, args);
+    public InvalidSheetInputException() {
+        super();
     }
 }
