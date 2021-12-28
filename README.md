@@ -9,10 +9,13 @@ written in modern (17+) Java and JavaFX.
 ## Getting Started
 *Soon™*
 
+## Attributions
+- Application icon is provided by [Freepik on Flaticon](https://www.flaticon.com/free-icon/exchange-rate_4646154?term=exchangerate&page=1&position=51&page=1&position=51&related_id=4646154&origin=tag)
+
 ## TODO
-- Fix present unit tests, create absent
-- Change group ID and root package name to another domain name to avoid issues with
-  [official Oracle conventions](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
+- `TimeSeriesExchangeRatesRequestSheet`: date range validators and/or UI change
+- Tests: make some tests for requests, cleanup existing ones
+- Externalize UI strings
 
 ## License
 This software is distributed under the [Apache 2.0 license](./LICENSE).
