@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import java.util.Set;
 public final class CurrencyTests {
 
     @Test
-    @DisplayName("Currency::ofEntry correctly constructs from a valid Map.Entry")
-    public void ofEntryConstructsFromValidEntry() {
+    @DisplayName("Currency::ofEntry constructs a Currency given a non-null Map.Entry")
+    public void constructsGivenNonNullEntry() {
         Map.Entry<String, String> entry = new AbstractMap.SimpleImmutableEntry<>("USD", "United States Dollar");
 
         Currency expected = new Currency("USD", "United States Dollar");
@@ -39,8 +39,8 @@ public final class CurrencyTests {
     }
 
     @Test
-    @DisplayName("Currency::ofMap correctly constructs from a valid Map")
-    public void ofMapConstructsFromValidMap() {
+    @DisplayName("Currency::ofMap constructs a Set of Currency given a non-null Map")
+    public void constructsGivenNonNullMap() {
         Map<String, String> map = Map.of(
                 "EUR", "Euro",
                 "CHF", "Swiss Franc"
