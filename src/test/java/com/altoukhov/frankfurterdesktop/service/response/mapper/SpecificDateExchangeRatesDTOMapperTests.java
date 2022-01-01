@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public final class SpecificDateExchangeRatesDTOMapperTests {
     void maps() {
         Currency unitedStatesDollar = new Currency("USD", "United States Dollar");
         Currency swissFranc = new Currency("CHF", "Swiss Franc");
-        CurrencyRegistry.INSTANCE.update(unitedStatesDollar, swissFranc);
+        CurrencyRegistry.GLOBAL.update(unitedStatesDollar, swissFranc);
 
         BigDecimal rateValue = BigDecimal.valueOf(0.91915);
         LocalDate date = LocalDate.of(2021, Month.DECEMBER, 26);
@@ -58,7 +58,7 @@ public final class SpecificDateExchangeRatesDTOMapperTests {
     @Test
     @DisplayName("SpecificDateExchangeRatesDTOMapper::map throws DTOMappingException on unidentified currency")
     void throwsOnUnidentifiedCurrency() {
-        CurrencyRegistry.INSTANCE.update();
+        CurrencyRegistry.GLOBAL.update();
 
         SpecificDateExchangeRatesDTO dataObject = new SpecificDateExchangeRatesDTO("USD", LocalDate.now(), Map.of("USD", BigDecimal.ONE));
 

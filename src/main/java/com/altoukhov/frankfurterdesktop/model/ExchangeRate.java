@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package com.altoukhov.frankfurterdesktop.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * Models an immutable exchange rate. Each one is represented by:
@@ -34,9 +33,6 @@ import java.util.function.Function;
  * @see CurrencyRegistry
  */
 public record ExchangeRate(Currency base, Currency target, BigDecimal value, LocalDate date) {
-
-    private static final Function<String, IllegalArgumentException> CURRENCY_NOT_FOUND_EXCEPTION_GENERATOR = /* Used in ::of */
-            currencyCode -> new IllegalArgumentException("No currency with code '" + currencyCode + "' was found");
 
     /**
      * Constructs an {@code ExchangeRate} instance with the given properties after null-checking them first.
@@ -66,9 +62,9 @@ public record ExchangeRate(Currency base, Currency target, BigDecimal value, Loc
      * @throws IllegalArgumentException if failed to find a currency in the registry with the given codes
      */
     public static ExchangeRate of(String baseCode, String targetCode, BigDecimal value, LocalDate date) {
-        CurrencyRegistry registry = CurrencyRegistry.INSTANCE;
-        Currency base = registry.findByCode(baseCode).orElseThrow(() -> CURRENCY_NOT_FOUND_EXCEPTION_GENERATOR.apply(baseCode));
-        Currency target = registry.findByCode(targetCode).orElseThrow(() -> CURRENCY_NOT_FOUND_EXCEPTION_GENERATOR.apply(targetCode));
+        CurrencyRegistry registry = CurrencyRegistry.GLOBAL;
+        Currency base = registry.find(baseCode);
+        Currency target = registry.find(targetCode);
 
         return new ExchangeRate(base, target, value, date);
     }

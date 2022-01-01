@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ public final class FrankfurterService {
 
     public void updateCurrencyRegistry() {
         Set<Currency> currencies = fetchData(CurrenciesRequest.getInstance(), CurrenciesDTO.class, CurrenciesDTOMapper.INSTANCE);
-        CurrencyRegistry.INSTANCE.update(currencies);
+        CurrencyRegistry.GLOBAL.update(currencies);
     }
 
     private <D, T> T fetchData(AbstractDataRequest dataRequest, Class<D> dataClass, DTOMapper<D, T> dataMapper) throws ServiceException {

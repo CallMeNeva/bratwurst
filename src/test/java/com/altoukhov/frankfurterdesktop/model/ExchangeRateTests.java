@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public final class ExchangeRateTests {
     @Test
     @DisplayName("ExchangeRate::of correctly constructs with valid parameters")
     public void ofConstructsOnValidParams() {
-        CurrencyRegistry.INSTANCE.update(EURO, SWISS_FRANC);
+        CurrencyRegistry.GLOBAL.update(EURO, SWISS_FRANC);
 
         Assertions.assertDoesNotThrow(() -> ExchangeRate.of("EUR", "CHF", DUMMY_VALUE, DUMMY_DATE));
     }
@@ -42,7 +42,7 @@ public final class ExchangeRateTests {
     @Test
     @DisplayName("ExchangeRate::of throws IAE if failed to find currencies")
     public void ofThrowsOnCurrencyNotFound() {
-        CurrencyRegistry.INSTANCE.update(EURO);
+        CurrencyRegistry.GLOBAL.update(EURO);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> ExchangeRate.of("EUR", "CHF", DUMMY_VALUE, DUMMY_DATE));
     }

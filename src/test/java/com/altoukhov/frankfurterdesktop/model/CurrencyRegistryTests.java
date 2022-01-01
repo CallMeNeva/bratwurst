@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,36 +26,34 @@ import java.util.Set;
 public final class CurrencyRegistryTests {
 
     @Test
-    @DisplayName("CurrencyRegistry::overwrite correctly overwrites with valid collection")
-    public void overwriteOverwritesOnValidCollection() {
+    @DisplayName("CurrencyRegistry::find finds a Currency given a valid ISO code")
+    public void findsGivenValidCode() {
+        Currency expected = new Currency("JPY", "Japanese Yen");
+        CurrencyRegistry registry = new CurrencyRegistry(expected);
+        Currency actual = registry.find("JPY");
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("CurrencyRegistry::find throws CurrencyNotFoundException given an invalid ISO code")
+    public void throwsGivenInvalidCode() {
+        CurrencyRegistry registry = new CurrencyRegistry();
+
+        Assertions.assertThrows(CurrencyNotFoundException.class, () -> registry.find("JPY"));
+    }
+
+    @Test
+    @DisplayName("CurrencyRegistry::update updates contents given a valid Collection")
+    public void updatesGivenValidCollection() {
+        CurrencyRegistry registry = new CurrencyRegistry();
+
         Set<Currency> currencies = Set.of(
                 new Currency("EUR", "Euro"),
-                new Currency("CHF", "Swiss Franc"));
-        CurrencyRegistry.INSTANCE.update(currencies);
+                new Currency("CHF", "Swiss Franc")
+        );
+        registry.update(currencies);
 
-        Assertions.assertEquals(currencies, CurrencyRegistry.INSTANCE.getCurrencies());
-    }
-
-    @Test
-    @DisplayName("CurrencyRegistry::overwrite correctly overwrites with valid non-empty array")
-    public void overwriteOverwritesOnValidNonEmptyArray() {
-        Currency japaneseYen = new Currency("JPY", "Japanese Yen");
-        CurrencyRegistry.INSTANCE.update(japaneseYen);
-
-        Set<Currency> expected = Set.of(japaneseYen);
-        Set<Currency> actual = CurrencyRegistry.INSTANCE.getCurrencies();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("CurrencyRegistry::overwrite correctly overwrites with valid empty array")
-    public void overwriteOverwritesOnValidEmptyArray() {
-        CurrencyRegistry.INSTANCE.update();
-
-        Set<Currency> expected = Set.of();
-        Set<Currency> actual = CurrencyRegistry.INSTANCE.getCurrencies();
-
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(currencies, registry.getCurrencies());
     }
 }

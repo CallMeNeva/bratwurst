@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public final class CurrencyComboBoxFactory {
      * registry's contents have been updated.
      */
     public static void reloadSharedItems() {
-        Set<Currency> items = CurrencyRegistry.INSTANCE.getCurrencies();
+        Set<Currency> items = CurrencyRegistry.GLOBAL.getCurrencies();
         SHARED_ITEMS.setAll(items);
     }
 }
