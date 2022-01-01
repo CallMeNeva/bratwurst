@@ -39,7 +39,6 @@ import java.util.Set;
  * @implNote This class is currently (probably?) not thread-safe. The application's upper layers currently do read/write operations on the
  * global registry sequentially, so there should be no need to bother with thread-safety unless that changes.
  * @see Currency
- * @see ExchangeRate
  */
 public final class CurrencyRegistry {
 
