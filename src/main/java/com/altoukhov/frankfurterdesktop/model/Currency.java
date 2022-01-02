@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * {@code CurrencyRegistry} for the latter).
  *
  * @see CurrencyRegistry
- * @see ExchangeRate
+ * @see Exchange
  */
 public record Currency(String code, String displayName) {
 
