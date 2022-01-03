@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,24 +24,17 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * Base class for exchange rates requests.
- */
-public abstract class AbstractExchangeRatesRequest extends AbstractDataRequest {
+public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
 
     private Currency base;
     private Collection<Currency> targets;
+    private double amount;
 
-    /**
-     * Initializes the base and targets of this exchange rates request. Either of those properties may be left unspecified (i.e. null for
-     * base and null/empty for targets) to use the service's default values when it processes the request. This applies to setters as well.
-     *
-     * @param base this request's base currency (may be null)
-     * @param targets a collection of this request's target currencies (may be null or empty)
-     */
-    protected AbstractExchangeRatesRequest(Currency base, Collection<Currency> targets) {
+    /* NOTE: Null base and null/empty targets collection are allowed and represent default values (picked by the service) */
+    protected AbstractExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
         setBase(base);
         setTargets(targets);
+        setAmount(amount);
     }
 
     public final Currency getBase() {
@@ -60,13 +53,19 @@ public abstract class AbstractExchangeRatesRequest extends AbstractDataRequest {
         this.targets = targets;
     }
 
+    public final double getAmount() {
+        return amount;
+    }
+
+    public final void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     @Override
     protected final Map<String, String> getParameters() {
-        /*
-         * FIXME: Current impl is (probably?) ineffective. For instance, if both base and targets are unspecified, we could avoid
-         *        constructing a HashMap and return super's params instead.
-         */
-        Map<String, String> parameters = new HashMap<>(2);
+        Map<String, String> parameters = new HashMap<>(3);
+
+        parameters.put("amount", Double.toString(amount));
 
         if (Objects.nonNull(base)) {
             parameters.put("from", base.code());

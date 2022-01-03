@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,16 @@ package com.altoukhov.frankfurterdesktop.service.request;
 
 import com.altoukhov.frankfurterdesktop.model.Currency;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Objects;
 
-public final class HistoricalExchangeRatesRequest extends AbstractExchangeRatesRequest {
+public final class LatestExchangeDataRequest extends AbstractExchangeDataRequest {
 
-    private LocalDate date;
-
-    public HistoricalExchangeRatesRequest(Currency base, Collection<Currency> targets, LocalDate date) {
-        super(base, targets);
-        setDate(date);
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = Objects.requireNonNull(date, "Provided date is null");
+    public LatestExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
+        super(base, targets, amount);
     }
 
     @Override
     protected String getEndpointName() {
-        return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return "latest";
     }
 }

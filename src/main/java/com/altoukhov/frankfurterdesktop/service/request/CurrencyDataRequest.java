@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,11 @@
 
 package com.altoukhov.frankfurterdesktop.service.request;
 
-public final class CurrenciesRequest extends AbstractDataRequest {
+public final class CurrencyDataRequest extends AbstractDataRequest {
 
-    private static final CurrenciesRequest INSTANCE = new CurrenciesRequest();
+    public static final CurrencyDataRequest INSTANCE = new CurrencyDataRequest();
 
-    public static CurrenciesRequest getInstance() {
-        return INSTANCE;
-    }
-
-    private CurrenciesRequest() {}
+    private CurrencyDataRequest() {}
 
     @Override
     protected String getEndpointName() {

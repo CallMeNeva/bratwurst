@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
 
-public final class TimeSeriesExchangeRatesRequest extends AbstractExchangeRatesRequest {
+public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeRatesRequest(Currency base, Collection<Currency> targets, LocalDate startDate, LocalDate endDate) {
-        super(base, targets);
+    public TimeSeriesExchangeDataRequest(Currency base,
+                                         Collection<Currency> targets,
+                                         double amount,
+                                         LocalDate startDate,
+                                         LocalDate endDate) {
+        super(base, targets, amount);
         setStartDate(startDate);
         setEndDate(endDate);
     }
