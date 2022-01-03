@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop.gui.converter;
+package com.altoukhov.frankfurterdesktop.gui.util.converter;
 
 import com.altoukhov.frankfurterdesktop.model.Currency;
 import javafx.util.StringConverter;
@@ -22,14 +22,6 @@ import javafx.util.StringConverter;
 import java.util.Objects;
 
 public final class CurrencyStringConverter extends StringConverter<Currency> {
-
-    private static final CurrencyStringConverter INSTANCE = new CurrencyStringConverter();
-
-    public static CurrencyStringConverter getInstance() {
-        return INSTANCE;
-    }
-
-    private CurrencyStringConverter() {}
 
     @Override
     public String toString(Currency object) {

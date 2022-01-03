@@ -16,14 +16,14 @@
 
 package com.altoukhov.frankfurterdesktop.gui.control;
 
-import com.altoukhov.frankfurterdesktop.gui.converter.CurrencyStringConverter;
+import com.altoukhov.frankfurterdesktop.gui.util.converter.CurrencyStringConverter;
 import com.altoukhov.frankfurterdesktop.model.Currency;
 import com.altoukhov.frankfurterdesktop.model.CurrencyRegistry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
-import org.controlsfx.control.CheckModel;
 
 import java.util.Objects;
 import java.util.Set;
@@ -31,32 +31,19 @@ import java.util.Set;
 public final class CurrencyComboBoxFactory {
 
     private static final ObservableList<Currency> SHARED_ITEMS = FXCollections.observableArrayList();
+    private static final StringConverter<Currency> CONVERTER = new CurrencyStringConverter();
 
     private CurrencyComboBoxFactory() {}
 
-    public static ComboBox<Currency> createWithSingleSelection(Currency initialSelection) {
+    public static ComboBox<Currency> createWithSingleSelection() {
         ComboBox<Currency> comboBox = new ComboBox<>(SHARED_ITEMS);
-        comboBox.setConverter(CurrencyStringConverter.getInstance());
-        comboBox.getSelectionModel().select(initialSelection);
-
+        comboBox.setConverter(CONVERTER);
         return comboBox;
     }
 
-    public static ComboBox<Currency> createWithSingleSelection() {
-        return createWithSingleSelection(null);
-    }
-
-    public static CheckComboBox<Currency> createWithMultiSelection(Currency... initialSelections) {
+    public static CheckComboBox<Currency> createWithMultiSelection() {
         CheckComboBox<Currency> comboBox = new CheckComboBox<>(SHARED_ITEMS);
-        comboBox.setConverter(CurrencyStringConverter.getInstance());
-
-        CheckModel<Currency> checkModel = comboBox.getCheckModel();
-        if (Objects.nonNull(initialSelections)) {
-            for (Currency currency : initialSelections) {
-                checkModel.check(currency);
-            }
-        }
-
+        comboBox.setConverter(CONVERTER);
         return comboBox;
     }
 
@@ -65,8 +52,13 @@ public final class CurrencyComboBoxFactory {
      * also not observable. This means that the container of currencies shared between pickers needs to be reloaded manually after the
      * registry's contents have been updated.
      */
-    public static void reloadSharedItems() {
-        Set<Currency> items = CurrencyRegistry.GLOBAL.getCurrencies();
+    public static void reloadSharedItems(CurrencyRegistry registry) {
+        Objects.requireNonNull(registry, "Provided currency registry is null");
+        Set<Currency> items = registry.getCurrencies();
         SHARED_ITEMS.setAll(items);
+    }
+
+    public static void reloadSharedItems() {
+        reloadSharedItems(CurrencyRegistry.GLOBAL);
     }
 }
