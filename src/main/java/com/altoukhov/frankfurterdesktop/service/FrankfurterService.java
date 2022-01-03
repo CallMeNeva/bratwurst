@@ -16,28 +16,28 @@
 
 package com.altoukhov.frankfurterdesktop.service;
 
-import com.altoukhov.frankfurterdesktop.service.response.SpecificDateExchangeRatesDTO;
-import com.altoukhov.frankfurterdesktop.service.response.TimeSeriesExchangeRatesDTO;
+import com.altoukhov.frankfurterdesktop.model.Currency;
+import com.altoukhov.frankfurterdesktop.model.Exchange;
+import com.altoukhov.frankfurterdesktop.service.request.AbstractDataRequest;
+import com.altoukhov.frankfurterdesktop.service.request.AbstractExchangeDataRequest;
+import com.altoukhov.frankfurterdesktop.service.request.CurrencyDataRequest;
+import com.altoukhov.frankfurterdesktop.service.request.HistoricalExchangeDataRequest;
+import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeDataRequest;
+import com.altoukhov.frankfurterdesktop.service.request.TimeSeriesExchangeDataRequest;
+import com.altoukhov.frankfurterdesktop.service.response.CurrenciesDTO;
+import com.altoukhov.frankfurterdesktop.service.response.SpecificDateExchangesDTO;
+import com.altoukhov.frankfurterdesktop.service.response.TimeSeriesExchangesDTO;
+import com.altoukhov.frankfurterdesktop.service.response.mapper.CurrenciesDTOMapper;
 import com.altoukhov.frankfurterdesktop.service.response.mapper.DTOMapper;
 import com.altoukhov.frankfurterdesktop.service.response.mapper.DTOMappingException;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.TimeSeriesExchangeRatesDTOMapper;
+import com.altoukhov.frankfurterdesktop.service.response.mapper.SpecificDateExchangesDTOMapper;
+import com.altoukhov.frankfurterdesktop.service.response.mapper.TimeSeriesExchangesDTOMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.altoukhov.frankfurterdesktop.model.Currency;
-import com.altoukhov.frankfurterdesktop.model.CurrencyRegistry;
-import com.altoukhov.frankfurterdesktop.model.ExchangeRate;
-import com.altoukhov.frankfurterdesktop.service.request.AbstractDataRequest;
-import com.altoukhov.frankfurterdesktop.service.request.AbstractExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.CurrenciesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.HistoricalExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.request.TimeSeriesExchangeRatesRequest;
-import com.altoukhov.frankfurterdesktop.service.response.CurrenciesDTO;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.CurrenciesDTOMapper;
-import com.altoukhov.frankfurterdesktop.service.response.mapper.SpecificDateExchangeRatesDTOMapper;
 import org.apache.hc.client5.http.fluent.Request;
 import org.apache.hc.core5.http.HttpHost;
+import org.apache.hc.core5.http.URIScheme;
 import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +49,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public final class FrankfurterService {
+
+    public static final HttpHost PUBLIC_HOST = new HttpHost(URIScheme.HTTPS.getId(), "api.frankfurter.app");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FrankfurterService.class);
     private static final ObjectMapper JSON_PARSER = new ObjectMapper()
@@ -64,6 +66,10 @@ public final class FrankfurterService {
         setHost(host);
     }
 
+    public FrankfurterService() {
+        host = PUBLIC_HOST;
+    }
+
     public HttpHost getHost() {
         return host;
     }
@@ -72,26 +78,23 @@ public final class FrankfurterService {
         this.host = Objects.requireNonNull(host, "Provided HTTP host is null");
     }
 
-    /* Registry should be updated at least once prior to calling this */
-    public Set<ExchangeRate> fetchExchangeRates(AbstractExchangeRatesRequest request) throws ServiceException {
+    /* NOTE: Global registry should be updated at least once prior to calling this */
+    public Set<Exchange> serveExchanges(AbstractExchangeDataRequest request) throws ServiceException {
         return switch (request) {
-            case LatestExchangeRatesRequest ignored ->
-                    fetchData(request, SpecificDateExchangeRatesDTO.class, SpecificDateExchangeRatesDTOMapper.INSTANCE);
-            case HistoricalExchangeRatesRequest ignored -> /* TODO: Merge this with case above when (if) it becomes possible */
-                    fetchData(request, SpecificDateExchangeRatesDTO.class, SpecificDateExchangeRatesDTOMapper.INSTANCE);
-            case TimeSeriesExchangeRatesRequest ignored ->
-                    fetchData(request, TimeSeriesExchangeRatesDTO.class, TimeSeriesExchangeRatesDTOMapper.INSTANCE);
+            /* FIXME: Merge first two cases when (if) it becomes possible */
+            case LatestExchangeDataRequest r -> serve(request, SpecificDateExchangesDTO.class, SpecificDateExchangesDTOMapper.INSTANCE);
+            case HistoricalExchangeDataRequest r -> serve(request, SpecificDateExchangesDTO.class, SpecificDateExchangesDTOMapper.INSTANCE);
+            case TimeSeriesExchangeDataRequest r -> serve(request, TimeSeriesExchangesDTO.class, TimeSeriesExchangesDTOMapper.INSTANCE);
             case default -> throw new IllegalArgumentException("Unknown request type");
-            case null -> throw new IllegalArgumentException("Request is null");
+            case null -> throw new IllegalArgumentException("Provided request is null");
         };
     }
 
-    public void updateCurrencyRegistry() {
-        Set<Currency> currencies = fetchData(CurrenciesRequest.getInstance(), CurrenciesDTO.class, CurrenciesDTOMapper.INSTANCE);
-        CurrencyRegistry.GLOBAL.update(currencies);
+    public Set<Currency> serveCurrencies() throws ServiceException {
+        return serve(CurrencyDataRequest.INSTANCE, CurrenciesDTO.class, CurrenciesDTOMapper.INSTANCE);
     }
 
-    private <D, T> T fetchData(AbstractDataRequest dataRequest, Class<D> dataClass, DTOMapper<D, T> dataMapper) throws ServiceException {
+    private <D, T> T serve(AbstractDataRequest dataRequest, Class<D> dataClass, DTOMapper<D, T> dataMapper) throws ServiceException {
         try {
             URI resourceIdentifier = dataRequest.toURIWithHost(host);
             String responseContent = Request.get(resourceIdentifier)
