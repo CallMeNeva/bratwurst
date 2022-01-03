@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,13 @@
 package com.altoukhov.frankfurterdesktop.gui.control;
 
 import com.altoukhov.frankfurterdesktop.gui.sheet.AbstractEntitySheet;
-import com.altoukhov.frankfurterdesktop.gui.sheet.InvalidSheetInputException;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
-import java.util.Objects;
-
 public final class EntitySheetGroup extends TabPane {
 
     public EntitySheetGroup() {
-        super();
         setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
     }
 
@@ -43,12 +39,6 @@ public final class EntitySheetGroup extends TabPane {
             return sheet;
         }
         throw new IllegalStateException("Tab content is not an AbstractEntitySheet");
-    }
-
-    public <E> E submitFromSelectedSheetAs(Class<E> entityClass) throws InvalidSheetInputException {
-        Objects.requireNonNull(entityClass, "Provided entity class is null");
-        AbstractEntitySheet<?> sheet = getSelectedSheet();
-        return entityClass.cast(sheet.submit());
     }
 
     public void clearSelectedSheet() {
