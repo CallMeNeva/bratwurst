@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop.service.response.mapper;
+package com.altoukhov.frankfurterdesktop.service.response;
 
-import com.altoukhov.frankfurterdesktop.model.Currency;
-import com.altoukhov.frankfurterdesktop.service.response.CurrenciesDTO;
+import java.time.LocalDate;
+import java.util.Map;
 
-import java.util.Set;
-
-public enum CurrenciesDTOMapper implements DTOMapper<CurrenciesDTO, Set<Currency>> {
-    INSTANCE;
-
-    @Override
-    public Set<Currency> map(CurrenciesDTO dataObject) throws DTOMappingException {
-        return Currency.ofMap(dataObject);
-    }
-}
+public record SpecificDateExchangesDTO(double amount, String base, LocalDate date, Map<String, Double> rates) {}

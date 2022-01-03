@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,17 @@
 
 package com.altoukhov.frankfurterdesktop.service.response.mapper;
 
-import com.altoukhov.frankfurterdesktop.model.ExchangeRate;
+import com.altoukhov.frankfurterdesktop.model.CurrencyRegistry;
+import com.altoukhov.frankfurterdesktop.model.Exchange;
 
 import java.util.Set;
 
-@FunctionalInterface
-public interface ExchangeRatesDTOMapper<D> extends DTOMapper<D, Set<ExchangeRate>> {}
+public abstract class AbstractExchangesDTOMapper<D> implements DTOMapper<D, Set<Exchange>> {
+
+    public abstract Set<Exchange> map(D dataObject, CurrencyRegistry registry) throws DTOMappingException;
+
+    @Override
+    public final Set<Exchange> map(D dataObject) throws DTOMappingException {
+        return map(dataObject, CurrencyRegistry.GLOBAL);
+    }
+}

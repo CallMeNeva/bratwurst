@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.altoukhov.frankfurterdesktop.service.response;
+package com.altoukhov.frankfurterdesktop.service.response.mapper;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
 
-public record SpecificDateExchangeRatesDTO(String base, LocalDate date, Map<String, BigDecimal> rates) {}
+@DisplayName("SpecificDateExchangesDTOMapper Tests")
+public final class SpecificDateExchangesDTOMapperTests {} /* TODO */
