@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,20 @@
 
 package com.altoukhov.frankfurterdesktop.gui.sheet;
 
-import com.altoukhov.frankfurterdesktop.service.request.HistoricalExchangeRatesRequest;
+import com.altoukhov.frankfurterdesktop.service.request.HistoricalExchangeDataRequest;
 import javafx.scene.control.DatePicker;
-import org.controlsfx.validation.Validator;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public final class HistoricalExchangeRatesRequestSheet extends AbstractExchangeRatesRequestSheet<HistoricalExchangeRatesRequest> {
+public final class HistoricalExchangesRequestSheet extends AbstractExchangesRequestSheet<HistoricalExchangeDataRequest> {
 
     private static final String DATE_PICKER_LABEL = "Date";
-    private static final String NO_DATE_SELECTION_MESSAGE = "A date must be selected";
 
     private final DatePicker datePicker;
 
-    public HistoricalExchangeRatesRequestSheet() {
-        datePicker = appendDatePicker(DATE_PICKER_LABEL, Validator.createEmptyValidator(NO_DATE_SELECTION_MESSAGE));
+    public HistoricalExchangesRequestSheet() {
+        datePicker = appendEditor(DATE_PICKER_LABEL, DatePicker::new);
     }
 
     public LocalDate getSelectedDate() {
@@ -43,19 +41,19 @@ public final class HistoricalExchangeRatesRequestSheet extends AbstractExchangeR
     }
 
     @Override
-    public HistoricalExchangeRatesRequest submit() throws InvalidSheetInputException {
+    public HistoricalExchangeDataRequest submit() throws InvalidSheetInputException {
         LocalDate selectedDate = getSelectedDate();
 
         if (Objects.isNull(selectedDate)) {
             throw new InvalidSheetInputException();
         }
 
-        return new HistoricalExchangeRatesRequest(getSelectedBase(), getSelectedTargets(), selectedDate);
+        return new HistoricalExchangeDataRequest(getSelectedBase(), getSelectedTargets(), getSelectedAmount(), selectedDate);
     }
 
     @Override
-    public void load(HistoricalExchangeRatesRequest entity) {
-        super.load(entity); /* No null-check: is already done by super */
+    public void load(HistoricalExchangeDataRequest entity) {
+        super.load(entity);
         selectDate(entity.getDate());
     }
 

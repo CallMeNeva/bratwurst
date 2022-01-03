@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
 
 package com.altoukhov.frankfurterdesktop.gui.sheet;
 
-import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeRatesRequest;
+import com.altoukhov.frankfurterdesktop.service.request.LatestExchangeDataRequest;
 
-public final class LatestExchangeRatesRequestSheet extends AbstractExchangeRatesRequestSheet<LatestExchangeRatesRequest> {
+public final class LatestExchangesRequestSheet extends AbstractExchangesRequestSheet<LatestExchangeDataRequest> {
 
     @Override
-    public LatestExchangeRatesRequest submit() {
-        return new LatestExchangeRatesRequest(getSelectedBase(), getSelectedTargets());
+    public LatestExchangeDataRequest submit() {
+        return new LatestExchangeDataRequest(getSelectedBase(), getSelectedTargets(), getSelectedAmount());
     }
 }

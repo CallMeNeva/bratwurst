@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,36 +16,23 @@
 
 package com.altoukhov.frankfurterdesktop.gui.sheet;
 
-import com.altoukhov.frankfurterdesktop.service.request.TimeSeriesExchangeRatesRequest;
+import com.altoukhov.frankfurterdesktop.service.request.TimeSeriesExchangeDataRequest;
 import javafx.scene.control.DatePicker;
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.Validator;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Objects;
 
-public final class TimeSeriesExchangeRatesRequestSheet extends AbstractExchangeRatesRequestSheet<TimeSeriesExchangeRatesRequest> {
+public final class TimeSeriesExchangesRequestSheet extends AbstractExchangesRequestSheet<TimeSeriesExchangeDataRequest> {
 
     private static final String START_DATE_PICKER_LABEL = "Start date";
-    private static final String INVALID_START_DATE_SELECTION_MESSAGE = "A valid start date must be specified";
     private static final String END_DATE_PICKER_LABEL = "End date";
-    private static final String INVALID_END_DATE_SELECTION_MESSAGE = "A valid end date must be specified";
-    private static final String NO_END_DATE_SELECTION_MESSAGE = "Current date will be used by default if not explicitly specified";
 
     private final DatePicker startDatePicker;
     private final DatePicker endDatePicker;
 
-    public TimeSeriesExchangeRatesRequestSheet() {
-        startDatePicker = appendDatePicker(
-                START_DATE_PICKER_LABEL,
-                Validator.createPredicateValidator(date -> rangeValid(date, getSelectedEndDate()), INVALID_START_DATE_SELECTION_MESSAGE)
-        );
-
-        endDatePicker = appendDatePicker(
-                END_DATE_PICKER_LABEL,
-                Validator.createEmptyValidator(NO_END_DATE_SELECTION_MESSAGE, Severity.WARNING)
-        );
+    public TimeSeriesExchangesRequestSheet() {
+        startDatePicker = appendEditor(START_DATE_PICKER_LABEL, DatePicker::new);
+        endDatePicker = appendEditor(END_DATE_PICKER_LABEL, DatePicker::new);
     }
 
     public LocalDate getSelectedStartDate() {
@@ -65,7 +52,7 @@ public final class TimeSeriesExchangeRatesRequestSheet extends AbstractExchangeR
     }
 
     @Override
-    public TimeSeriesExchangeRatesRequest submit() throws InvalidSheetInputException {
+    public TimeSeriesExchangeDataRequest submit() throws InvalidSheetInputException {
         LocalDate startDate = getSelectedStartDate();
         LocalDate endDate = getSelectedEndDate();
 
@@ -73,12 +60,12 @@ public final class TimeSeriesExchangeRatesRequestSheet extends AbstractExchangeR
             throw new InvalidSheetInputException();
         }
 
-        return new TimeSeriesExchangeRatesRequest(getSelectedBase(), getSelectedTargets(), startDate, endDate);
+        return new TimeSeriesExchangeDataRequest(getSelectedBase(), getSelectedTargets(), getSelectedAmount(), startDate, endDate);
     }
 
     @Override
-    public void load(TimeSeriesExchangeRatesRequest entity) {
-        super.load(entity); /* No null-check: is already done by super */
+    public void load(TimeSeriesExchangeDataRequest entity) {
+        super.load(entity);
         selectStartDate(entity.getStartDate());
         selectEndDate(entity.getEndDate());
     }
