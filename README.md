@@ -1,5 +1,5 @@
 ## About
-![Windows 11 screenshot](win11_screenshot.png)
+![Windows 11 demo](demo.gif)
 
 **Frankfurter Desktop** is a simple, cross-platform desktop client for the [Frankfurter web API](https://github.com/hakanensari/frankfurter),
 written in modern (17+) Java and JavaFX.
