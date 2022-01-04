@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Maxim Altoukhov
+ * Copyright 2021, 2022 Maxim Altoukhov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,7 @@
 
 package com.altoukhov.frankfurterdesktop.gui.control;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.altoukhov.frankfurterdesktop.gui.util.action.Action;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
@@ -31,12 +30,11 @@ import java.util.Objects;
 
 public final class FontAwesomeButtonBuilder implements Builder<Button> {
 
-    private static final EventHandler<ActionEvent> EMPTY_ACTION_EVENT_HANDLER = actionEvent -> {};
     private static final GlyphFont GLYPH_FONT = GlyphFontRegistry.font("FontAwesome");
     private static final Color DEFAULT_GLYPH_COLOR = Color.BLACK;
-    private static final double DEFAULT_GLYPH_SIZE = 16;
+    private static final double DEFAULT_GLYPH_SIZE = 18;
 
-    private EventHandler<ActionEvent> actionEventHandler;
+    private Action action;
     private FontAwesome.Glyph glyph;
     private Color glyphColor;
     private double glyphSize;
@@ -50,13 +48,13 @@ public final class FontAwesomeButtonBuilder implements Builder<Button> {
         noTooltip();
     }
 
-    public FontAwesomeButtonBuilder onAction(EventHandler<ActionEvent> handler) {
-        actionEventHandler = handler;
+    public FontAwesomeButtonBuilder action(Action action) {
+        this.action = action;
         return this;
     }
 
     public FontAwesomeButtonBuilder noAction() {
-        return onAction(EMPTY_ACTION_EVENT_HANDLER);
+        return action(Action.EMPTY);
     }
 
     public FontAwesomeButtonBuilder glyph(FontAwesome.Glyph glyph) {
@@ -98,7 +96,7 @@ public final class FontAwesomeButtonBuilder implements Builder<Button> {
                 .size(glyphSize);
 
         Button button = new Button("", buttonGraphic);
-        button.setOnAction(actionEventHandler);
+        button.setOnAction(event -> action.run());
         button.setTooltip(Objects.isNull(tooltipText) ? null : new Tooltip(tooltipText));
 
         return button;
