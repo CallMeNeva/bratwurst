@@ -76,6 +76,7 @@ public final class FrankfurterService {
 
     public void setHost(HttpHost host) {
         this.host = Objects.requireNonNull(host, "Provided HTTP host is null");
+        LOGGER.info("Changed host to " + host);
     }
 
     /* NOTE: Global registry should be updated at least once prior to calling this */
