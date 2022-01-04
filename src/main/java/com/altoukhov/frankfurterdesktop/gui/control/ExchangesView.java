@@ -38,6 +38,10 @@ public final class ExchangesView extends TableView<Exchange> {
     private static final StringConverter<Double> AMOUNT_RENDERER = new DoubleStringConverter();
     private static final StringConverter<LocalDate> DATE_RENDERER = new LocalDateStringConverter(FormatStyle.LONG);
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String BASE_CURRENCY_COLUMN_NAME = "Base Currency";
     private static final String BASE_AMOUNT_COLUMN_NAME = "Base Amount";
     private static final String TARGET_CURRENCY_COLUMN_NAME = "Target Currency";

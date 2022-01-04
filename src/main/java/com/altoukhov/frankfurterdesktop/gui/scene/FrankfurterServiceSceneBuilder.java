@@ -52,6 +52,10 @@ import java.util.Set;
 
 public final class FrankfurterServiceSceneBuilder implements Builder<Scene> {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String LATEST_RATES_SHEET_NAME = "Latest";
     private static final String HISTORICAL_RATES_SHEET_NAME = "Historical";
     private static final String TIME_SERIES_RATES_SHEET_NAME = "Time Series";

@@ -28,6 +28,10 @@ public final class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
 
     private static final HttpHost DEFAULT_HOST = FrankfurterService.PUBLIC_HOST;
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String DEFAULT_HOST_TOGGLE_LABEL = "Default host";
     private static final String HOSTNAME_EDITOR_LABEL = "Hostname";
     private static final String PORT_EDITOR_LABEL = "Port";

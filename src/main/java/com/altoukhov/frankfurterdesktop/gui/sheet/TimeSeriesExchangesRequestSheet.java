@@ -24,6 +24,10 @@ import java.util.Objects;
 
 public final class TimeSeriesExchangesRequestSheet extends AbstractExchangesRequestSheet<TimeSeriesExchangeDataRequest> {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String START_DATE_PICKER_LABEL = "Start date";
     private static final String END_DATE_PICKER_LABEL = "End date";
 

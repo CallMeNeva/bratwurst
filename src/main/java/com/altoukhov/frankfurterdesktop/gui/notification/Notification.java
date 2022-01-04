@@ -22,6 +22,10 @@ import javafx.scene.control.Alert;
 
 public final class Notification extends Alert implements Action {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String SUCCESSFUL_CURRENCY_SYNC_TEXT = "Currencies synced successfully.";
     private static final String FAILED_INITIAL_CURRENCY_SYNC_TEXT =
             """

@@ -23,6 +23,10 @@ import java.util.Objects;
 
 public class PortNumberStringConverter extends IntegerStringConverter {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String DEFAULT_PORT_TEXT = "Default";
 
     @Override

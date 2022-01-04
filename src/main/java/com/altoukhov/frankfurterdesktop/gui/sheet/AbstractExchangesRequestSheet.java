@@ -28,6 +28,10 @@ import java.util.Objects;
 
 public abstract class AbstractExchangesRequestSheet<R extends AbstractExchangeDataRequest> extends AbstractEntitySheet<R> {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String AMOUNT_PICKER_LABEL = "Amount";
     private static final String BASE_PICKER_LABEL = "Base currency";
     private static final String TARGET_PICKER_LABEL = "Target currencies";

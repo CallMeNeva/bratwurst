@@ -24,6 +24,10 @@ import java.util.Objects;
 
 public final class HistoricalExchangesRequestSheet extends AbstractExchangesRequestSheet<HistoricalExchangeDataRequest> {
 
+    /*
+     * TODO: Externalize UI strings
+     */
+
     private static final String DATE_PICKER_LABEL = "Date";
 
     private final DatePicker datePicker;
