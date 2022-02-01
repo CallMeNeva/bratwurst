@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
-public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
+public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 

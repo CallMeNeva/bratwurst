@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
-public final class HistoricalExchangeDataRequest extends AbstractExchangeDataRequest {
+public class HistoricalExchangeDataRequest extends AbstractExchangeDataRequest {
 
     private LocalDate date;
 

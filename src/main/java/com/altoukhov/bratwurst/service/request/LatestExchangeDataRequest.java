@@ -7,7 +7,7 @@ import com.altoukhov.bratwurst.model.Currency;
 
 import java.util.Collection;
 
-public final class LatestExchangeDataRequest extends AbstractExchangeDataRequest {
+public class LatestExchangeDataRequest extends AbstractExchangeDataRequest {
 
     public LatestExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
         super(base, targets, amount);

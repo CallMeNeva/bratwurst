@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class TimeSeriesExchangesDTOMapper extends AbstractExchangesDTOMapper<TimeSeriesExchangesDTO> {
+public class TimeSeriesExchangesDTOMapper extends AbstractExchangesDTOMapper<TimeSeriesExchangesDTO> {
 
     public TimeSeriesExchangesDTOMapper(CurrencyRepository repository) {
         super(repository);

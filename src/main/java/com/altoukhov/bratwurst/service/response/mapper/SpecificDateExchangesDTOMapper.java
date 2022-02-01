@@ -12,7 +12,7 @@ import com.altoukhov.bratwurst.service.response.SpecificDateExchangesDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class SpecificDateExchangesDTOMapper extends AbstractExchangesDTOMapper<SpecificDateExchangesDTO> {
+public class SpecificDateExchangesDTOMapper extends AbstractExchangesDTOMapper<SpecificDateExchangesDTO> {
 
     public SpecificDateExchangesDTOMapper(CurrencyRepository repository) {
         super(repository);

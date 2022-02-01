@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class CurrencyRepository {
+public class CurrencyRepository {
 
     private final Set<Currency> currencies;
 
