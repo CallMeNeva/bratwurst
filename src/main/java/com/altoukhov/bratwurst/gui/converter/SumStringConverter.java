@@ -8,7 +8,7 @@ import com.altoukhov.bratwurst.model.Sum;
 import com.altoukhov.bratwurst.util.Arguments;
 import javafx.util.StringConverter;
 
-public final class SumStringConverter extends StringConverter<Sum> {
+public class SumStringConverter extends StringConverter<Sum> {
 
     @Override
     public String toString(Sum sum) {

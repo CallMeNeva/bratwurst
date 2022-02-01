@@ -4,23 +4,14 @@
 package com.altoukhov.bratwurst.gui.converter;
 
 import com.altoukhov.bratwurst.model.Currency;
+import com.altoukhov.bratwurst.util.Arguments;
 import javafx.util.StringConverter;
 
-public final class CurrencyStringConverter extends StringConverter<Currency> {
-
-    private final String onNullValue;
-
-    public CurrencyStringConverter(String onNullValue) {
-        this.onNullValue = onNullValue;
-    }
-
-    public CurrencyStringConverter() {
-        this(null);
-    }
+public class CurrencyStringConverter extends StringConverter<Currency> {
 
     @Override
     public String toString(Currency currency) {
-        return (currency != null) ? currency.name() : onNullValue;
+        return Arguments.nullOrElseApply(currency, Currency::name);
     }
 
     @Override
