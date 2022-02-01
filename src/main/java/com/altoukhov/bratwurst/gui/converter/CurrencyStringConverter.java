@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright 2021-2022 Maxim Altoukhov
 // SPDX-License-Identifier: MIT
 
-package com.altoukhov.bratwurst.gui.util.converter;
+package com.altoukhov.bratwurst.gui.converter;
 
 import com.altoukhov.bratwurst.model.Currency;
 import javafx.util.StringConverter;

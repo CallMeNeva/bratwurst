@@ -4,7 +4,7 @@
 package com.altoukhov.bratwurst.gui.sheet;
 
 import com.altoukhov.bratwurst.gui.control.CurrencyComboBoxFactory;
-import com.altoukhov.bratwurst.gui.util.converter.CurrencyStringConverter;
+import com.altoukhov.bratwurst.gui.converter.CurrencyStringConverter;
 import com.altoukhov.bratwurst.model.Currency;
 import com.altoukhov.bratwurst.service.request.AbstractExchangeDataRequest;
 import javafx.scene.control.ComboBox;

@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright 2022 Maxim Altoukhov
 // SPDX-License-Identifier: MIT
 
-package com.altoukhov.bratwurst.gui.util.converter;
+package com.altoukhov.bratwurst.gui.converter;
 
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.hc.core5.net.Ports;

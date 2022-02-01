@@ -3,7 +3,7 @@
 
 package com.altoukhov.bratwurst.gui.control;
 
-import com.altoukhov.bratwurst.gui.util.converter.PortNumberStringConverter;
+import com.altoukhov.bratwurst.gui.converter.PortNumberStringConverter;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import org.apache.hc.core5.net.Ports;

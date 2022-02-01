@@ -3,7 +3,7 @@
 
 package com.altoukhov.bratwurst.gui.control;
 
-import com.altoukhov.bratwurst.gui.util.converter.SumStringConverter;
+import com.altoukhov.bratwurst.gui.converter.SumStringConverter;
 import com.altoukhov.bratwurst.model.Exchange;
 import com.altoukhov.bratwurst.model.Sum;
 import javafx.beans.property.SimpleObjectProperty;
