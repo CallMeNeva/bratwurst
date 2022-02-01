@@ -7,6 +7,7 @@ import com.altoukhov.bratwurst.gui.util.converter.SumStringConverter;
 import com.altoukhov.bratwurst.model.Exchange;
 import com.altoukhov.bratwurst.model.Sum;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,6 +25,7 @@ public final class ExchangeDataView extends TableView<Exchange> {
     private static final String COMMITMENT_COLUMN_NAME = "Commitment";
     private static final String RESULT_COLUMN_NAME = "Result";
     private static final String DATE_COLUMN_NAME = "Date";
+    private static final String PLACEHOLDER_TEXT = "Looks like it's pretty empty in here. Try sending a request!";
 
     private static final StringConverter<Sum> SUM_RENDERER = new SumStringConverter();
     private static final StringConverter<LocalDate> DATE_RENDERER = new LocalDateStringConverter(FormatStyle.LONG);
@@ -35,6 +37,7 @@ public final class ExchangeDataView extends TableView<Exchange> {
         columns.add(createColumn(DATE_COLUMN_NAME, Exchange::date, DATE_RENDERER));
 
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
+        setPlaceholder(new Label(PLACEHOLDER_TEXT));
     }
 
     private <T> TableColumn<Exchange, T> createColumn(String name, Function<Exchange, T> propertyExtractor, StringConverter<T> propertyRenderer) {
