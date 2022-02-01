@@ -7,23 +7,22 @@ import com.altoukhov.bratwurst.service.request.TimeSeriesExchangeDataRequest;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-public final class TimeSeriesExchangesRequestSheet extends AbstractExchangesRequestSheet<TimeSeriesExchangeDataRequest> {
+public final class TimeSeriesExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<TimeSeriesExchangeDataRequest> {
 
-    /*
-     * TODO: Externalize UI strings
-     */
-
+    // FIXME: Externalize UI strings
     private static final String START_DATE_PICKER_LABEL = "Start date";
     private static final String END_DATE_PICKER_LABEL = "End date";
+
+    private static final LocalDate DEFAULT_START_DATE = LocalDate.now()
+            .minusWeeks(1);
 
     private final DatePicker startDatePicker;
     private final DatePicker endDatePicker;
 
-    public TimeSeriesExchangesRequestSheet() {
-        startDatePicker = appendEditor(START_DATE_PICKER_LABEL, DatePicker::new);
-        endDatePicker = appendEditor(END_DATE_PICKER_LABEL, DatePicker::new);
+    public TimeSeriesExchangeDataRequestSheet() {
+        startDatePicker = appendEditor(START_DATE_PICKER_LABEL, new DatePicker(DEFAULT_START_DATE));
+        endDatePicker = appendEditor(END_DATE_PICKER_LABEL, new DatePicker());
     }
 
     public LocalDate getSelectedStartDate() {
@@ -64,15 +63,15 @@ public final class TimeSeriesExchangesRequestSheet extends AbstractExchangesRequ
     @Override
     public void clear() {
         super.clear();
-        selectStartDate(null);
+        selectStartDate(DEFAULT_START_DATE);
         selectEndDate(null);
     }
 
     private static boolean rangeValid(LocalDate startDate, LocalDate endDate) {
-        if (Objects.isNull(startDate)) {
+        if (startDate == null) {
             return false;
         }
         boolean minimalCondition = startDate.isBefore(LocalDate.now());
-        return Objects.isNull(endDate) ? minimalCondition : (minimalCondition && startDate.isBefore(endDate));
+        return (endDate == null) ? minimalCondition : (minimalCondition && startDate.isBefore(endDate));
     }
 }

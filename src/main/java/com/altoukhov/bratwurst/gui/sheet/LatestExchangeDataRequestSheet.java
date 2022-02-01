@@ -5,7 +5,7 @@ package com.altoukhov.bratwurst.gui.sheet;
 
 import com.altoukhov.bratwurst.service.request.LatestExchangeDataRequest;
 
-public final class LatestExchangesRequestSheet extends AbstractExchangesRequestSheet<LatestExchangeDataRequest> {
+public final class LatestExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<LatestExchangeDataRequest> {
 
     @Override
     public LatestExchangeDataRequest submit() {

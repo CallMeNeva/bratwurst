@@ -5,25 +5,21 @@ package com.altoukhov.bratwurst.gui.control;
 
 import com.altoukhov.bratwurst.gui.util.converter.PortNumberStringConverter;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import org.apache.hc.core5.net.Ports;
 
 public final class PortNumberSpinner extends Spinner<Integer> {
 
-    public PortNumberSpinner() {
-        super(Ports.SCHEME_DEFAULT, Ports.MAX_VALUE, Ports.MIN_VALUE);
-        getValueFactory().setConverter(new PortNumberStringConverter());
-    }
+    private static final PortNumberStringConverter STRING_CONVERTER = new PortNumberStringConverter();
 
     public PortNumberSpinner(int port) {
-        this();
-        setValue(port);
+        // No validation needed on "port" as spinner rounds externally set values within bounds (not sure though)
+        super(Ports.SCHEME_DEFAULT, Ports.MAX_VALUE, port, 1);
+        SpinnerValueFactory<Integer> valueFactory = getValueFactory();
+        valueFactory.setConverter(STRING_CONVERTER);
     }
 
-    public void setValue(int port) {
-        getValueFactory().setValue(port);
-    }
-
-    public void setDefaultValue() {
-        getValueFactory().setValue(Ports.SCHEME_DEFAULT);
+    public PortNumberSpinner() {
+        this(Ports.SCHEME_DEFAULT);
     }
 }

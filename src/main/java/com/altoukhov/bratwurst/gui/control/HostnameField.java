@@ -11,5 +11,6 @@ public final class HostnameField extends TextField {
 
     public HostnameField() {
         setPromptText(PROMPT_TEXT);
+        // TODO: Some validation/formatting maybe?
     }
 }
