@@ -11,13 +11,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
+public abstract class AbstractExchangeDataRequest implements DataRequest {
 
     private Currency base;
     private Collection<Currency> targets;
     private double amount;
 
-    /* NOTE: Null base and null/empty targets collection are allowed and represent default values (picked by the service) */
     protected AbstractExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
         setBase(base);
         setTargets(targets);
@@ -49,18 +48,17 @@ public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
     }
 
     @Override
-    protected final Map<String, String> getParameters() {
+    public final Map<String, String> getParameters() {
         Map<String, String> parameters = new HashMap<>(3);
-
         parameters.put("amount", Double.toString(amount));
 
-        if (Objects.nonNull(base)) {
+        if (base != null) {
             parameters.put("from", base.code());
         }
 
-        if (Objects.nonNull(targets)) {
+        if (targets != null) {
             String joinedTargets = targets.stream()
-                    .filter(Objects::nonNull) /* Just in case */
+                    .filter(Objects::nonNull) // Just to be safe
                     .map(Currency::code)
                     .collect(Collectors.joining(","));
 
@@ -69,6 +67,6 @@ public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
             }
         }
 
-        return parameters;
+        return parameters; // Should this be wrapped in a read-only view?
     }
 }

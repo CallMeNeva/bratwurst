@@ -4,11 +4,11 @@
 package com.altoukhov.bratwurst.service.request;
 
 import com.altoukhov.bratwurst.model.Currency;
+import com.altoukhov.bratwurst.util.Arguments;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Objects;
 
 public final class HistoricalExchangeDataRequest extends AbstractExchangeDataRequest {
 
@@ -24,11 +24,11 @@ public final class HistoricalExchangeDataRequest extends AbstractExchangeDataReq
     }
 
     public void setDate(LocalDate date) {
-        this.date = Objects.requireNonNull(date, "Provided date is null");
+        this.date = Arguments.checkNull(date, "date");
     }
 
     @Override
-    protected String getEndpointName() {
+    public String getEndpointName() {
         return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 }

@@ -3,14 +3,11 @@
 
 package com.altoukhov.bratwurst.service.request;
 
-public final class CurrencyDataRequest extends AbstractDataRequest {
-
-    public static final CurrencyDataRequest INSTANCE = new CurrencyDataRequest();
-
-    private CurrencyDataRequest() {}
+public enum CurrencyDataRequest implements DataRequest {
+    INSTANCE;
 
     @Override
-    protected String getEndpointName() {
+    public String getEndpointName() {
         return "currencies";
     }
 }

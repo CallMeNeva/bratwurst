@@ -4,11 +4,11 @@
 package com.altoukhov.bratwurst.service.request;
 
 import com.altoukhov.bratwurst.model.Currency;
+import com.altoukhov.bratwurst.util.Arguments;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Objects;
 
 public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
 
@@ -32,7 +32,7 @@ public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataReq
     }
 
     public void setStartDate(LocalDate startDate) {
-        this.startDate = Objects.requireNonNull(startDate, "Provided start date is null");
+        this.startDate = Arguments.checkNull(startDate, "startDate");
     }
 
     public LocalDate getEndDate() {
@@ -40,12 +40,12 @@ public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataReq
     }
 
     public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate; /* Nulls allowed */
+        this.endDate = endDate;
     }
 
     @Override
-    protected String getEndpointName() {
+    public String getEndpointName() {
         String name = DATE_FORMATTER.format(startDate) + "..";
-        return Objects.isNull(endDate) ? name : (name + DATE_FORMATTER.format(endDate));
+        return (endDate == null) ? name : (name + DATE_FORMATTER.format(endDate));
     }
 }

@@ -14,7 +14,7 @@ public final class LatestExchangeDataRequest extends AbstractExchangeDataRequest
     }
 
     @Override
-    protected String getEndpointName() {
+    public String getEndpointName() {
         return "latest";
     }
 }
