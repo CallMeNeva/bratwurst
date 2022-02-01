@@ -3,9 +3,7 @@
 
 package com.altoukhov.bratwurst.model;
 
-import java.util.NoSuchElementException;
-
-public class CurrencyNotFoundException extends NoSuchElementException {
+public class CurrencyNotFoundException extends RuntimeException {
 
     public CurrencyNotFoundException(String message) {
         super(message);
