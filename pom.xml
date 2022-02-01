@@ -11,11 +11,11 @@
 
     <groupId>com.altoukhov</groupId>
     <artifactId>bratwurst</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <name>Bratwurst</name>
-    <description>A cross-platform desktop client for the Frankfurter currency exchange rates web API</description>
+    <description>Cross-platform desktop client for the Frankfurter currency exchange rates web API</description>
     <inceptionYear>2021</inceptionYear>
     <licenses>
         <license>
@@ -27,11 +27,11 @@
     <properties>
         <!-- Dependency versions -->
         <java.version>17</java.version>
-        <javafx.version>17.0.0.1</javafx.version>
+        <javafx.version>17.0.2</javafx.version>
         <controlsfx.version>11.1.1</controlsfx.version>
-        <apache-http-client.version>5.1.2</apache-http-client.version>
+        <httpclient.version>5.1.2</httpclient.version>
         <jackson.version>2.13.1</jackson.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>1.7.33</slf4j.version>
         <junit.version>5.8.2</junit.version>
 
         <!-- Plugin versions -->
@@ -43,60 +43,42 @@
     </properties>
 
     <dependencies>
-
-        <!-- GUI -->
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>${controlsfx.version}</version>
         </dependency>
-
-        <!-- HTTP -->
-
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5-fluent</artifactId>
-            <version>${apache-http-client.version}</version>
+            <version>${httpclient.version}</version>
         </dependency>
-
-        <!-- JSON -->
-
         <dependency> <!-- Implicitly pulls in the parser itself -->
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
-        <!-- Logging -->
-
-        <dependency> <!-- API dep is implicitly pulled by Apache's HTTP client -->
+        <dependency> <!-- Apache's HC implicitly pulls in the API dependency -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
-        <!-- Testing -->
-
-        <dependency>
+        <dependency> <!-- Implicitly pulls in the API dependency -->
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
