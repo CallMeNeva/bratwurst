@@ -3,9 +3,14 @@
 
 package com.altoukhov.bratwurst.gui.sheet;
 
+import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.service.request.LatestExchangeDataRequest;
 
-public final class LatestExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<LatestExchangeDataRequest> {
+public class LatestExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<LatestExchangeDataRequest> {
+
+    public LatestExchangeDataRequestSheet(CurrencyRepository currencyRepository) {
+        super(currencyRepository);
+    }
 
     @Override
     public LatestExchangeDataRequest submit() {

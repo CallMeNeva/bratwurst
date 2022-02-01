@@ -11,7 +11,7 @@ import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.URIScheme;
 import org.apache.hc.core5.net.Ports;
 
-public final class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
+public class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
 
     // FIXME: Externalize UI strings
     private static final String HOSTNAME_EDITOR_LABEL = "Hostname";

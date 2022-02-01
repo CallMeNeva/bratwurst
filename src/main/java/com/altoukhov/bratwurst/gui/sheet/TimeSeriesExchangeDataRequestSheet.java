@@ -3,12 +3,13 @@
 
 package com.altoukhov.bratwurst.gui.sheet;
 
+import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.service.request.TimeSeriesExchangeDataRequest;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 
-public final class TimeSeriesExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<TimeSeriesExchangeDataRequest> {
+public class TimeSeriesExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<TimeSeriesExchangeDataRequest> {
 
     // FIXME: Externalize UI strings
     private static final String START_DATE_PICKER_LABEL = "Start date";
@@ -20,7 +21,8 @@ public final class TimeSeriesExchangeDataRequestSheet extends AbstractExchangeDa
     private final DatePicker startDatePicker;
     private final DatePicker endDatePicker;
 
-    public TimeSeriesExchangeDataRequestSheet() {
+    public TimeSeriesExchangeDataRequestSheet(CurrencyRepository currencyRepository) {
+        super(currencyRepository);
         startDatePicker = appendEditor(START_DATE_PICKER_LABEL, new DatePicker(DEFAULT_START_DATE));
         endDatePicker = appendEditor(END_DATE_PICKER_LABEL, new DatePicker());
     }

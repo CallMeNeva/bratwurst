@@ -36,8 +36,8 @@ public abstract class AbstractEntitySheet<E> extends GridPane {
 
     protected final <C extends Control> C appendEditor(String labelText, C editor) {
         Arguments.checkNull(editor, "editor");
-        // I'm pretty sure column layout in this case should be done via ColumnConstraints, but seeing as how it doesn't work I don't think
-        // I'm using the thing correctly, so this will do the trick instead.
+        // I'm pretty sure column layout in this case should be done via ColumnConstraints, but seeing as how it doesn't work I don't think I'm using
+        // the thing correctly, so this will do the trick instead.
         editor.setMaxWidth(EDITOR_COLUMN_MAX_WIDTH);
 
         Node leftColumnNode = (labelText != null) ? new Label(labelText + ":") : new Region();

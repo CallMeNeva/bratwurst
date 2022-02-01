@@ -3,13 +3,14 @@
 
 package com.altoukhov.bratwurst.gui.sheet;
 
+import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.service.request.HistoricalExchangeDataRequest;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-public final class HistoricalExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<HistoricalExchangeDataRequest> {
+public class HistoricalExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<HistoricalExchangeDataRequest> {
 
     // FIXME: Externalize UI strings
     private static final String DATE_PICKER_LABEL = "Date";
@@ -18,7 +19,8 @@ public final class HistoricalExchangeDataRequestSheet extends AbstractExchangeDa
 
     private final DatePicker datePicker;
 
-    public HistoricalExchangeDataRequestSheet() {
+    public HistoricalExchangeDataRequestSheet(CurrencyRepository currencyRepository) {
+        super(currencyRepository);
         datePicker = appendEditor(DATE_PICKER_LABEL, new DatePicker(DEFAULT_DATE));
     }
 
