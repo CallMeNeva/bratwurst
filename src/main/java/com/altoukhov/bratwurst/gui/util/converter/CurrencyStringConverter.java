@@ -6,17 +6,25 @@ package com.altoukhov.bratwurst.gui.util.converter;
 import com.altoukhov.bratwurst.model.Currency;
 import javafx.util.StringConverter;
 
-import java.util.Objects;
-
 public final class CurrencyStringConverter extends StringConverter<Currency> {
 
-    @Override
-    public String toString(Currency object) {
-        return Objects.isNull(object) ? null : object.displayName();
+    private final String onNullValue;
+
+    public CurrencyStringConverter(String onNullValue) {
+        this.onNullValue = onNullValue;
+    }
+
+    public CurrencyStringConverter() {
+        this(null);
     }
 
     @Override
-    public Currency fromString(String s) {
+    public String toString(Currency currency) {
+        return (currency != null) ? currency.name() : onNullValue;
+    }
+
+    @Override
+    public Currency fromString(String string) {
         throw new UnsupportedOperationException("Converting string to currency is not supported");
     }
 }
