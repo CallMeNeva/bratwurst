@@ -3,6 +3,8 @@
 
 package com.altoukhov.bratwurst.util;
 
+import java.util.function.Function;
+
 public final class Arguments {
 
     private Arguments() {}
@@ -15,5 +17,14 @@ public final class Arguments {
             throw new IllegalArgumentException("Provided argument \"" + argumentName + "\" is null");
         }
         return argument;
+    }
+
+    public static <T, R> R nullOrElse(T argument, R resultIfNotNull) {
+        return (argument == null) ? null : resultIfNotNull;
+    }
+
+    public static <T, R> R nullOrElseApply(T argument, Function<T, R> function) {
+        Arguments.checkNull(argument, "function");
+        return nullOrElse(argument, function.apply(argument));
     }
 }
