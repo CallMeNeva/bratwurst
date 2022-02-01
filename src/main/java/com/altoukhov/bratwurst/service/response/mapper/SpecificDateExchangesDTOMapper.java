@@ -4,37 +4,30 @@
 package com.altoukhov.bratwurst.service.response.mapper;
 
 import com.altoukhov.bratwurst.model.CurrencyNotFoundException;
-import com.altoukhov.bratwurst.model.CurrencyRegistry;
+import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.model.Exchange;
+import com.altoukhov.bratwurst.model.Sum;
 import com.altoukhov.bratwurst.service.response.SpecificDateExchangesDTO;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class SpecificDateExchangesDTOMapper extends AbstractExchangesDTOMapper<SpecificDateExchangesDTO> {
 
-    public static final SpecificDateExchangesDTOMapper INSTANCE = new SpecificDateExchangesDTOMapper();
-
-    private SpecificDateExchangesDTOMapper() {}
+    public SpecificDateExchangesDTOMapper(CurrencyRepository repository) {
+        super(repository);
+    }
 
     @Override
-    public Set<Exchange> map(SpecificDateExchangesDTO dataObject, CurrencyRegistry registry) throws DTOMappingException {
-        Objects.requireNonNull(dataObject, "Provided DTO is null");
-        Objects.requireNonNull(registry, "Provided registry is null");
-
+    protected Set<Exchange> map(SpecificDateExchangesDTO dataObject, CurrencyRepository repository) throws DTOMappingException {
+        // Service implementation detail: null-check on DTO is omitted
+        // Super guarantees repository is not null
         try {
+            Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
             return dataObject.rates()
                     .entrySet()
                     .stream()
-                    .map(entry -> Exchange.fromRegistry(
-                            registry,
-                            dataObject.base(),
-                            dataObject.amount(),
-                            entry.getKey(),
-                            entry.getValue(),
-                            dataObject.date()
-                    ))
+                    .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), dataObject.date()))
                     .collect(Collectors.toSet());
         } catch (CurrencyNotFoundException e) {
             throw new DTOMappingException(e);

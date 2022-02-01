@@ -4,43 +4,36 @@
 package com.altoukhov.bratwurst.service.response.mapper;
 
 import com.altoukhov.bratwurst.model.CurrencyNotFoundException;
-import com.altoukhov.bratwurst.model.CurrencyRegistry;
+import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.model.Exchange;
+import com.altoukhov.bratwurst.model.Sum;
 import com.altoukhov.bratwurst.service.response.TimeSeriesExchangesDTO;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class TimeSeriesExchangesDTOMapper extends AbstractExchangesDTOMapper<TimeSeriesExchangesDTO> {
 
-    public static final TimeSeriesExchangesDTOMapper INSTANCE = new TimeSeriesExchangesDTOMapper();
-
-    private TimeSeriesExchangesDTOMapper() {}
+    public TimeSeriesExchangesDTOMapper(CurrencyRepository repository) {
+        super(repository);
+    }
 
     @Override
-    public Set<Exchange> map(TimeSeriesExchangesDTO dataObject, CurrencyRegistry registry) throws DTOMappingException {
-        Objects.requireNonNull(dataObject, "Provided DTO is null");
-        Objects.requireNonNull(registry, "Provided registry is null");
-
+    protected Set<Exchange> map(TimeSeriesExchangesDTO dataObject, CurrencyRepository repository) throws DTOMappingException {
+        // Service implementation detail: null-check on DTO is omitted
+        // Super guarantees repository is not null
         try {
+            Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
             return dataObject.rates()
                     .entrySet()
-                    .stream() /* [Date to [code to value]]  entries */
+                    .stream()
                     .flatMap(dateToRatesEntry -> {
-                        String baseCode = dataObject.base();
-                        double baseAmount = dataObject.amount();
                         LocalDate date = dateToRatesEntry.getKey();
-
                         return dateToRatesEntry.getValue()
                                 .entrySet()
-                                .stream() /* [Code to value] entries */
-                                .map(codeToValueEntry -> {
-                                    String targetCode = codeToValueEntry.getKey();
-                                    double targetAmount = codeToValueEntry.getValue();
-                                    return Exchange.fromRegistry(registry, baseCode, baseAmount, targetCode, targetAmount, date);
-                                });
+                                .stream()
+                                .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), date));
                     })
                     .collect(Collectors.toSet());
         } catch (CurrencyNotFoundException e) {
