@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@DisplayName("AbstractExchangeDatasetRequest tests")
+@DisplayName("AbstractExchangeDataRequest tests")
 class AbstractExchangeDataRequestTests {
 
     private static final HttpHost DUMMY_HOST = new HttpHost("https", "example.com");
@@ -27,7 +27,7 @@ class AbstractExchangeDataRequestTests {
     };
 
     @Test
-    @DisplayName("AbstractExchangeDatasetRequest::getParameters handles empty targets collection")
+    @DisplayName("AbstractExchangeDataRequest::getParameters handles empty targets collection")
     public void handlesEmptyTargetsCollection() throws URISyntaxException {
         Collection<Currency> targets = List.of();
         REQUEST.setTargets(targets);
@@ -39,7 +39,7 @@ class AbstractExchangeDataRequestTests {
     }
 
     @Test
-    @DisplayName("AbstractExchangeDatasetRequest::getParameters handles null targets collection")
+    @DisplayName("AbstractExchangeDataRequest::getParameters handles null targets collection")
     public void handlesNullTargetsCollection() throws URISyntaxException {
         REQUEST.setTargets(null);
 
@@ -50,7 +50,7 @@ class AbstractExchangeDataRequestTests {
     }
 
     @Test
-    @DisplayName("AbstractExchangeDatasetRequest::getParameters handles null targets")
+    @DisplayName("AbstractExchangeDataRequest::getParameters handles null targets")
     public void handlesNullTargets() throws URISyntaxException {
         Collection<Currency> targets = new ArrayList<>();
         targets.add(null);

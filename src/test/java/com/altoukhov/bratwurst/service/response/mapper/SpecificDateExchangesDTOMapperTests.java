@@ -17,7 +17,7 @@ import java.time.Month;
 import java.util.Map;
 import java.util.Set;
 
-@DisplayName("SpecificDateExchangesDTOMapper Tests")
+@DisplayName("SpecificDateExchangesDTOMapper tests")
 class SpecificDateExchangesDTOMapperTests {
 
     @Test
