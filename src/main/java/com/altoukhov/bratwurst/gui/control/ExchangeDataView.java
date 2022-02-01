@@ -19,7 +19,7 @@ import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.function.Function;
 
-public final class ExchangeDataView extends TableView<Exchange> {
+public class ExchangeDataView extends TableView<Exchange> {
 
     // FIXME: Externalize UI strings
     private static final String COMMITMENT_COLUMN_NAME = "Commitment";
@@ -27,14 +27,14 @@ public final class ExchangeDataView extends TableView<Exchange> {
     private static final String DATE_COLUMN_NAME = "Date";
     private static final String PLACEHOLDER_TEXT = "Looks like it's pretty empty in here. Try sending a request!";
 
-    private static final StringConverter<Sum> SUM_RENDERER = new SumStringConverter();
-    private static final StringConverter<LocalDate> DATE_RENDERER = new LocalDateStringConverter(FormatStyle.LONG);
+    private static final StringConverter<Sum> DEFAULT_SUM_STRING_CONVERTER = new SumStringConverter();
+    private static final StringConverter<LocalDate> DEFAULT_DATE_STRING_CONVERTER = new LocalDateStringConverter(FormatStyle.LONG);
 
     public ExchangeDataView() {
         List<TableColumn<Exchange, ?>> columns = getColumns();
-        columns.add(createColumn(COMMITMENT_COLUMN_NAME, Exchange::commitment, SUM_RENDERER));
-        columns.add(createColumn(RESULT_COLUMN_NAME, Exchange::result, SUM_RENDERER));
-        columns.add(createColumn(DATE_COLUMN_NAME, Exchange::date, DATE_RENDERER));
+        columns.add(createColumn(COMMITMENT_COLUMN_NAME, Exchange::commitment, DEFAULT_SUM_STRING_CONVERTER));
+        columns.add(createColumn(RESULT_COLUMN_NAME, Exchange::result, DEFAULT_SUM_STRING_CONVERTER));
+        columns.add(createColumn(DATE_COLUMN_NAME, Exchange::date, DEFAULT_DATE_STRING_CONVERTER));
 
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
         setPlaceholder(new Label(PLACEHOLDER_TEXT));
