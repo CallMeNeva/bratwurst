@@ -68,6 +68,10 @@ public final class FrankfurterService {
         this.host = host;
     }
 
+    public CurrencyRepository getCurrencyRepository() {
+        return currencyRepository;
+    }
+
     public HttpHost getHost() {
         return host;
     }
