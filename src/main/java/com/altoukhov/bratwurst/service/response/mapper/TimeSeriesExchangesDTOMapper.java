@@ -20,24 +20,21 @@ public final class TimeSeriesExchangesDTOMapper extends AbstractExchangesDTOMapp
     }
 
     @Override
-    protected Set<Exchange> map(TimeSeriesExchangesDTO dataObject, CurrencyRepository repository) throws DTOMappingException {
+    protected Set<Exchange> mapFromRepository(TimeSeriesExchangesDTO dataObject, CurrencyRepository repository)
+            throws CurrencyNotFoundException {
         // Service implementation detail: null-check on DTO is omitted
         // Super guarantees repository is not null
-        try {
-            Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
-            return dataObject.rates()
-                    .entrySet()
-                    .stream()
-                    .flatMap(dateToRatesEntry -> {
-                        LocalDate date = dateToRatesEntry.getKey();
-                        return dateToRatesEntry.getValue()
-                                .entrySet()
-                                .stream()
-                                .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), date));
-                    })
-                    .collect(Collectors.toSet());
-        } catch (CurrencyNotFoundException e) {
-            throw new DTOMappingException(e);
-        }
+        Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
+        return dataObject.rates()
+                .entrySet()
+                .stream()
+                .flatMap(dateToRatesEntry -> {
+                    LocalDate date = dateToRatesEntry.getKey();
+                    return dateToRatesEntry.getValue()
+                            .entrySet()
+                            .stream()
+                            .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), date));
+                })
+                .collect(Collectors.toSet());
     }
 }

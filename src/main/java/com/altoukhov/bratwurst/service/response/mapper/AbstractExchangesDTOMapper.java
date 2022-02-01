@@ -3,6 +3,7 @@
 
 package com.altoukhov.bratwurst.service.response.mapper;
 
+import com.altoukhov.bratwurst.model.CurrencyNotFoundException;
 import com.altoukhov.bratwurst.model.CurrencyRepository;
 import com.altoukhov.bratwurst.model.Exchange;
 import com.altoukhov.bratwurst.util.Arguments;
@@ -17,10 +18,14 @@ public abstract class AbstractExchangesDTOMapper<D> implements DTOMapper<D, Set<
         this.repository = Arguments.checkNull(repository, "repository");
     }
 
-    protected abstract Set<Exchange> map(D dataObject, CurrencyRepository repository) throws DTOMappingException;
+    protected abstract Set<Exchange> mapFromRepository(D dataObject, CurrencyRepository repository) throws CurrencyNotFoundException;
 
     @Override
     public final Set<Exchange> map(D dataObject) throws DTOMappingException {
-        return map(dataObject, repository);
+        try {
+            return mapFromRepository(dataObject, repository);
+        } catch (CurrencyNotFoundException e) {
+            throw new DTOMappingException(e);
+        }
     }
 }

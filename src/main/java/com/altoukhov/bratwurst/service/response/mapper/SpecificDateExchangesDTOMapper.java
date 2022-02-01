@@ -19,18 +19,15 @@ public final class SpecificDateExchangesDTOMapper extends AbstractExchangesDTOMa
     }
 
     @Override
-    protected Set<Exchange> map(SpecificDateExchangesDTO dataObject, CurrencyRepository repository) throws DTOMappingException {
+    protected Set<Exchange> mapFromRepository(SpecificDateExchangesDTO dataObject, CurrencyRepository repository)
+            throws CurrencyNotFoundException {
         // Service implementation detail: null-check on DTO is omitted
         // Super guarantees repository is not null
-        try {
-            Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
-            return dataObject.rates()
-                    .entrySet()
-                    .stream()
-                    .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), dataObject.date()))
-                    .collect(Collectors.toSet());
-        } catch (CurrencyNotFoundException e) {
-            throw new DTOMappingException(e);
-        }
+        Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
+        return dataObject.rates()
+                .entrySet()
+                .stream()
+                .map(codeToValueEntry -> new Exchange(commitment, Sum.of(codeToValueEntry, repository), dataObject.date()))
+                .collect(Collectors.toSet());
     }
 }
