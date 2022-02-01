@@ -17,11 +17,7 @@ public final class TimeSeriesExchangeDataRequest extends AbstractExchangeDataReq
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeDataRequest(Currency base,
-                                         Collection<Currency> targets,
-                                         double amount,
-                                         LocalDate startDate,
-                                         LocalDate endDate) {
+    public TimeSeriesExchangeDataRequest(Currency base, Collection<Currency> targets, double amount, LocalDate startDate, LocalDate endDate) {
         super(base, targets, amount);
         setStartDate(startDate);
         setEndDate(endDate);
