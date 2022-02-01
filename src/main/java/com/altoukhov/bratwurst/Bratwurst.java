@@ -3,16 +3,21 @@
 
 package com.altoukhov.bratwurst;
 
-import com.altoukhov.bratwurst.gui.BratwurstGUI;
+import com.altoukhov.bratwurst.gui.BratwurstFX;
 import javafx.application.Application;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public final class Bratwurst {
 
     public static void main(String[] args) {
+        if (args.length > 0) {
+            // FIXME: Externalize UI strings
+            System.err.println("This program does not take any command line arguments!");
+            return;
+        }
+
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
-
-        Application.launch(BratwurstGUI.class, args);
+        Application.launch(BratwurstFX.class, args);
     }
 }
