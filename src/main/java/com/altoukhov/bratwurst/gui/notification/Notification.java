@@ -3,7 +3,7 @@
 
 package com.altoukhov.bratwurst.gui.notification;
 
-import com.altoukhov.bratwurst.gui.util.action.Action;
+import com.altoukhov.bratwurst.gui.action.Action;
 import com.altoukhov.bratwurst.util.function.ExceptionHandler;
 import javafx.scene.control.Alert;
 
