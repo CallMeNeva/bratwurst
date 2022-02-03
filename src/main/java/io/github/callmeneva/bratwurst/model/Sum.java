@@ -7,7 +7,7 @@ import io.github.callmeneva.bratwurst.util.Arguments;
 
 import java.util.Map;
 
-public record Sum(Currency currency, double amount) {
+public record Sum(Currency currency, double amount) implements Comparable<Sum> {
 
     public Sum {
         Arguments.checkNull(currency, "currency");
@@ -22,5 +22,10 @@ public record Sum(Currency currency, double amount) {
     public static Sum of(Map.Entry<String, Double> entry, CurrencyRepository currencyRepository) throws CurrencyNotFoundException {
         Arguments.checkNull(entry, "entry");
         return Sum.of(entry.getKey(), entry.getValue(), currencyRepository);
+    }
+
+    @Override
+    public int compareTo(Sum sum) {
+        return Double.compare(amount, sum.amount);
     }
 }
