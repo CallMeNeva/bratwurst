@@ -20,8 +20,7 @@ public class TimeSeriesExchangesDTOMapper extends AbstractExchangesDTOMapper<Tim
     }
 
     @Override
-    protected Set<Exchange> mapFromRepository(TimeSeriesExchangesDTO dataObject, CurrencyRepository repository)
-            throws CurrencyNotFoundException {
+    protected Set<Exchange> mapFromRepository(TimeSeriesExchangesDTO dataObject, CurrencyRepository repository) throws CurrencyNotFoundException {
         // Service implementation detail: null-check on DTO is omitted
         // Super guarantees repository is not null
         Sum commitment = Sum.of(dataObject.base(), dataObject.amount(), repository);
