@@ -6,10 +6,10 @@ package io.github.callmeneva.bratwurst.gui.sheet;
 import io.github.callmeneva.bratwurst.gui.control.RepositoryMultiCurrencyPicker;
 import io.github.callmeneva.bratwurst.gui.control.RepositorySingleCurrencyPicker;
 import io.github.callmeneva.bratwurst.gui.converter.CurrencyStringConverter;
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import io.github.callmeneva.bratwurst.model.Currency;
 import io.github.callmeneva.bratwurst.model.CurrencyRepository;
 import io.github.callmeneva.bratwurst.service.request.AbstractExchangeDataRequest;
-import io.github.callmeneva.bratwurst.util.Arguments;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.util.StringConverter;
@@ -19,20 +19,21 @@ import java.util.List;
 
 public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchangeDataRequest> extends AbstractEntitySheet<R> {
 
-    // FIXME: Externalize UI strings
-    private static final String AMOUNT_PICKER_LABEL = "Amount";
-    private static final String BASE_PICKER_LABEL = "Base currency";
-    private static final String TARGET_PICKER_LABEL = "Target currencies";
-    // ExchangeDataRequests are the only context in which we want to treat a null-pick as "default currency" instead of "no currency", so the sheet
-    // provides a custom converter which, BTW, works with CheckComboBox only partially (default text is not rendered on no selection) for reasons that
-    // are beyond me...
-    private static final String DEFAULT_CURRENCY_TEXT = "Default";
+    private static final String AMOUNT_PICKER_LABEL = Localization.getString("request-sheet.amount-input-label");
+    private static final String BASE_PICKER_LABEL = Localization.getString("request-sheet.base-input-label");
+    private static final String TARGET_PICKER_LABEL = Localization.getString("request-sheet.target-input-label");
 
     private static final double DEFAULT_AMOUNT = 1.0;
-    private static final StringConverter<Currency> NULL_AS_DEFAULT_CURRENCY_STRING_CONVERTER = new CurrencyStringConverter() {
+    // Exchange data requests are the only context in which we want to treat a null-pick as "default currency" instead of "no currency", so the sheet
+    // provides a custom converter which, BTW, works with CheckComboBox only partially (default text is simply not rendered on no selection) for
+    // reasons that are beyond me...
+    private static final StringConverter<Currency> REQUEST_SHEET_CURRENCY_CONVERTER = new CurrencyStringConverter() {
+
+        private static final String NO_SELECTION_TEXT = Localization.getString("generic.default-value-text");
+
         @Override
         public String toString(Currency currency) {
-            return (currency != null) ? currency.name() : DEFAULT_CURRENCY_TEXT;
+            return (currency != null) ? currency.name() : NO_SELECTION_TEXT;
         }
     };
 
@@ -42,16 +43,14 @@ public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchang
     private final CheckModel<Currency> targetPickerCheckModel;
 
     protected AbstractExchangeDataRequestSheet(CurrencyRepository currencyRepository) {
-        Arguments.checkNull(currencyRepository, "currencyRepository"); // Not really required since currency pickers do this as well
-
         Spinner<Double> amountPicker = appendEditor(AMOUNT_PICKER_LABEL, new Spinner<>(Double.MIN_VALUE, Double.MAX_VALUE, DEFAULT_AMOUNT, 0.1));
         amountPickerValueFactory = amountPicker.getValueFactory();
 
         basePicker = appendEditor(BASE_PICKER_LABEL, new RepositorySingleCurrencyPicker(currencyRepository));
-        basePicker.setConverter(NULL_AS_DEFAULT_CURRENCY_STRING_CONVERTER);
+        basePicker.setConverter(REQUEST_SHEET_CURRENCY_CONVERTER);
 
         targetPicker = appendEditor(TARGET_PICKER_LABEL, new RepositoryMultiCurrencyPicker(currencyRepository));
-        targetPicker.setConverter(NULL_AS_DEFAULT_CURRENCY_STRING_CONVERTER);
+        targetPicker.setConverter(REQUEST_SHEET_CURRENCY_CONVERTER);
         targetPickerCheckModel = targetPicker.getCheckModel();
     }
 

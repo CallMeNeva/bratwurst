@@ -3,6 +3,7 @@
 
 package io.github.callmeneva.bratwurst.gui.sheet;
 
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import io.github.callmeneva.bratwurst.model.CurrencyRepository;
 import io.github.callmeneva.bratwurst.service.request.HistoricalExchangeDataRequest;
 import javafx.scene.control.DatePicker;
@@ -12,8 +13,7 @@ import java.time.Month;
 
 public class HistoricalExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<HistoricalExchangeDataRequest> {
 
-    // FIXME: Externalize UI strings
-    private static final String DATE_PICKER_LABEL = "Date";
+    private static final String DATE_PICKER_LABEL = Localization.getString("request-sheet.date-input-label");
 
     private static final LocalDate DEFAULT_DATE = LocalDate.of(2000, Month.JANUARY, 1);
 

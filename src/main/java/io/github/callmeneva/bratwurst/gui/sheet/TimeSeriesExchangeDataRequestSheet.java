@@ -3,6 +3,7 @@
 
 package io.github.callmeneva.bratwurst.gui.sheet;
 
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import io.github.callmeneva.bratwurst.model.CurrencyRepository;
 import io.github.callmeneva.bratwurst.service.request.TimeSeriesExchangeDataRequest;
 import javafx.scene.control.DatePicker;
@@ -11,12 +12,10 @@ import java.time.LocalDate;
 
 public class TimeSeriesExchangeDataRequestSheet extends AbstractExchangeDataRequestSheet<TimeSeriesExchangeDataRequest> {
 
-    // FIXME: Externalize UI strings
-    private static final String START_DATE_PICKER_LABEL = "Start date";
-    private static final String END_DATE_PICKER_LABEL = "End date";
+    private static final String START_DATE_PICKER_LABEL = Localization.getString("request-sheet.start-date-input-label");
+    private static final String END_DATE_PICKER_LABEL = Localization.getString("request-sheet.end-date-input-label");
 
-    private static final LocalDate DEFAULT_START_DATE = LocalDate.now()
-            .minusWeeks(1);
+    private static final LocalDate DEFAULT_START_DATE = LocalDate.now().minusWeeks(1);
 
     private final DatePicker startDatePicker;
     private final DatePicker endDatePicker;

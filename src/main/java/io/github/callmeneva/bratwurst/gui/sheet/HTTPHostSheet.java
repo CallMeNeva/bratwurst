@@ -5,6 +5,7 @@ package io.github.callmeneva.bratwurst.gui.sheet;
 
 import io.github.callmeneva.bratwurst.gui.control.HostnameField;
 import io.github.callmeneva.bratwurst.gui.control.PortNumberSpinner;
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import org.apache.hc.core5.http.HttpHost;
@@ -13,10 +14,9 @@ import org.apache.hc.core5.net.Ports;
 
 public class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
 
-    // FIXME: Externalize UI strings
-    private static final String HOSTNAME_EDITOR_LABEL = "Hostname";
-    private static final String PORT_EDITOR_LABEL = "Port";
-    private static final String SECURE_CONNECTION_TOGGLE_LABEL = "Secure connection";
+    private static final String HOSTNAME_EDITOR_LABEL = Localization.getString("host-sheet.hostname-input-label");
+    private static final String PORT_EDITOR_LABEL = Localization.getString("host-sheet.port-input-label");
+    private static final String SECURE_CONNECTION_TOGGLE_LABEL = Localization.getString("host-sheet.connection-security-input-label");
 
     private final HostnameField hostnameEditor;
     private final SpinnerValueFactory<Integer> portNumberSpinnerValueFactory;
@@ -29,6 +29,7 @@ public class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
         portNumberSpinnerValueFactory = portEditor.getValueFactory();
 
         secureConnectionToggle = appendEditor(SECURE_CONNECTION_TOGGLE_LABEL, new CheckBox());
+        selectSecureConnection(true);
     }
 
     public String getEnteredHostname() {
@@ -51,7 +52,7 @@ public class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
         return secureConnectionToggle.isSelected();
     }
 
-    public void setSecureConnectionSelected(boolean selected) {
+    public void selectSecureConnection(boolean selected) {
         secureConnectionToggle.setSelected(selected);
     }
 
@@ -74,13 +75,13 @@ public class HTTPHostSheet extends AbstractEntitySheet<HttpHost> {
     public void load(HttpHost entity) {
         enterHostname(entity.getHostName());
         selectPort(entity.getPort());
-        setSecureConnectionSelected(URIScheme.HTTPS.same(entity.getSchemeName()));
+        selectSecureConnection(URIScheme.HTTPS.same(entity.getSchemeName()));
     }
 
     @Override
     public void clear() {
         hostnameEditor.clear(); // Or set null?
         selectPort(Ports.SCHEME_DEFAULT);
-        setSecureConnectionSelected(true);
+        selectSecureConnection(true);
     }
 }

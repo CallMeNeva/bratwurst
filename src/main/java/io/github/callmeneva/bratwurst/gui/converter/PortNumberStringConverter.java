@@ -3,6 +3,7 @@
 
 package io.github.callmeneva.bratwurst.gui.converter;
 
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.hc.core5.net.Ports;
 
@@ -10,8 +11,7 @@ import java.util.Objects;
 
 public class PortNumberStringConverter extends IntegerStringConverter {
 
-    // FIXME: Externalize UI strings
-    private static final String DEFAULT_PORT_TEXT = "Default";
+    private static final String DEFAULT_PORT_TEXT = Localization.getString("generic.default-value-text");
 
     @Override
     public String toString(Integer value) {

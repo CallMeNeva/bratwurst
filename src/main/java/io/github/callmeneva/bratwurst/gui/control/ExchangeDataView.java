@@ -4,6 +4,7 @@
 package io.github.callmeneva.bratwurst.gui.control;
 
 import io.github.callmeneva.bratwurst.gui.converter.SumStringConverter;
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import io.github.callmeneva.bratwurst.model.Exchange;
 import io.github.callmeneva.bratwurst.model.Sum;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,27 +22,32 @@ import java.util.function.Function;
 
 public class ExchangeDataView extends TableView<Exchange> {
 
-    // FIXME: Externalize UI strings
-    private static final String COMMITMENT_COLUMN_NAME = "Commitment";
-    private static final String RESULT_COLUMN_NAME = "Result";
-    private static final String DATE_COLUMN_NAME = "Date";
-    private static final String PLACEHOLDER_TEXT = "Looks like it's pretty empty in here. Try sending a request!";
+    private static final String COMMITMENT_COLUMN_TITLE = Localization.getString("exchange-view.commitment-column-title");
+    private static final String RESULT_COLUMN_TITLE = Localization.getString("exchange-view.result-column-title");
+    private static final String DATE_COLUMN_TITLE = Localization.getString("exchange-view.date-column-title");
+    private static final String NO_CONTENT_TEXT = Localization.getString("exchange-view.no-content-text");
 
     private static final StringConverter<Sum> DEFAULT_SUM_STRING_CONVERTER = new SumStringConverter();
     private static final StringConverter<LocalDate> DEFAULT_DATE_STRING_CONVERTER = new LocalDateStringConverter(FormatStyle.LONG);
 
     public ExchangeDataView() {
         List<TableColumn<Exchange, ?>> columns = getColumns();
-        columns.add(createColumn(COMMITMENT_COLUMN_NAME, Exchange::commitment, DEFAULT_SUM_STRING_CONVERTER));
-        columns.add(createColumn(RESULT_COLUMN_NAME, Exchange::result, DEFAULT_SUM_STRING_CONVERTER));
-        columns.add(createColumn(DATE_COLUMN_NAME, Exchange::date, DEFAULT_DATE_STRING_CONVERTER));
 
+        TableColumn<Exchange, Sum> commitmentColumn = createColumn(COMMITMENT_COLUMN_TITLE, Exchange::commitment, DEFAULT_SUM_STRING_CONVERTER);
+        columns.add(commitmentColumn);
+
+        TableColumn<Exchange, Sum> resultColumn = createColumn(RESULT_COLUMN_TITLE, Exchange::result, DEFAULT_SUM_STRING_CONVERTER);
+        columns.add(resultColumn);
+
+        TableColumn<Exchange, LocalDate> dateColumn = createColumn(DATE_COLUMN_TITLE, Exchange::date, DEFAULT_DATE_STRING_CONVERTER);
+        columns.add(dateColumn);
+
+        setPlaceholder(new Label(NO_CONTENT_TEXT));
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        setPlaceholder(new Label(PLACEHOLDER_TEXT));
     }
 
-    private <T> TableColumn<Exchange, T> createColumn(String name, Function<Exchange, T> propertyExtractor, StringConverter<T> propertyRenderer) {
-        TableColumn<Exchange, T> column = new TableColumn<>(name);
+    private <T> TableColumn<Exchange, T> createColumn(String title, Function<Exchange, T> propertyExtractor, StringConverter<T> propertyRenderer) {
+        TableColumn<Exchange, T> column = new TableColumn<>(title);
 
         column.setCellValueFactory(param -> {
             Exchange exchange = param.getValue();
