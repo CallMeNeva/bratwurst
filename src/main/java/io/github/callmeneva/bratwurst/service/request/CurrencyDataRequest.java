@@ -3,8 +3,7 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-public enum CurrencyDataRequest implements DataRequest {
-    INSTANCE;
+public class CurrencyDataRequest implements DataRequest {
 
     @Override
     public String getEndpointName() {

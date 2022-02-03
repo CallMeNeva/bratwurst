@@ -9,8 +9,7 @@ import io.github.callmeneva.bratwurst.service.response.CurrenciesDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum CurrenciesDTOMapper implements DTOMapper<CurrenciesDTO, Set<Currency>> {
-    INSTANCE;
+public class CurrenciesDTOMapper implements DTOMapper<CurrenciesDTO, Set<Currency>> {
 
     @Override
     public Set<Currency> map(CurrenciesDTO dataObject) throws DTOMappingException {

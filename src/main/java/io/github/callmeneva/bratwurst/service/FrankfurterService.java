@@ -48,6 +48,7 @@ public final class FrankfurterService {
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
     private final CurrencyRepository currencyRepository;
+    private final CurrenciesDTOMapper currencyMapper;
     private final SpecificDateExchangesDTOMapper specificDateMapper;
     private final TimeSeriesExchangesDTOMapper timeSeriesMapper;
     private HttpHost host;
@@ -63,6 +64,7 @@ public final class FrankfurterService {
 
     private FrankfurterService(HttpHost host) {
         currencyRepository = new CurrencyRepository();
+        currencyMapper = new CurrenciesDTOMapper();
         specificDateMapper = new SpecificDateExchangesDTOMapper(currencyRepository);
         timeSeriesMapper = new TimeSeriesExchangesDTOMapper(currencyRepository);
         this.host = host;
@@ -96,7 +98,7 @@ public final class FrankfurterService {
     }
 
     public void updateCurrencyRepository() throws ServiceException {
-        Set<Currency> currencies = fetch(CurrencyDataRequest.INSTANCE, CurrenciesDTO.class, CurrenciesDTOMapper.INSTANCE);
+        Set<Currency> currencies = fetch(new CurrencyDataRequest(), CurrenciesDTO.class, currencyMapper);
         currencyRepository.update(currencies);
         LOG.info("Updated currency repository (" + currencies.size() + " items total)");
     }
