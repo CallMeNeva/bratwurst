@@ -9,7 +9,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.altoukhov</groupId>
+    <groupId>io.github.callmeneva</groupId>
     <artifactId>bratwurst</artifactId>
     <version>3.0.0</version>
     <packaging>jar</packaging>
@@ -100,7 +100,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${maven-javafx-plugin.version}</version>
                 <configuration>
-                    <mainClass>com.altoukhov.bratwurst.Bratwurst</mainClass>
+                    <mainClass>io.github.callmeneva.bratwurst.Bratwurst</mainClass>
                 </configuration>
             </plugin>
         </plugins>
