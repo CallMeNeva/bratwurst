@@ -3,10 +3,17 @@
 
 package io.github.callmeneva.bratwurst.gui.action;
 
-@FunctionalInterface
-public interface Action {
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-    Action EMPTY = () -> {};
+@FunctionalInterface
+public interface Action extends EventHandler<ActionEvent> {
 
     void run();
+
+    @Override
+    default void handle(ActionEvent event) {
+        run();
+        event.consume();
+    }
 }
