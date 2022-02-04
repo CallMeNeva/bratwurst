@@ -3,15 +3,15 @@
 
 package io.github.callmeneva.bratwurst.model;
 
-import io.github.callmeneva.bratwurst.util.Arguments;
+import org.apache.commons.lang3.Validate;
 
 import java.time.LocalDate;
 
 public record Exchange(Sum commitment, Sum result, LocalDate date) {
 
     public Exchange {
-        Arguments.checkNull(commitment, "commitment");
-        Arguments.checkNull(result, "result");
-        Arguments.checkNull(date, "date");
+        Validate.notNull(commitment);
+        Validate.notNull(result);
+        Validate.notNull(date);
     }
 }

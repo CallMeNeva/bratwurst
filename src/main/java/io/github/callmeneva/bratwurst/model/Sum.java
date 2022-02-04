@@ -3,25 +3,19 @@
 
 package io.github.callmeneva.bratwurst.model;
 
-import io.github.callmeneva.bratwurst.util.Arguments;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Map;
 
-public record Sum(Currency currency, double amount) implements Comparable<Sum> {
+public record Sum(String currencyCode, double amount) implements Comparable<Sum> {
 
     public Sum {
-        Arguments.checkNull(currency, "currency");
+        Validate.notNull(currencyCode);
     }
 
-    public static Sum of(String currencyCode, double amount, CurrencyRepository currencyRepository) throws CurrencyNotFoundException {
-        Arguments.checkNull(currencyRepository, "currencyRepository");
-        Currency currency = currencyRepository.find(currencyCode);
-        return new Sum(currency, amount);
-    }
-
-    public static Sum of(Map.Entry<String, Double> entry, CurrencyRepository currencyRepository) throws CurrencyNotFoundException {
-        Arguments.checkNull(entry, "entry");
-        return Sum.of(entry.getKey(), entry.getValue(), currencyRepository);
+    public static Sum ofEntry(Map.Entry<String, Double> entry) {
+        Validate.notNull(entry);
+        return new Sum(entry.getKey(), entry.getValue());
     }
 
     @Override
