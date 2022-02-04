@@ -13,12 +13,10 @@ import javafx.scene.image.ImageView;
 
 public class AboutDialog extends Dialog<ButtonType> {
 
-    private static final String CONTENT_TEXT = Localization.getString("about-dialog.content-text");
-
     public AboutDialog() {
         DialogPane pane = getDialogPane();
         pane.setHeaderText(null);
-        pane.setContentText(CONTENT_TEXT);
+        pane.setContentText(Localization.getString("dialog.about.content"));
         pane.setGraphic(new ImageView(Icons.PX_64));
 
         ObservableList<ButtonType> buttonTypes = pane.getButtonTypes();
