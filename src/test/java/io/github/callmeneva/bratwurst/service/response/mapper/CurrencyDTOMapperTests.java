@@ -4,25 +4,25 @@
 package io.github.callmeneva.bratwurst.service.response.mapper;
 
 import io.github.callmeneva.bratwurst.model.Currency;
-import io.github.callmeneva.bratwurst.service.response.CurrenciesDTO;
+import io.github.callmeneva.bratwurst.service.response.CurrencyDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-@DisplayName("CurrenciesDTOMapper tests")
-class CurrenciesDTOMapperTests {
+@DisplayName("CurrencyDTOMapper tests")
+class CurrencyDTOMapperTests {
 
     @Test
-    @DisplayName("CurrenciesDTOMapper::map maps correctly")
+    @DisplayName("CurrencyDTOMapper::map maps correctly")
     void maps() {
         Currency euro = new Currency("EUR", "Euro");
         Currency swissFranc = new Currency("CHF", "Swiss Franc");
         Currency unitedStatesDollar = new Currency("USD", "United States Dollar");
 
-        CurrenciesDTOMapper mapper = new CurrenciesDTOMapper();
-        CurrenciesDTO dataObject = new CurrenciesDTO();
+        CurrencyDTOMapper mapper = CurrencyDTOMapper.INSTANCE;
+        CurrencyDTO dataObject = new CurrencyDTO();
         dataObject.put("EUR", "Euro");
         dataObject.put("CHF", "Swiss Franc");
         dataObject.put("USD", "United States Dollar");

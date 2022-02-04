@@ -6,5 +6,5 @@ package io.github.callmeneva.bratwurst.service.response.mapper;
 @FunctionalInterface
 public interface DTOMapper<D, T> {
 
-    T map(D dataObject) throws DTOMappingException;
+    T map(D dataObject);
 }
