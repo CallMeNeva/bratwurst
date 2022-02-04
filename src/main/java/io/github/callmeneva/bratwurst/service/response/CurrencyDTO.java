@@ -6,4 +6,4 @@ package io.github.callmeneva.bratwurst.service.response;
 import java.util.HashMap;
 
 // A (probably) slower, but cleaner alternative to using type tokens
-public class CurrenciesDTO extends HashMap<String, String> {}
+public class CurrencyDTO extends HashMap<String, String> {}
