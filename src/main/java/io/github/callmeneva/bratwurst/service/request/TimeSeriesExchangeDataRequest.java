@@ -3,12 +3,12 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import io.github.callmeneva.bratwurst.model.Currency;
-import io.github.callmeneva.bratwurst.util.Arguments;
+import org.apache.commons.lang3.Validate;
+import org.apache.hc.core5.http.URIScheme;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+import java.util.List;
 
 public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
 
@@ -17,8 +17,15 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeDataRequest(Currency base, Collection<Currency> targets, double amount, LocalDate startDate, LocalDate endDate) {
-        super(base, targets, amount);
+    public TimeSeriesExchangeDataRequest(URIScheme scheme,
+                                         String hostname,
+                                         int port,
+                                         String baseCurrencyCode,
+                                         List<String> targetCurrencyCodes,
+                                         double amount,
+                                         LocalDate startDate,
+                                         LocalDate endDate) {
+        super(scheme, hostname, port, baseCurrencyCode, targetCurrencyCodes, amount);
         setStartDate(startDate);
         setEndDate(endDate);
     }
@@ -28,7 +35,7 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     }
 
     public void setStartDate(LocalDate startDate) {
-        this.startDate = Arguments.checkNull(startDate, "startDate");
+        this.startDate = Validate.notNull(startDate);
     }
 
     public LocalDate getEndDate() {
@@ -40,7 +47,7 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     }
 
     @Override
-    public String getEndpointName() {
+    protected String getEndpointName() {
         String name = DATE_FORMATTER.format(startDate) + "..";
         return (endDate == null) ? name : (name + DATE_FORMATTER.format(endDate));
     }

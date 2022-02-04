@@ -3,10 +3,16 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-public class CurrencyDataRequest implements DataRequest {
+import org.apache.hc.core5.http.URIScheme;
+
+public class CurrencyDataRequest extends AbstractDataRequest {
+
+    public CurrencyDataRequest(URIScheme scheme, String hostname, int port) {
+        super(scheme, hostname, port);
+    }
 
     @Override
-    public String getEndpointName() {
+    protected String getEndpointName() {
         return "currencies";
     }
 }

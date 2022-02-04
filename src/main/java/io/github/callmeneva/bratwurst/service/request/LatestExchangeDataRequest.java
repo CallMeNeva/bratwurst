@@ -3,18 +3,23 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import io.github.callmeneva.bratwurst.model.Currency;
+import org.apache.hc.core5.http.URIScheme;
 
-import java.util.Collection;
+import java.util.List;
 
 public class LatestExchangeDataRequest extends AbstractExchangeDataRequest {
 
-    public LatestExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
-        super(base, targets, amount);
+    public LatestExchangeDataRequest(URIScheme scheme,
+                                     String hostname,
+                                     int port,
+                                     String baseCurrencyCode,
+                                     List<String> targetCurrencyCodes,
+                                     double amount) {
+        super(scheme, hostname, port, baseCurrencyCode, targetCurrencyCodes, amount);
     }
 
     @Override
-    public String getEndpointName() {
+    protected String getEndpointName() {
         return "latest";
     }
 }

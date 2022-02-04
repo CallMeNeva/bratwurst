@@ -3,40 +3,46 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import io.github.callmeneva.bratwurst.model.Currency;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.hc.core5.http.URIScheme;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-public abstract class AbstractExchangeDataRequest implements DataRequest {
+public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
 
-    private Currency base;
-    private Collection<Currency> targets;
+    private String baseCurrencyCode;
+    private List<String> targetCurrencyCodes;
     private double amount;
 
-    protected AbstractExchangeDataRequest(Currency base, Collection<Currency> targets, double amount) {
-        setBase(base);
-        setTargets(targets);
+    protected AbstractExchangeDataRequest(URIScheme scheme,
+                                          String hostname,
+                                          int port,
+                                          String baseCurrencyCode,
+                                          List<String> targetCurrencyCodes,
+                                          double amount) {
+        super(scheme, hostname, port);
+        setBaseCurrencyCode(baseCurrencyCode);
+        setTargetCurrencyCodes(targetCurrencyCodes);
         setAmount(amount);
     }
 
-    public final Currency getBase() {
-        return base;
+    public final String getBaseCurrencyCode() {
+        return baseCurrencyCode;
     }
 
-    public final void setBase(Currency base) {
-        this.base = base;
+    public final void setBaseCurrencyCode(String baseCurrencyCode) {
+        this.baseCurrencyCode = baseCurrencyCode;
     }
 
-    public final Collection<Currency> getTargets() {
-        return targets;
+    public final List<String> getTargetCurrencyCodes() {
+        return targetCurrencyCodes;
     }
 
-    public final void setTargets(Collection<Currency> targets) {
-        this.targets = targets;
+    public final void setTargetCurrencyCodes(List<String> targetCurrencyCodes) {
+        this.targetCurrencyCodes = targetCurrencyCodes;
     }
 
     public final double getAmount() {
@@ -48,25 +54,20 @@ public abstract class AbstractExchangeDataRequest implements DataRequest {
     }
 
     @Override
-    public final Map<String, String> getParameters() {
+    protected final Map<String, String> getParameters() {
         Map<String, String> parameters = new HashMap<>(3);
         parameters.put("amount", Double.toString(amount));
 
-        if (base != null) {
-            parameters.put("from", base.code());
+        if (StringUtils.isNotBlank(baseCurrencyCode)) {
+            parameters.put("from", baseCurrencyCode);
         }
 
-        if (targets != null) {
-            String joinedTargets = targets.stream()
-                    .filter(Objects::nonNull) // Just to be safe
-                    .map(Currency::code)
-                    .collect(Collectors.joining(","));
-
-            if (!joinedTargets.isEmpty()) {
-                parameters.put("to", joinedTargets);
-            }
+        if (ObjectUtils.isNotEmpty(targetCurrencyCodes)) {
+            // Null elements result in a malformed request, but that shouldn't ever happen
+            String joinedTargets = String.join(",", targetCurrencyCodes);
+            parameters.put("to", joinedTargets);
         }
 
-        return parameters; // Should this be wrapped in a read-only view?
+        return parameters;
     }
 }

@@ -3,19 +3,25 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import io.github.callmeneva.bratwurst.model.Currency;
-import io.github.callmeneva.bratwurst.util.Arguments;
+import org.apache.commons.lang3.Validate;
+import org.apache.hc.core5.http.URIScheme;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+import java.util.List;
 
 public class HistoricalExchangeDataRequest extends AbstractExchangeDataRequest {
 
     private LocalDate date;
 
-    public HistoricalExchangeDataRequest(Currency base, Collection<Currency> targets, double amount, LocalDate date) {
-        super(base, targets, amount);
+    public HistoricalExchangeDataRequest(URIScheme scheme,
+                                         String hostname,
+                                         int port,
+                                         String baseCurrencyCode,
+                                         List<String> targetCurrencyCodes,
+                                         double amount,
+                                         LocalDate date) {
+        super(scheme, hostname, port, baseCurrencyCode, targetCurrencyCodes, amount);
         setDate(date);
     }
 
@@ -24,11 +30,11 @@ public class HistoricalExchangeDataRequest extends AbstractExchangeDataRequest {
     }
 
     public void setDate(LocalDate date) {
-        this.date = Arguments.checkNull(date, "date");
+        this.date = Validate.notNull(date);
     }
 
     @Override
-    public String getEndpointName() {
+    protected String getEndpointName() {
         return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 }
