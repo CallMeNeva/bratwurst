@@ -9,17 +9,21 @@ import org.apache.hc.core5.net.Ports;
 
 import java.util.Objects;
 
-public class PortNumberStringConverter extends IntegerStringConverter {
+public class PortStringConverter extends IntegerStringConverter {
 
-    private static final String DEFAULT_PORT_TEXT = Localization.getString("generic.default-value-text");
+    private final String defaultPortText;
+
+    public PortStringConverter() {
+        defaultPortText = Localization.getString("generic.default");
+    }
 
     @Override
     public String toString(Integer value) {
-        return Objects.equals(value, Ports.SCHEME_DEFAULT) ? DEFAULT_PORT_TEXT : super.toString(value);
+        return Objects.equals(value, Ports.SCHEME_DEFAULT) ? defaultPortText : super.toString(value);
     }
 
     @Override
     public Integer fromString(String value) {
-        return Objects.equals(value, DEFAULT_PORT_TEXT) ? Ports.SCHEME_DEFAULT : super.fromString(value);
+        return Objects.equals(value, defaultPortText) ? Ports.SCHEME_DEFAULT : super.fromString(value);
     }
 }
