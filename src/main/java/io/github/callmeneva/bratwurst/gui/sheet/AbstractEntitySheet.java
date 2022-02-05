@@ -3,15 +3,14 @@
 
 package io.github.callmeneva.bratwurst.gui.sheet;
 
-import io.github.callmeneva.bratwurst.util.Arguments;
+import io.github.callmeneva.bratwurst.gui.util.Resettable;
+import io.github.callmeneva.bratwurst.l10n.Localization;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 
-public abstract class AbstractEntitySheet<E> extends GridPane {
+public abstract class AbstractEntitySheet<E> extends GridPane implements Resettable {
 
     private static final double VERTICAL_SPACING = 10.0;
     private static final double HORIZONTAL_SPACING = 15.0;
@@ -28,20 +27,16 @@ public abstract class AbstractEntitySheet<E> extends GridPane {
         setPadding(OUTER_PADDING);
     }
 
-    public abstract E submit() throws InvalidSheetInputException;
+    public abstract E submit();
 
-    public abstract void load(E entity);
-
-    public abstract void clear();
-
-    protected final <C extends Control> C appendEditor(String labelText, C editor) {
-        Arguments.checkNull(editor, "editor");
+    protected final <C extends Control> C appendEditor(String l10nKey, C editor) {
         // I'm pretty sure column layout in this case should be done via ColumnConstraints, but seeing as how it doesn't work I don't think I'm using
         // the thing correctly, so this will do the trick instead.
         editor.setMaxWidth(EDITOR_COLUMN_MAX_WIDTH);
 
-        Node leftColumnNode = (labelText != null) ? new Label(labelText + ":") : new Region();
-        addRow(++lastRowIndex, leftColumnNode, editor);
+        String labelText = Localization.getString(l10nKey);
+        Label label = new Label(labelText + ':');
+        addRow(++lastRowIndex, label, editor);
         return editor;
     }
 }
