@@ -16,12 +16,8 @@ public class DefaultableDatePicker extends DatePicker implements Resettable {
 
     public DefaultableDatePicker(Supplier<LocalDate> defaultValueSupplier) {
         this.defaultValueSupplier = Validate.notNull(defaultValueSupplier);
-        // FIXME: Handle external modifications
-//        valueProperty().addListener(observable -> {
-//            if (getValue() == null) {
-//                reset();
-//            }
-//        });
+        // FIXME: This is a skin-deep solution for external modifications, but I'm not sure if a simple valueProperty listener cuts it
+        setEditable(false);
         reset();
     }
 
