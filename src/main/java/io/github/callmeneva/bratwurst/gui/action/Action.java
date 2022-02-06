@@ -13,7 +13,7 @@ public interface Action extends EventHandler<ActionEvent> {
 
     @Override
     default void handle(ActionEvent event) {
-        run();
         event.consume();
+        run();
     }
 }
