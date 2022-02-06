@@ -11,15 +11,13 @@ import org.apache.hc.core5.http.URIScheme;
 
 public abstract class AbstractDataRequestSheet<R extends AbstractDataRequest> extends AbstractEntitySheet<R> {
 
-    private static final String DEFAULT_HOSTNAME = "api.frankfurter.app";
-
     private final HTTPSCheckBox schemeInput;
     private final HostnameField hostnameInput;
     private final PortSpinner portInput;
 
     protected AbstractDataRequestSheet() {
         schemeInput = appendEditor("sheet.request.input.scheme", new HTTPSCheckBox());
-        hostnameInput = appendEditor("sheet.request.input.hostname", new HostnameField(DEFAULT_HOSTNAME));
+        hostnameInput = appendEditor("sheet.request.input.hostname", new HostnameField("api.frankfurter.app"));
         portInput = appendEditor("sheet.request.input.port", new PortSpinner());
     }
 
