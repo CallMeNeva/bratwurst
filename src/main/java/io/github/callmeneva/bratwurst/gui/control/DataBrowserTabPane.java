@@ -4,13 +4,14 @@
 package io.github.callmeneva.bratwurst.gui.control;
 
 import io.github.callmeneva.bratwurst.gui.browser.DataBrowser;
+import io.github.callmeneva.bratwurst.gui.util.Resettable;
 import io.github.callmeneva.bratwurst.l10n.Localization;
 import io.github.callmeneva.bratwurst.service.DataFetchFailureException;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.apache.commons.lang3.Validate;
 
-public class DataBrowserTabPane extends TabPane {
+public class DataBrowserTabPane extends TabPane implements Resettable {
 
     public DataBrowserTabPane() {
         setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -25,10 +26,6 @@ public class DataBrowserTabPane extends TabPane {
         getTabs().add(tab);
     }
 
-    public void resetSelected() {
-        getSelectedBrowser().resetSheet();
-    }
-
     public void submitSelected() throws DataFetchFailureException {
         getSelectedBrowser().submitRequest();
     }
@@ -39,5 +36,10 @@ public class DataBrowserTabPane extends TabPane {
             return browser;
         }
         throw new IllegalStateException();
+    }
+
+    @Override
+    public void reset() {
+        getSelectedBrowser().reset();
     }
 }

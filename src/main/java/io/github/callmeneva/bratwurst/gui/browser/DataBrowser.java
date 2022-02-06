@@ -4,6 +4,7 @@
 package io.github.callmeneva.bratwurst.gui.browser;
 
 import io.github.callmeneva.bratwurst.gui.sheet.AbstractEntitySheet;
+import io.github.callmeneva.bratwurst.gui.util.Resettable;
 import io.github.callmeneva.bratwurst.service.DataFetchFailureException;
 import io.github.callmeneva.bratwurst.service.DataFetcher;
 import io.github.callmeneva.bratwurst.service.request.AbstractDataRequest;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.Set;
 
-public class DataBrowser<T, R extends AbstractDataRequest> extends BorderPane {
+public class DataBrowser<T, R extends AbstractDataRequest> extends BorderPane implements Resettable {
 
     private final DataFetcher<Set<T>, R> dataFetcher;
     private final AbstractEntitySheet<R> requestSheet;
@@ -29,15 +30,16 @@ public class DataBrowser<T, R extends AbstractDataRequest> extends BorderPane {
         setRight(requestSheet);
     }
 
-    public void resetSheet() {
-        requestSheet.reset();
-    }
-
     public void submitRequest() throws DataFetchFailureException {
         R request = requestSheet.submit();
         Set<T> dataset = dataFetcher.fetch(request);
 
         ObservableList<T> dataViewItems = dataView.getItems();
         dataViewItems.setAll(dataset);
+    }
+
+    @Override
+    public void reset() {
+        requestSheet.reset();
     }
 }
