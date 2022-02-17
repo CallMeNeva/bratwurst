@@ -1,3 +1,7 @@
+## Branch
+The `native` branch includes various efforts to port parts of the application (HTTP client, GUI toolkit, etc.) to their JDK-native alternatives in
+order to reduce the amount of 3rd party dependencies, increase portability and (supposedly) improve performance.
+
 ## About
 ![Windows 11 demo](demo_win11.png)
 
