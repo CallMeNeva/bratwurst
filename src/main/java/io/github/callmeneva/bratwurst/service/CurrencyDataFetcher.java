@@ -14,6 +14,6 @@ public class CurrencyDataFetcher extends AbstractDataFetcher<Set<Currency>, Curr
 
     @Override
     public Set<Currency> fetch(CurrencyDataRequest request) throws DataFetchFailureException {
-        return fetch(request, CurrencyDTO.class, CurrencyDTOMapper.INSTANCE);
+        return fetch(request, CurrencyDTO.class, new CurrencyDTOMapper());
     }
 }

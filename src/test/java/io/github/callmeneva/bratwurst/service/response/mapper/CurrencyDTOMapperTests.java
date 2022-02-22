@@ -21,7 +21,7 @@ class CurrencyDTOMapperTests {
         Currency swissFranc = new Currency("CHF", "Swiss Franc");
         Currency unitedStatesDollar = new Currency("USD", "United States Dollar");
 
-        CurrencyDTOMapper mapper = CurrencyDTOMapper.INSTANCE;
+        CurrencyDTOMapper mapper = new CurrencyDTOMapper();
         CurrencyDTO dataObject = new CurrencyDTO();
         dataObject.put("EUR", "Euro");
         dataObject.put("CHF", "Swiss Franc");

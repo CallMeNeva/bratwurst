@@ -10,8 +10,7 @@ import io.github.callmeneva.bratwurst.service.response.SpecificDateExchangeDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum SpecificDateExchangeDTOMapper implements DTOMapper<SpecificDateExchangeDTO, Set<Exchange>> {
-    INSTANCE;
+public class SpecificDateExchangeDTOMapper implements DTOMapper<SpecificDateExchangeDTO, Set<Exchange>> {
 
     @Override
     public Set<Exchange> map(SpecificDateExchangeDTO dataObject) {

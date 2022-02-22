@@ -14,6 +14,6 @@ public class LatestExchangeDataFetcher extends AbstractDataFetcher<Set<Exchange>
 
     @Override
     public Set<Exchange> fetch(LatestExchangeDataRequest request) throws DataFetchFailureException {
-        return fetch(request, SpecificDateExchangeDTO.class, SpecificDateExchangeDTOMapper.INSTANCE);
+        return fetch(request, SpecificDateExchangeDTO.class, new SpecificDateExchangeDTOMapper());
     }
 }

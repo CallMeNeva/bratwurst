@@ -31,7 +31,7 @@ class TimeSeriesExchangeDTOMapperTests {
         Exchange secondDateEuroToFranc = new Exchange(commitment, new Sum("CHF", 8.0265), secondDate);
         Exchange secondDateEuroToDollar = new Exchange(commitment, new Sum("USD", 5.1525), secondDate);
 
-        TimeSeriesExchangeDTOMapper mapper = TimeSeriesExchangeDTOMapper.INSTANCE;
+        TimeSeriesExchangeDTOMapper mapper = new TimeSeriesExchangeDTOMapper();
         TimeSeriesExchangeDTO dataObject = new TimeSeriesExchangeDTO(
                 5.0,
                 "EUR",

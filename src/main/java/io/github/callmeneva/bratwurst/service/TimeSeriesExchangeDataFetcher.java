@@ -14,6 +14,6 @@ public class TimeSeriesExchangeDataFetcher extends AbstractDataFetcher<Set<Excha
 
     @Override
     public Set<Exchange> fetch(TimeSeriesExchangeDataRequest request) throws DataFetchFailureException {
-        return fetch(request, TimeSeriesExchangeDTO.class, TimeSeriesExchangeDTOMapper.INSTANCE);
+        return fetch(request, TimeSeriesExchangeDTO.class, new TimeSeriesExchangeDTOMapper());
     }
 }

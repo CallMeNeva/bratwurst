@@ -26,7 +26,7 @@ class SpecificDateExchangeDTOMapperTests {
         Exchange euroToFranc = new Exchange(commitment, new Sum("CHF", 5.189), exchangeDate);
         Exchange euroToDollar = new Exchange(commitment, new Sum("USD", 5.569), exchangeDate);
 
-        SpecificDateExchangeDTOMapper mapper = SpecificDateExchangeDTOMapper.INSTANCE;
+        SpecificDateExchangeDTOMapper mapper = new SpecificDateExchangeDTOMapper();
         SpecificDateExchangeDTO dataObject = new SpecificDateExchangeDTO(
                 5.0,
                 "EUR",
