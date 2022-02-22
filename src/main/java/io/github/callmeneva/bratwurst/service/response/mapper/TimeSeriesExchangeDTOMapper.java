@@ -25,7 +25,7 @@ public enum TimeSeriesExchangeDTOMapper implements DTOMapper<TimeSeriesExchangeD
                     return dateToRatesEntry.getValue()
                             .entrySet()
                             .stream()
-                            .map(codeToValueEntry -> new Exchange(commitment, Sum.ofEntry(codeToValueEntry), date));
+                            .map(codeToValueEntry -> new Exchange(commitment, Sum.ofMapEntry(codeToValueEntry), date));
                 })
                 .collect(Collectors.toSet());
     }

@@ -19,7 +19,7 @@ public enum SpecificDateExchangeDTOMapper implements DTOMapper<SpecificDateExcha
         return dataObject.rates()
                 .entrySet()
                 .stream()
-                .map(codeToValueEntry -> new Exchange(commitment, Sum.ofEntry(codeToValueEntry), dataObject.date()))
+                .map(codeToValueEntry -> new Exchange(commitment, Sum.ofMapEntry(codeToValueEntry), dataObject.date()))
                 .collect(Collectors.toSet());
     }
 }

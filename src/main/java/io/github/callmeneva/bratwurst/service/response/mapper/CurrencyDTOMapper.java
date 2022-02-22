@@ -16,7 +16,7 @@ public enum CurrencyDTOMapper implements DTOMapper<CurrencyDTO, Set<Currency>> {
     public Set<Currency> map(CurrencyDTO dataObject) {
         return dataObject.entrySet()
                 .stream()
-                .map(Currency::ofEntry)
+                .map(Currency::ofMapEntry)
                 .collect(Collectors.toSet());
     }
 }

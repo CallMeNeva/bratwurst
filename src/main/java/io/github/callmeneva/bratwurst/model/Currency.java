@@ -3,19 +3,18 @@
 
 package io.github.callmeneva.bratwurst.model;
 
-import org.apache.commons.lang3.Validate;
-
 import java.util.Map;
+import java.util.Objects;
 
 public record Currency(String code, String name) {
 
     public Currency {
-        Validate.notNull(code);
-        Validate.notNull(name);
+        Objects.requireNonNull(code, "Currency code must not be null");
+        Objects.requireNonNull(name, "Currency name must not be null");
     }
 
-    public static Currency ofEntry(Map.Entry<String, String> entry) {
-        Validate.notNull(entry);
+    public static Currency ofMapEntry(Map.Entry<String, String> entry) {
+        Objects.requireNonNull(entry, "Currency map entry must not be null");
         return new Currency(entry.getKey(), entry.getValue());
     }
 }
