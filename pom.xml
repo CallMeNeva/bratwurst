@@ -27,7 +27,6 @@
     <properties>
         <!-- Dependency versions -->
         <java.version>17</java.version>
-        <javafx.version>17.0.2</javafx.version>
         <apache-lang.version>3.12.0</apache-lang.version>
         <apache-hc.version>5.1.2</apache-hc.version>
         <jackson.version>2.13.1</jackson.version>
@@ -36,18 +35,12 @@
 
         <!-- Plugin versions -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-javafx-plugin.version>0.0.8</maven-javafx-plugin.version>
 
         <!-- Misc. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -90,14 +83,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${maven-javafx-plugin.version}</version>
-                <configuration>
-                    <mainClass>io.github.callmeneva.bratwurst.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
