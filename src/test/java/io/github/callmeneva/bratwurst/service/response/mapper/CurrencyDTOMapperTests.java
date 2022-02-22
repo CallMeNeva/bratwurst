@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-@DisplayName("CurrencyDTOMapper tests")
+@DisplayName("CurrencyDTOMapper")
 class CurrencyDTOMapperTests {
 
     @Test
-    @DisplayName("CurrencyDTOMapper::map maps correctly")
+    @DisplayName("Maps correctly")
     void maps() {
         Currency euro = new Currency("EUR", "Euro");
         Currency swissFranc = new Currency("CHF", "Swiss Franc");
