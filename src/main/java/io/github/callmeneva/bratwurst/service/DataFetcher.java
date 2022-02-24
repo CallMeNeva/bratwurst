@@ -121,7 +121,10 @@ public final class DataFetcher<T, R extends DataRequest, D> {
             logger.info("Fetched from: " + dataSource);
             return mappedData;
 
-        } catch (URISyntaxException | IOException | InterruptedException e) {
+        } catch (URISyntaxException | IllegalArgumentException | IOException | InterruptedException e) {
+            // Update to the comment above: "empirical evidence" suggests that URI's string constructor doesn't actually validate the host string
+            // strictly enough for the request, i.e. an "https://Hello!" would pass. However, HttpRequest itself seems to help with that and throws
+            // an IAE in case of a bad URI, which is why it's caught here.
             logger.warning("Failed to fetch (exception: " + e + ')');
             throw new DataFetchFailureException(e);
         }
