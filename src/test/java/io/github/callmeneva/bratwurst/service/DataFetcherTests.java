@@ -14,7 +14,8 @@ class DataFetcherTests {
     @Test
     @DisplayName("Throws when fetching with illegal host")
     public void illegalHost() {
-        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies("This is probably not a legal host.");
+        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies();
+        fetcher.setHost("This is probably not a legal host.");
 
         Assertions.assertThrows(DataFetchFailureException.class, () -> fetcher.fetch(new CurrencyDataRequest()));
     }
@@ -22,7 +23,8 @@ class DataFetcherTests {
     @Test
     @DisplayName("Throws when fetching with empty host")
     public void emptyHost() {
-        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies("");
+        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies();
+        fetcher.setHost("");
 
         Assertions.assertThrows(DataFetchFailureException.class, () -> fetcher.fetch(new CurrencyDataRequest()));
     }
@@ -30,7 +32,8 @@ class DataFetcherTests {
     @Test
     @DisplayName("Throws when fetching with blank host")
     public void blankHost() {
-        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies("\t \n \r");
+        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies();
+        fetcher.setHost("\t \n \r");
 
         Assertions.assertThrows(DataFetchFailureException.class, () -> fetcher.fetch(new CurrencyDataRequest()));
     }
@@ -38,7 +41,8 @@ class DataFetcherTests {
     @Test
     @DisplayName("Throws when fetching with null host")
     public void nullHost() {
-        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies(null);
+        DataFetcher<?, CurrencyDataRequest, ?> fetcher = DataFetcher.ofCurrencies();
+        fetcher.setHost(null);
 
         Assertions.assertThrows(DataFetchFailureException.class, () -> fetcher.fetch(new CurrencyDataRequest()));
     }

@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 
 public final class DataFetcher<T, R extends DataRequest, D> {
 
+    private static final String DEFAULT_HOST = "api.frankfurter.app";
     private static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(30);
     private static final Duration RESPONSE_TIMEOUT = Duration.ofSeconds(15);
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
@@ -64,20 +65,24 @@ public final class DataFetcher<T, R extends DataRequest, D> {
         this(dataClass, mapper, true, host);
     }
 
-    public static DataFetcher<Set<Currency>, CurrencyDataRequest, CurrencyDTO> ofCurrencies(String host) {
-        return new DataFetcher<>(CurrencyDTO.class, new CurrencyDTOMapper(), host);
+    public DataFetcher(Class<D> dataClass, DTOMapper<D, T> mapper) {
+        this(dataClass, mapper, true, DEFAULT_HOST);
     }
 
-    public static DataFetcher<Set<Exchange>, LatestExchangeDataRequest, SpecificDateExchangeDTO> ofLatestExchanges(String host) {
-        return new DataFetcher<>(SpecificDateExchangeDTO.class, new SpecificDateExchangeDTOMapper(), host);
+    public static DataFetcher<Set<Currency>, CurrencyDataRequest, CurrencyDTO> ofCurrencies() {
+        return new DataFetcher<>(CurrencyDTO.class, new CurrencyDTOMapper());
     }
 
-    public static DataFetcher<Set<Exchange>, HistoricalExchangeDataRequest, SpecificDateExchangeDTO> ofHistoricalExchanges(String host) {
-        return new DataFetcher<>(SpecificDateExchangeDTO.class, new SpecificDateExchangeDTOMapper(), host);
+    public static DataFetcher<Set<Exchange>, LatestExchangeDataRequest, SpecificDateExchangeDTO> ofLatestExchanges() {
+        return new DataFetcher<>(SpecificDateExchangeDTO.class, new SpecificDateExchangeDTOMapper());
     }
 
-    public static DataFetcher<Set<Exchange>, TimeSeriesExchangeDataRequest, TimeSeriesExchangeDTO> ofTimeSeriesExchanges(String host) {
-        return new DataFetcher<>(TimeSeriesExchangeDTO.class, new TimeSeriesExchangeDTOMapper(), host);
+    public static DataFetcher<Set<Exchange>, HistoricalExchangeDataRequest, SpecificDateExchangeDTO> ofHistoricalExchanges() {
+        return new DataFetcher<>(SpecificDateExchangeDTO.class, new SpecificDateExchangeDTOMapper());
+    }
+
+    public static DataFetcher<Set<Exchange>, TimeSeriesExchangeDataRequest, TimeSeriesExchangeDTO> ofTimeSeriesExchanges() {
+        return new DataFetcher<>(TimeSeriesExchangeDTO.class, new TimeSeriesExchangeDTOMapper());
     }
 
     public boolean isConnectionSecure() {
