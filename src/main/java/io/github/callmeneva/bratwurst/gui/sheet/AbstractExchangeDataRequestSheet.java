@@ -3,42 +3,47 @@
 
 package io.github.callmeneva.bratwurst.gui.sheet;
 
-import io.github.callmeneva.bratwurst.gui.control.AmountSlider;
-import io.github.callmeneva.bratwurst.gui.control.MultiCurrencyCodeField;
-import io.github.callmeneva.bratwurst.gui.control.SingleCurrencyCodeField;
+import io.github.callmeneva.bratwurst.gui.control.MultiCurrencyCodeTextField;
+import io.github.callmeneva.bratwurst.gui.control.SingleCurrencyCodeTextField;
 import io.github.callmeneva.bratwurst.service.request.AbstractExchangeDataRequest;
+import javafx.scene.control.Slider;
 
 import java.util.List;
 
-public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchangeDataRequest> extends AbstractDataRequestSheet<R> {
+public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchangeDataRequest> extends AbstractEntitySheet<R> {
 
-    private final SingleCurrencyCodeField baseCodeInput;
-    private final MultiCurrencyCodeField targetCodesInput;
-    private final AmountSlider amountInput;
+    private static final double MIN_AMOUNT = 1.0;
+    private static final double MAX_AMOUNT = Double.MAX_VALUE;
+
+    private final SingleCurrencyCodeTextField baseCodeTextField;
+    private final MultiCurrencyCodeTextField targetCodesTextField;
+    private final Slider amountSlider;
 
     protected AbstractExchangeDataRequestSheet() {
-        baseCodeInput = appendEditor("sheet.request.input.base", new SingleCurrencyCodeField());
-        targetCodesInput = appendEditor("sheet.request.input.targets", new MultiCurrencyCodeField());
-        amountInput = appendEditor("sheet.request.input.amount", new AmountSlider());
+        baseCodeTextField = appendEditor("sheet.request.input.base", new SingleCurrencyCodeTextField());
+        targetCodesTextField = appendEditor("sheet.request.input.targets", new MultiCurrencyCodeTextField());
+        amountSlider = appendEditor("sheet.request.input.amount", new Slider(MIN_AMOUNT, MAX_AMOUNT, MIN_AMOUNT));
+
+        amountSlider.setShowTickMarks(true);
+        amountSlider.setShowTickLabels(true);
     }
 
-    protected final String getInputtedBaseCode() {
-        return baseCodeInput.getText();
+    protected final String getBaseCode() {
+        return baseCodeTextField.getCode();
     }
 
-    protected final List<String> getInputtedTargetCodes() {
-        return targetCodesInput.getCodes();
+    protected final List<String> getTargetCodes() {
+        return targetCodesTextField.getCodes();
     }
 
-    protected final double getInputtedAmount() {
-        return amountInput.getValue();
+    protected final double getAmount() {
+        return amountSlider.getValue();
     }
 
     @Override
     public void reset() { // Non-final for inheritors
-        super.reset();
-        baseCodeInput.reset();
-        targetCodesInput.reset();
-        amountInput.reset();
+        baseCodeTextField.reset();
+        targetCodesTextField.reset();
+        amountSlider.setValue(MIN_AMOUNT);
     }
 }
