@@ -8,7 +8,7 @@ import io.github.callmeneva.bratwurst.model.Currency;
 public class CurrencyDataView extends AbstractDataView<Currency> {
 
     public CurrencyDataView() {
-        appendColumn("table.column.currency.code", Currency::code, null);
-        appendColumn("table.column.currency.name", Currency::name, null);
+        appendColumn("table.column.currency.code", Currency::code);
+        appendColumn("table.column.currency.name", Currency::name);
     }
 }
