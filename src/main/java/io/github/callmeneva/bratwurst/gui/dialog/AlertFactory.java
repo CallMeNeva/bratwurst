@@ -10,8 +10,8 @@ public final class AlertFactory {
 
     private AlertFactory() {}
 
-    public static Alert create(Alert.AlertType type, String l10nKey) {
-        String content = Localization.getString(l10nKey);
+    public static Alert create(Alert.AlertType type, String contentL10nPropertyName) {
+        String content = Localization.get(contentL10nPropertyName);
         Alert alert = new Alert(type, content);
         alert.setHeaderText(null);
         return alert;

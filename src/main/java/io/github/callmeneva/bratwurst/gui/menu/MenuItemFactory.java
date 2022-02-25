@@ -12,8 +12,8 @@ public final class MenuItemFactory {
 
     private MenuItemFactory() {}
 
-    public static MenuItem create(String l10nKey, EventHandler<ActionEvent> onAction) {
-        String text = Localization.getString(l10nKey);
+    public static MenuItem create(String l10nPropertyName, EventHandler<ActionEvent> onAction) {
+        String text = Localization.get(l10nPropertyName);
         MenuItem menuItem = new MenuItem(text);
         menuItem.setOnAction(onAction);
         return menuItem;
