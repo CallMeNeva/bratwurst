@@ -20,6 +20,7 @@ public abstract class AbstractDataBrowser<T, R extends DataRequest> extends Bord
     protected AbstractDataBrowser(DataFetcher<Set<T>, R, ?> fetcher, TableView<T> dataView) {
         this.fetcher = Objects.requireNonNull(fetcher, "Browser fetcher must not be null");
         this.dataView = Objects.requireNonNull(dataView, "Browser data view must not be null");
+        setCenter(dataView);
     }
 
     protected abstract R createRequest();
