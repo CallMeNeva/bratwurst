@@ -12,8 +12,9 @@ import java.util.List;
 
 public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchangeDataRequest> extends AbstractEntitySheet<R> {
 
-    private static final double MIN_AMOUNT = 1.0;
-    private static final double MAX_AMOUNT = Double.MAX_VALUE;
+    private static final double MIN_AMOUNT = 0.0;
+    private static final double MAX_AMOUNT = 2000.0;
+    private static final double MAJOR_TICK_UNIT = MAX_AMOUNT / 4.0;
 
     private final SingleCurrencyCodeTextField baseCodeTextField;
     private final MultiCurrencyCodeTextField targetCodesTextField;
@@ -26,6 +27,7 @@ public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchang
 
         amountSlider.setShowTickMarks(true);
         amountSlider.setShowTickLabels(true);
+        amountSlider.setMajorTickUnit(MAJOR_TICK_UNIT);
     }
 
     protected final String getBaseCode() {
