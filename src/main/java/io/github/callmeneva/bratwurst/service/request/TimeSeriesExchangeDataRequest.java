@@ -3,12 +3,10 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import org.apache.commons.lang3.Validate;
-import org.apache.hc.core5.http.URIScheme;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
 
@@ -17,15 +15,12 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public TimeSeriesExchangeDataRequest(URIScheme scheme,
-                                         String hostname,
-                                         int port,
-                                         String baseCurrencyCode,
+    public TimeSeriesExchangeDataRequest(String baseCurrencyCode,
                                          List<String> targetCurrencyCodes,
                                          double amount,
                                          LocalDate startDate,
                                          LocalDate endDate) {
-        super(scheme, hostname, port, baseCurrencyCode, targetCurrencyCodes, amount);
+        super(baseCurrencyCode, targetCurrencyCodes, amount);
         setStartDate(startDate);
         setEndDate(endDate);
     }
@@ -35,7 +30,7 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     }
 
     public void setStartDate(LocalDate startDate) {
-        this.startDate = Validate.notNull(startDate);
+        this.startDate = Objects.requireNonNull(startDate, "Request start date must not be null");
     }
 
     public LocalDate getEndDate() {
@@ -43,11 +38,11 @@ public class TimeSeriesExchangeDataRequest extends AbstractExchangeDataRequest {
     }
 
     public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+        this.endDate = endDate; // Null allowed, represents "present day"
     }
 
     @Override
-    protected String getEndpointName() {
+    public String getEndpointName() {
         String name = DATE_FORMATTER.format(startDate) + "..";
         return (endDate == null) ? name : (name + DATE_FORMATTER.format(endDate));
     }

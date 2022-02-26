@@ -15,18 +15,18 @@ import java.time.Month;
 import java.util.Map;
 import java.util.Set;
 
-@DisplayName("SpecificDateExchangeDTOMapper tests")
+@DisplayName("SpecificDateExchangeDTOMapper")
 class SpecificDateExchangeDTOMapperTests {
 
     @Test
-    @DisplayName("SpecificDateExchangeDTOMapper::map maps correctly")
+    @DisplayName("Maps correctly")
     void maps() {
         Sum commitment = new Sum("EUR", 5.0);
         LocalDate exchangeDate = LocalDate.of(2022, Month.JANUARY, 28);
         Exchange euroToFranc = new Exchange(commitment, new Sum("CHF", 5.189), exchangeDate);
         Exchange euroToDollar = new Exchange(commitment, new Sum("USD", 5.569), exchangeDate);
 
-        SpecificDateExchangeDTOMapper mapper = SpecificDateExchangeDTOMapper.INSTANCE;
+        SpecificDateExchangeDTOMapper mapper = new SpecificDateExchangeDTOMapper();
         SpecificDateExchangeDTO dataObject = new SpecificDateExchangeDTO(
                 5.0,
                 "EUR",

@@ -19,14 +19,14 @@ public final class Icons {
     public static final Image PX_512 = load(512);
     public static final List<Image> ALL_SIZES = List.of(PX_16, PX_24, PX_32, PX_64, PX_128, PX_256, PX_512);
 
-    private static final String PATH_ROOT = "icons";
+    private static final String DIRECTORY_NAME = "icons";
     private static final String DEFAULT_EXTENSION = "png";
 
     private Icons() {}
 
     private static Image load(int size) {
         String filename = (Integer.toString(size) + '.' + DEFAULT_EXTENSION);
-        Path path = Path.of(PATH_ROOT, filename);
+        Path path = Path.of(DIRECTORY_NAME, filename);
         return new Image(path.toString());
     }
 }

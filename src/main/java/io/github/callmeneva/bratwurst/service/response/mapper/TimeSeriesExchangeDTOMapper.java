@@ -11,8 +11,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum TimeSeriesExchangeDTOMapper implements DTOMapper<TimeSeriesExchangeDTO, Set<Exchange>> {
-    INSTANCE;
+public class TimeSeriesExchangeDTOMapper implements DTOMapper<TimeSeriesExchangeDTO, Set<Exchange>> {
 
     @Override
     public Set<Exchange> map(TimeSeriesExchangeDTO dataObject) {
@@ -25,7 +24,7 @@ public enum TimeSeriesExchangeDTOMapper implements DTOMapper<TimeSeriesExchangeD
                     return dateToRatesEntry.getValue()
                             .entrySet()
                             .stream()
-                            .map(codeToValueEntry -> new Exchange(commitment, Sum.ofEntry(codeToValueEntry), date));
+                            .map(codeToValueEntry -> new Exchange(commitment, Sum.ofMapEntry(codeToValueEntry), date));
                 })
                 .collect(Collectors.toSet());
     }

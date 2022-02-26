@@ -11,8 +11,8 @@ public final class MenuFactory {
 
     private MenuFactory() {}
 
-    public static Menu create(String l10nKey, MenuItem... items) {
-        String text = Localization.getString(l10nKey);
+    public static Menu create(String l10nPropertyName, MenuItem... items) {
+        String text = Localization.get(l10nPropertyName);
         return new Menu(text, null, items);
     }
 }

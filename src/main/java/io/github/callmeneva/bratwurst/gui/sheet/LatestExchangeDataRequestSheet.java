@@ -9,13 +9,6 @@ public class LatestExchangeDataRequestSheet extends AbstractExchangeDataRequestS
 
     @Override
     public LatestExchangeDataRequest submit() {
-        return new LatestExchangeDataRequest(
-                getInputtedScheme(),
-                getInputtedHostname(),
-                getInputtedPort(),
-                getInputtedBaseCode(),
-                getInputtedTargetCodes(),
-                getInputtedAmount()
-        );
+        return new LatestExchangeDataRequest(getBaseCode(), getTargetCodes(), getAmount());
     }
 }

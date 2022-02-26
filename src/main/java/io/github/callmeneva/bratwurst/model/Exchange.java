@@ -3,15 +3,14 @@
 
 package io.github.callmeneva.bratwurst.model;
 
-import org.apache.commons.lang3.Validate;
-
 import java.time.LocalDate;
+import java.util.Objects;
 
 public record Exchange(Sum commitment, Sum result, LocalDate date) {
 
     public Exchange {
-        Validate.notNull(commitment);
-        Validate.notNull(result);
-        Validate.notNull(date);
+        Objects.requireNonNull(commitment, "Exchange's committed sum must not be null");
+        Objects.requireNonNull(result, "Exchange's resulting sum must not be null");
+        Objects.requireNonNull(date, "Exchange date must not be null");
     }
 }

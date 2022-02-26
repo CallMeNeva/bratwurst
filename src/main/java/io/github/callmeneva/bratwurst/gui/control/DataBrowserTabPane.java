@@ -3,13 +3,14 @@
 
 package io.github.callmeneva.bratwurst.gui.control;
 
-import io.github.callmeneva.bratwurst.gui.browser.DataBrowser;
+import io.github.callmeneva.bratwurst.gui.browser.AbstractDataBrowser;
 import io.github.callmeneva.bratwurst.gui.util.Resettable;
 import io.github.callmeneva.bratwurst.l10n.Localization;
-import io.github.callmeneva.bratwurst.service.DataFetchFailureException;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import org.apache.commons.lang3.Validate;
+
+import java.util.List;
+import java.util.Objects;
 
 public class DataBrowserTabPane extends TabPane implements Resettable {
 
@@ -17,29 +18,32 @@ public class DataBrowserTabPane extends TabPane implements Resettable {
         setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
     }
 
-    public void addBrowser(DataBrowser<?, ?> dataBrowser, String l10nKey) {
-        Validate.notNull(dataBrowser);
-
-        String title = Localization.getString(l10nKey);
-        Tab tab = new Tab(title, dataBrowser);
-
-        getTabs().add(tab);
+    public void addBrowser(AbstractDataBrowser<?, ?> dataBrowser, String l10nPropertyName) {
+        Objects.requireNonNull(dataBrowser, "Browser must not be null");
+        String title = Localization.get(l10nPropertyName);
+        getTabs().add(new Tab(title, dataBrowser));
     }
 
-    public void submitSelected() throws DataFetchFailureException {
-        getSelectedBrowser().submitRequest();
-    }
-
-    private DataBrowser<?, ?> getSelectedBrowser() {
+    public AbstractDataBrowser<?, ?> getSelectedBrowser() {
         Tab selectedTab = getSelectionModel().getSelectedItem();
-        if (selectedTab.getContent() instanceof DataBrowser<?,?> browser) {
+        if (selectedTab.getContent() instanceof AbstractDataBrowser<?, ?> browser) {
             return browser;
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("Selected tab's content is not an AbstractDataBrowser");
+    }
+
+    public List<? extends AbstractDataBrowser<?, ?>> getBrowsers() {
+        return getTabs().stream()
+                .filter(tab -> tab.getContent() instanceof AbstractDataBrowser<?, ?>)
+                .map(tab -> (AbstractDataBrowser<?, ?>) tab.getContent())
+                .toList();
     }
 
     @Override
     public void reset() {
-        getSelectedBrowser().reset();
+        AbstractDataBrowser<?, ?> selectedBrowser = getSelectedBrowser();
+        if (selectedBrowser instanceof Resettable resettableBrowser) {
+            resettableBrowser.reset();
+        }
     }
 }

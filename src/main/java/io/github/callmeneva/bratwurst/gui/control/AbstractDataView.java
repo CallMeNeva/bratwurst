@@ -19,8 +19,8 @@ public abstract class AbstractDataView<T> extends TableView<T> {
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
     }
 
-    protected final <P> void appendColumn(String l10nKey, Function<T, P> propertyExtractor, StringConverter<P> customPropertyConverter) {
-        String header = Localization.getString(l10nKey);
+    protected final <P> void appendColumn(String l10nPropertyName, Function<T, P> propertyExtractor, StringConverter<P> customPropertyConverter) {
+        String header = Localization.get(l10nPropertyName);
         TableColumn<T, P> column = new TableColumn<>(header);
 
         column.setCellValueFactory(parameter -> {
@@ -42,5 +42,9 @@ public abstract class AbstractDataView<T> extends TableView<T> {
 
         ObservableList<TableColumn<T, ?>> columns = getColumns();
         columns.add(column);
+    }
+
+    protected final <P> void appendColumn(String l10nPropertyName, Function<T, P> propertyExtractor) {
+        appendColumn(l10nPropertyName, propertyExtractor, null);
     }
 }

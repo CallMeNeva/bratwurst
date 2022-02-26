@@ -29,12 +29,12 @@ public abstract class AbstractEntitySheet<E> extends GridPane implements Resetta
 
     public abstract E submit();
 
-    protected final <C extends Control> C appendEditor(String l10nKey, C editor) {
+    protected final <C extends Control> C appendEditor(String l10nPropertyName, C editor) {
         // I'm pretty sure column layout in this case should be done via ColumnConstraints, but seeing as how it doesn't work I don't think I'm using
         // the thing correctly, so this will do the trick instead.
         editor.setMaxWidth(EDITOR_COLUMN_MAX_WIDTH);
 
-        String labelText = Localization.getString(l10nKey);
+        String labelText = Localization.get(l10nPropertyName);
         Label label = new Label(labelText + ':');
         addRow(++lastRowIndex, label, editor);
         return editor;

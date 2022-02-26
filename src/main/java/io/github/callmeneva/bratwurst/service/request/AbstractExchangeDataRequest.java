@@ -3,27 +3,17 @@
 
 package io.github.callmeneva.bratwurst.service.request;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.hc.core5.http.URIScheme;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
+public abstract class AbstractExchangeDataRequest implements DataRequest {
 
     private String baseCurrencyCode;
     private List<String> targetCurrencyCodes;
     private double amount;
 
-    protected AbstractExchangeDataRequest(URIScheme scheme,
-                                          String hostname,
-                                          int port,
-                                          String baseCurrencyCode,
-                                          List<String> targetCurrencyCodes,
-                                          double amount) {
-        super(scheme, hostname, port);
+    protected AbstractExchangeDataRequest(String baseCurrencyCode, List<String> targetCurrencyCodes, double amount) {
         setBaseCurrencyCode(baseCurrencyCode);
         setTargetCurrencyCodes(targetCurrencyCodes);
         setAmount(amount);
@@ -54,19 +44,21 @@ public abstract class AbstractExchangeDataRequest extends AbstractDataRequest {
     }
 
     @Override
-    protected final Map<String, String> getParameters() {
+    public final Map<String, String> getParameters() {
         Map<String, String> parameters = new HashMap<>(3);
-        parameters.put("amount", Double.toString(amount));
 
-        if (StringUtils.isNotBlank(baseCurrencyCode)) {
+        // Since there is no validation on properties, it's very easy to make a request malformed — it's up to the class user to make sure it isn't
+
+        if (baseCurrencyCode != null) {
             parameters.put("from", baseCurrencyCode);
         }
 
-        if (ObjectUtils.isNotEmpty(targetCurrencyCodes)) {
-            // Null elements result in a malformed request, but that shouldn't ever happen
+        if ((targetCurrencyCodes != null) && !targetCurrencyCodes.isEmpty()) {
             String joinedTargets = String.join(",", targetCurrencyCodes);
             parameters.put("to", joinedTargets);
         }
+
+        parameters.put("amount", Double.toString(amount));
 
         return parameters;
     }
