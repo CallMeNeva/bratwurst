@@ -28,6 +28,7 @@ public abstract class AbstractExchangeDataRequestSheet<R extends AbstractExchang
         amountSlider.setShowTickMarks(true);
         amountSlider.setShowTickLabels(true);
         amountSlider.setMajorTickUnit(MAJOR_TICK_UNIT);
+        amountSlider.setSnapToTicks(true);
     }
 
     protected final String getBaseCode() {
