@@ -66,7 +66,7 @@ public final class DataFetcher<T, R extends DataRequest, D> {
     }
 
     public DataFetcher(Class<D> dataClass, DTOMapper<D, T> mapper) {
-        this(dataClass, mapper, true, DEFAULT_HOST);
+        this(dataClass, mapper, DEFAULT_HOST);
     }
 
     public static DataFetcher<Set<Currency>, CurrencyDataRequest, CurrencyDTO> ofCurrencies() {
@@ -133,5 +133,9 @@ public final class DataFetcher<T, R extends DataRequest, D> {
             logger.warning("Failed to fetch (exception: " + e + ')');
             throw new DataFetchFailureException(e);
         }
+    }
+
+    public static String getDefaultHost() {
+        return DEFAULT_HOST;
     }
 }
